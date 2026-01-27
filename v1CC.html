@@ -117,18 +117,6 @@
             font-weight: 500;
         }
 
-        .category-kazine {
-            background-color: #9D4EDD;
-        }
-
-        .category-important {
-            background-color: #FF6B6B;
-        }
-
-        .category-monthly {
-            background-color: #4ECDC4;
-        }
-
         .task-status {
             display: flex;
             justify-content: center;
@@ -180,17 +168,18 @@
             100% { transform: rotate(360deg); }
         }
 
-        .username-link {
-            color: #1DA1F2;
+        .collaborator-link {
+            color: #000;
             text-decoration: none;
             font-weight: 500;
             cursor: pointer;
             transition: all 0.2s;
+            border-bottom: 1px dotted #666;
         }
 
-        .username-link:hover {
-            text-decoration: underline;
-            color: #0d8bd9;
+        .collaborator-link:hover {
+            color: #333;
+            border-bottom: 1px solid #000;
         }
 
         input[type="checkbox"] {
@@ -198,7 +187,7 @@
         }
 
         .auto-save-notice {
-            background-color: #4ECDC4;
+            background-color: #000;
             color: white;
             padding: 10px 15px;
             border-radius: 5px;
@@ -240,12 +229,25 @@
             line-height: 1.5;
         }
 
+        .department-tag {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #000;
+            color: white;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
         footer {
             text-align: center;
             margin-top: 40px;
             padding-top: 20px;
             border-top: 1px solid #e0e0e0;
             color: #666;
+            position: relative;
         }
 
         .toast {
@@ -262,15 +264,13 @@
             font-size: 0.9rem;
         }
 
-        .department-badge {
-            display: inline-block;
-            background-color: #9D4EDD;
-            color: white;
-            padding: 2px 8px;
-            border-radius: 10px;
-            font-size: 0.8rem;
-            margin-left: 10px;
-            vertical-align: middle;
+        .deadline-warning {
+            color: #d32f2f;
+            font-weight: 600;
+        }
+
+        .deadline-normal {
+            color: #333;
         }
 
         @media (max-width: 1100px) {
@@ -293,6 +293,7 @@
                 grid-template-columns: 1fr;
                 gap: 10px;
                 padding: 20px;
+                position: relative;
             }
             
             .logo {
@@ -310,6 +311,12 @@
             .task-status {
                 justify-self: start;
             }
+            
+            .department-tag {
+                position: static;
+                justify-self: start;
+                margin-top: 5px;
+            }
         }
     </style>
 </head>
@@ -317,17 +324,17 @@
     <header>
         <div class="container">
             <div class="logo">KACHOO TASK JOB</div>
-            <div class="subtitle">Creative Design Management</div>
+            <div class="subtitle">Manajemen Tugas Creative Designer</div>
         </div>
     </header>
 
     <div class="user-greeting">
-        <h2>Selamat Datang Claudia! <span class="department-badge">Creative Designer</span></h2>
+        <h2>Selamat datang Claudia!</h2>
     </div>
 
     <div class="container">
         <div class="auto-save-notice">
-            <i>🎨</i> Sistem Auto-Save: Data otomatis dikirim ke CHOREDATA saat tugas dicentang
+            <i>⚡</i> Sistem Auto-Save: Data otomatis dikirim saat tugas dicentang
         </div>
 
         <div class="task-header">
@@ -343,14 +350,15 @@
         </div>
 
         <div class="instructions">
-            <h3>Informasi Sistem:</h3>
+            <h3>Cara menggunakan:</h3>
             <p>1. Centang kotak pada kolom "Status" ketika tugas sudah selesai</p>
-            <p>2. Data akan <strong>otomatis dikirim</strong> ke sistem CHOREDATA Executive (tidak perlu klik simpan)</p>
-            <p>3. Data Creative Design akan menjadi bagian dari 6 data departemen di CHOREDATA</p>
-            <p>4. Status "In Discuss" ditandai dengan warna kuning pada deadline</p>
+            <p>2. Data akan <strong>otomatis dikirim</strong> ke sistem CHOREDATA (tidak perlu klik simpan)</p>
+            <p>3. Deadline berwarna merah menandakan deadline mendesak</p>
+            <p>4. Data Creative Designer ini akan menjadi salah satu dari 6 data di CHOREDATA Executive</p>
         </div>
 
         <footer>
+            <div class="department-tag">CREATIVE DESIGNER</div>
             <p>&copy; 2026 KACHOO TASK JOB - CREATIVE DESIGN DEPARTMENT</p>
         </footer>
     </div>
@@ -358,72 +366,72 @@
     <div class="toast" id="toast">Data berhasil dikirim ke CHOREDATA!</div>
 
     <script>
-        // Initial tasks data untuk Creative Designer (Claudia)
+        // Initial tasks data untuk Creative Designer
         const initialTasks = [
             { 
-                id: 1, 
+                id: 101, 
                 name: "Produk CHOOSIC & CHOZY", 
                 description: "Membuat produk headphone wireless untuk CHOOSIC dan mug untuk CHOZY", 
                 deadline: "1 Maret 2026", 
                 category: "Kazine Collection",
-                categoryClass: "category-kazine",
                 completed: false,
-                department: "DESIGN TEAM"
+                department: "Creative Design",
+                urgent: true
             },
             { 
-                id: 2, 
+                id: 102, 
                 name: "Booklet Kazine Collection", 
                 description: "Membuat booklet berisikan foto model dan produk Kazine Collection (Fashion, CHOZY, CHOOSIC, CHOFFEE, & CHOOLER)", 
                 deadline: "7 Maret 2026", 
                 category: "Important Task",
-                categoryClass: "category-important",
                 completed: false,
-                department: "DESIGN TEAM"
+                department: "Creative Design",
+                urgent: true
             },
             { 
-                id: 3, 
+                id: 103, 
                 name: "Produk CHANDLE", 
                 description: "Membuat produk lilin aroma", 
                 deadline: "28 Maret 2026", 
                 category: "Kazine Collection",
-                categoryClass: "category-kazine",
                 completed: false,
-                department: "DESIGN TEAM"
+                department: "Creative Design",
+                urgent: false
             },
             { 
-                id: 4, 
+                id: 104, 
                 name: "Produk CHORRY", 
                 description: "Membuat produk totebag dengan nama produk yang masih dapat diubah sesuai kecocokan item dengan brand Kachoo", 
                 deadline: "28 Maret 2026", 
                 category: "Kazine Collection",
-                categoryClass: "category-kazine",
                 completed: false,
-                department: "DESIGN TEAM"
+                department: "Creative Design",
+                urgent: false
             },
             { 
-                id: 5, 
+                id: 105, 
                 name: "Upgrade Package", 
                 description: "Membuat Box / Paper Bag untuk pengantaran produk Kazine Collection", 
                 deadline: "28 Maret 2026", 
                 category: "Kazine Task",
-                categoryClass: "category-monthly",
                 completed: false,
-                department: "DESIGN TEAM"
+                department: "Creative Design",
+                urgent: false
             },
             { 
-                id: 6, 
+                id: 106, 
                 name: "Produk CHOBAIN", 
                 description: "Membuat produk minuman berenergi dengan bentuk kaleng, berwarna putih perpaduan hitam", 
-                deadline: "<span style='color:#FFD166;font-weight:bold;'>In Discuss</span>", 
+                deadline: "In Discuss", 
                 category: "Kazine Collection",
-                categoryClass: "category-kazine",
                 completed: false,
-                department: "DESIGN TEAM"
+                department: "Creative Design",
+                urgent: false
             }
         ];
 
         // Load tasks from localStorage or use initial data
-        let tasks = JSON.parse(localStorage.getItem('claudiaTasks')) || initialTasks;
+        let tasks = JSON.parse(localStorage.getItem('kccTasks')) || initialTasks;
 
         // Function untuk show toast notification
         function showToast(message) {
@@ -436,7 +444,7 @@
             }, 3000);
         }
 
-        // Function untuk mengirim data ke CHOREDATA (simulasi)
+        // Function untuk mengirim data ke CHOREDATA
         function sendToChoreData(taskId) {
             // Tampilkan loading di checkbox
             const checkbox = document.querySelector(`.custom-checkbox[data-id="${taskId}"]`);
@@ -448,21 +456,21 @@
 
             // Simulasi pengiriman data
             setTimeout(() => {
-                // Simpan data ke localStorage (simulasi database)
+                // Simpan data ke localStorage
                 const task = tasks.find(t => t.id === taskId);
                 if (task) {
-                    // Simpan data Design ke localStorage dengan key khusus
+                    // Simpan data Creative Design ke localStorage
                     const designData = {
                         ...task,
                         completedAt: new Date().toISOString(),
-                        source: "design.html",
-                        department: "DESIGN TEAM"
+                        source: "v1CC.html",
+                        designer: "Claudia"
                     };
                     
                     // Ambil data CHOREDATA yang sudah ada
                     let choreData = JSON.parse(localStorage.getItem('choreExecutiveData')) || { departments: [] };
                     
-                    // Cari apakah data Design sudah ada
+                    // Cari apakah data Creative Design sudah ada
                     const designIndex = choreData.departments.findIndex(d => d.name === "DESIGN TEAM");
                     
                     if (designIndex === -1) {
@@ -471,7 +479,8 @@
                             name: "DESIGN TEAM",
                             tasks: [designData],
                             lastUpdated: new Date().toISOString(),
-                            totalCompleted: 1
+                            totalCompleted: 1,
+                            departmentCode: "CD"
                         });
                     } else {
                         // Jika sudah ada, update data
@@ -494,14 +503,14 @@
                     localStorage.setItem('choreExecutiveData', JSON.stringify(choreData));
                     
                     // Tampilkan notifikasi
-                    showToast(`✅ Tugas Design "${task.name.substring(0, 30)}..." terkirim ke CHOREDATA`);
+                    showToast(`✅ Tugas "${task.name.substring(0, 30)}..." terkirim ke CHOREDATA`);
                 }
                 
                 // Hilangkan loading
                 loadingDiv.remove();
                 checkbox.style.opacity = '1';
                 
-            }, 800); // Simulasi delay pengiriman
+            }, 800);
         }
 
         // Function untuk render tasks
@@ -515,8 +524,8 @@
                 taskRow.innerHTML = `
                     <div class="task-name">${task.name}</div>
                     <div class="task-desc">${task.description}</div>
-                    <div class="task-deadline">${task.deadline}</div>
-                    <div class="task-category ${task.categoryClass}">${task.category}</div>
+                    <div class="task-deadline ${task.urgent ? 'deadline-warning' : 'deadline-normal'}">${task.deadline}</div>
+                    <div class="task-category">${task.category}</div>
                     <div class="task-status">
                         <div class="checkbox-container">
                             <div class="custom-checkbox ${task.completed ? 'checked' : ''}" data-id="${task.id}"></div>
@@ -540,7 +549,7 @@
                         document.getElementById(`task-${taskId}`).checked = task.completed;
                         
                         // Save to localStorage
-                        localStorage.setItem('claudiaTasks', JSON.stringify(tasks));
+                        localStorage.setItem('kccTasks', JSON.stringify(tasks));
                         
                         // Jika baru dicentang (bukan di-uncheck), kirim ke CHOREDATA
                         if (task.completed && !wasCompleted) {
@@ -553,6 +562,46 @@
 
         // Initialize on page load
         document.addEventListener('DOMContentLoaded', renderTasks);
+
+        // Function untuk update CHOREDATA Executive Dashboard
+        function updateChoreDataDashboard() {
+            // Get current chore data
+            let choreData = JSON.parse(localStorage.getItem('choreExecutiveData')) || { departments: [] };
+            
+            // Update Creative Design department data
+            const completedTasks = tasks.filter(task => task.completed);
+            const designIndex = choreData.departments.findIndex(d => d.name === "DESIGN TEAM");
+            
+            if (designIndex === -1) {
+                choreData.departments.push({
+                    name: "DESIGN TEAM",
+                    tasks: completedTasks.map(task => ({
+                        ...task,
+                        completedAt: new Date().toISOString()
+                    })),
+                    lastUpdated: new Date().toISOString(),
+                    totalCompleted: completedTasks.length,
+                    departmentCode: "CD"
+                });
+            } else {
+                choreData.departments[designIndex] = {
+                    name: "DESIGN TEAM",
+                    tasks: completedTasks.map(task => ({
+                        ...task,
+                        completedAt: new Date().toISOString()
+                    })),
+                    lastUpdated: new Date().toISOString(),
+                    totalCompleted: completedTasks.length,
+                    departmentCode: "CD"
+                };
+            }
+            
+            // Save updated data
+            localStorage.setItem('choreExecutiveData', JSON.stringify(choreData));
+        }
+
+        // Auto-update chore data setiap kali ada perubahan
+        setInterval(updateChoreDataDashboard, 10000); // Update setiap 10 detik
     </script>
 </body>
 </html>
