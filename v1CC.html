@@ -13,8 +13,8 @@
         }
 
         body {
-            background-color: #000000;
-            color: #ffffff;
+            background-color: #ffffff;
+            color: #000000;
             min-height: 100vh;
             padding-bottom: 40px;
         }
@@ -26,11 +26,11 @@
         }
 
         header {
-            background-color: #ffffff;
-            color: #000000;
+            background-color: #000000;
+            color: #ffffff;
             padding: 30px 0;
             text-align: center;
-            border-bottom: 5px solid #000;
+            border-bottom: 5px solid #f0f0f0;
         }
 
         .logo {
@@ -42,20 +42,20 @@
 
         .subtitle {
             font-size: 1.5rem;
-            color: #333;
+            color: #f0f0f0;
             font-weight: 300;
         }
 
         .user-greeting {
-            background-color: #111;
+            background-color: #f8f8f8;
             padding: 20px;
             text-align: center;
             margin-bottom: 30px;
-            border-bottom: 1px solid #333;
+            border-bottom: 1px solid #e0e0e0;
         }
 
         .user-greeting h2 {
-            color: #fff;
+            color: #333;
             font-size: 1.8rem;
             font-weight: 500;
         }
@@ -63,61 +63,75 @@
         .task-header {
             display: grid;
             grid-template-columns: 2fr 2fr 1fr 1fr 0.5fr;
-            background-color: #fff;
-            color: #000;
+            background-color: #000;
+            color: #fff;
             padding: 15px 20px;
             font-weight: bold;
             margin-bottom: 10px;
             border-radius: 5px 5px 0 0;
-            border: 2px solid #000;
         }
 
         .task-row {
             display: grid;
             grid-template-columns: 2fr 2fr 1fr 1fr 0.5fr;
-            background-color: #111;
+            background-color: #f9f9f9;
             padding: 15px 20px;
             margin-bottom: 8px;
-            border: 2px solid #fff;
+            border: 1px solid #e0e0e0;
             border-radius: 4px;
             align-items: center;
             transition: all 0.2s;
         }
 
         .task-row:hover {
-            background-color: #222;
+            background-color: #f0f0f0;
             transform: translateY(-2px);
-            box-shadow: 0 3px 8px rgba(255,255,255,0.1);
+            box-shadow: 0 3px 8px rgba(0,0,0,0.08);
         }
 
         .task-name {
             font-size: 1.1rem;
             font-weight: 600;
-            color: #fff;
         }
 
         .task-desc {
             font-size: 0.95rem;
-            color: #ccc;
+            color: #444;
             line-height: 1.4;
         }
 
         .task-deadline {
             font-size: 1rem;
-            color: #fff;
+            color: #333;
             font-weight: 500;
+        }
+
+        .deadline-discuss {
+            color: #FFD166;
+            font-weight: bold;
         }
 
         .task-category {
             font-size: 0.9rem;
-            background-color: #fff;
-            color: #000;
+            background-color: #000;
+            color: white;
             padding: 4px 10px;
             border-radius: 12px;
             display: inline-block;
             text-align: center;
             font-weight: 500;
-            border: 1px solid #000;
+        }
+
+        .category-kazine {
+            background-color: #9D4EDD;
+        }
+
+        .category-important {
+            background-color: #FF6B6B;
+        }
+
+        .category-monthly {
+            background-color: #4ECDC4;
         }
 
         .task-status {
@@ -135,23 +149,23 @@
         .custom-checkbox {
             width: 24px;
             height: 24px;
-            border: 2px solid #fff;
+            border: 2px solid #000;
             border-radius: 4px;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: all 0.2s;
-            background-color: #000;
+            background-color: white;
         }
 
         .custom-checkbox.checked {
-            background-color: #fff;
+            background-color: #000;
         }
 
         .custom-checkbox.checked::after {
             content: "✓";
-            color: #000;
+            color: #fff;
             font-weight: bold;
         }
 
@@ -159,8 +173,8 @@
             position: absolute;
             width: 20px;
             height: 20px;
-            border: 2px solid #333;
-            border-top: 2px solid #fff;
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid #000;
             border-radius: 50%;
             animation: spin 1s linear infinite;
             display: none;
@@ -171,26 +185,13 @@
             100% { transform: rotate(360deg); }
         }
 
-        .username-link {
-            color: #1DA1F2;
-            text-decoration: none;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .username-link:hover {
-            text-decoration: underline;
-            color: #0d8bd9;
-        }
-
         input[type="checkbox"] {
             display: none;
         }
 
         .auto-save-notice {
-            background-color: #fff;
-            color: #000;
+            background-color: #000;
+            color: white;
             padding: 10px 15px;
             border-radius: 5px;
             margin: 20px 0;
@@ -200,7 +201,6 @@
             align-items: center;
             justify-content: center;
             gap: 10px;
-            border: 2px solid #000;
         }
 
         .auto-save-notice i {
@@ -217,18 +217,18 @@
         .instructions {
             margin-top: 30px;
             padding: 20px;
-            background-color: #111;
+            background-color: #f8f8f8;
             border-radius: 5px;
-            border-left: 4px solid #fff;
+            border-left: 4px solid #000;
         }
 
         .instructions h3 {
             margin-bottom: 10px;
-            color: #fff;
+            color: #000;
         }
 
         .instructions p {
-            color: #ccc;
+            color: #333;
             line-height: 1.5;
         }
 
@@ -236,8 +236,8 @@
             text-align: center;
             margin-top: 40px;
             padding-top: 20px;
-            border-top: 1px solid #333;
-            color: #888;
+            border-top: 1px solid #e0e0e0;
+            color: #666;
         }
 
         .toast {
@@ -248,33 +248,21 @@
             color: white;
             padding: 12px 20px;
             border-radius: 5px;
-            box-shadow: 0 4px 12px rgba(255,255,255,0.1);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
             display: none;
             z-index: 1000;
             font-size: 0.9rem;
-            border: 2px solid #fff;
         }
 
         .department-badge {
             display: inline-block;
-            background-color: #fff;
-            color: #000;
-            padding: 2px 8px;
-            border-radius: 10px;
-            font-size: 0.8rem;
+            background-color: #000;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.9rem;
             margin-left: 10px;
             vertical-align: middle;
-            border: 1px solid #000;
-        }
-
-        .discuss-badge {
-            display: inline-block;
-            background-color: #FFD166;
-            color: #000;
-            padding: 2px 8px;
-            border-radius: 10px;
-            font-size: 0.8rem;
-            margin-left: 5px;
             font-weight: 500;
         }
 
@@ -327,12 +315,12 @@
     </header>
 
     <div class="user-greeting">
-        <h2>Selamat Datang Claudia! <span class="department-badge">Creative Designer</span></h2>
+        <h2>Ayo menciptakan karya baru, Claudia! <span class="department-badge">Creative Designer</span></h2>
     </div>
 
     <div class="container">
         <div class="auto-save-notice">
-            <i>⚡</i> Sistem Auto-Save: Data otomatis dikirim ke CHOREDATA saat tugas dicentang
+            <i>🎨</i> Sistem Auto-Save: Data otomatis dikirim ke CHOREDATA saat tugas dicentang
         </div>
 
         <div class="task-header">
@@ -350,9 +338,8 @@
         <div class="instructions">
             <h3>Informasi Sistem:</h3>
             <p>1. Centang kotak pada kolom "Status" ketika tugas sudah selesai</p>
-            <p>2. Data akan <strong>otomatis dikirim</strong> ke sistem CHOREDATA Executive (tidak perlu klik simpan)</p>
-            <p>3. Data Creative Design akan menjadi bagian dari 6 data departemen di CHOREDATA</p>
-            <p>4. Status "In Discuss" ditandai dengan badge kuning pada deadline</p>
+            <p>2. Data akan <strong>otomatis dikirim</strong> ke sistem</p>
+            <p>3. Data Creative Design akan masuk ke data utama KACHOO</p>
         </div>
 
         <footer>
@@ -371,6 +358,7 @@
                 description: "Membuat produk headphone wireless untuk CHOOSIC dan mug untuk CHOZY", 
                 deadline: "1 Maret 2026", 
                 category: "Kazine Collection",
+                categoryClass: "category-kazine",
                 completed: false,
                 department: "DESIGN TEAM"
             },
@@ -380,6 +368,7 @@
                 description: "Membuat booklet berisikan foto model dan produk Kazine Collection (Fashion, CHOZY, CHOOSIC, CHOFFEE, & CHOOLER)", 
                 deadline: "7 Maret 2026", 
                 category: "Important Task",
+                categoryClass: "category-important",
                 completed: false,
                 department: "DESIGN TEAM"
             },
@@ -389,6 +378,7 @@
                 description: "Membuat produk lilin aroma", 
                 deadline: "28 Maret 2026", 
                 category: "Kazine Collection",
+                categoryClass: "category-kazine",
                 completed: false,
                 department: "DESIGN TEAM"
             },
@@ -398,6 +388,7 @@
                 description: "Membuat produk totebag dengan nama produk yang masih dapat diubah sesuai kecocokan item dengan brand Kachoo", 
                 deadline: "28 Maret 2026", 
                 category: "Kazine Collection",
+                categoryClass: "category-kazine",
                 completed: false,
                 department: "DESIGN TEAM"
             },
@@ -407,6 +398,7 @@
                 description: "Membuat Box / Paper Bag untuk pengantaran produk Kazine Collection", 
                 deadline: "28 Maret 2026", 
                 category: "Kazine Task",
+                categoryClass: "category-monthly",
                 completed: false,
                 department: "DESIGN TEAM"
             },
@@ -416,6 +408,8 @@
                 description: "Membuat produk minuman berenergi dengan bentuk kaleng, berwarna putih perpaduan hitam", 
                 deadline: "In Discuss", 
                 category: "Kazine Collection",
+                categoryClass: "category-kazine",
+                deadlineClass: "deadline-discuss",
                 completed: false,
                 department: "DESIGN TEAM"
             }
@@ -472,15 +466,15 @@
                             tasks: [designData],
                             lastUpdated: new Date().toISOString(),
                             totalCompleted: 1,
-                            totalTasks: 6
+                            sourcePage: "v1CC.html"
                         });
                     } else {
                         // Jika sudah ada, update data
-                        const taskExists = choreData.departments[designIndex].tasks.find(t => t.id === taskId && t.source === "v1CC.html");
+                        const taskExists = choreData.departments[designIndex].tasks.find(t => t.id === taskId);
                         
                         if (taskExists) {
                             // Update existing task
-                            const taskIndex = choreData.departments[designIndex].tasks.findIndex(t => t.id === taskId && t.source === "v1CC.html");
+                            const taskIndex = choreData.departments[designIndex].tasks.findIndex(t => t.id === taskId);
                             choreData.departments[designIndex].tasks[taskIndex] = designData;
                         } else {
                             // Add new task
@@ -513,17 +507,11 @@
             tasks.forEach(task => {
                 const taskRow = document.createElement('div');
                 taskRow.className = 'task-row';
-                
-                // Format deadline khusus untuk "In Discuss"
-                const deadlineDisplay = task.deadline === "In Discuss" 
-                    ? `<span class="discuss-badge">${task.deadline}</span>`
-                    : task.deadline;
-                
                 taskRow.innerHTML = `
                     <div class="task-name">${task.name}</div>
                     <div class="task-desc">${task.description}</div>
-                    <div class="task-deadline">${deadlineDisplay}</div>
-                    <div class="task-category">${task.category}</div>
+                    <div class="task-deadline ${task.deadlineClass || ''}">${task.deadline}</div>
+                    <div class="task-category ${task.categoryClass}">${task.category}</div>
                     <div class="task-status">
                         <div class="checkbox-container">
                             <div class="custom-checkbox ${task.completed ? 'checked' : ''}" data-id="${task.id}"></div>
