@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Kachoo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+        }
+        
+        .login-container {
+            display: flex;
+            width: 100%;
+            max-width: 1000px;
+            height: 600px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+        
+        .left-section {
+            flex: 1;
+            background-color: #ffffff;
+            padding: 50px 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .right-section {
+            flex: 1;
+            background-color: #000000;
+            padding: 50px 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            position: relative;
+        }
+        
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
+        }
+        
+        .logo {
+            max-width: 180px;
+            height: auto;
+        }
+        
+        .login-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #000;
+            text-align: center;
+        }
+        
+        .login-subtitle {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .input-with-icon {
+            position: relative;
+        }
+        
+        .input-with-icon i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #777;
+        }
+        
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 15px 15px 15px 45px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background-color: #f9f9f9;
+        }
+        
+        input[type="text"]:focus,
+        input[type="password"]:focus {
+            outline: none;
+            border-color: #000;
+            background-color: #fff;
+        }
+        
+        .login-btn {
+            width: 100%;
+            padding: 16px;
+            background-color: #000;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+        
+        .login-btn:hover {
+            background-color: #333;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .right-title {
+            font-size: 36px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .right-subtitle {
+            font-size: 18px;
+            margin-bottom: 30px;
+            text-align: center;
+            color: #ccc;
+            max-width: 80%;
+        }
+        
+        .features {
+            list-style: none;
+            width: 80%;
+        }
+        
+        .features li {
+            margin-bottom: 15px;
+            font-size: 16px;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .features li i {
+            position: absolute;
+            left: 0;
+            top: 5px;
+            color: #fff;
+        }
+        
+        .error-message {
+            color: #e74c3c;
+            font-size: 14px;
+            margin-top: 10px;
+            text-align: center;
+            min-height: 20px;
+        }
+        
+        .copyright {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            font-size: 14px;
+            color: #aaa;
+        }
+        
+        .left-copyright {
+            color: #777;
+        }
+        
+        .instruction {
+            margin-top: 30px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #000;
+            font-size: 14px;
+        }
+        
+        .instruction h4 {
+            margin-bottom: 8px;
+            color: #000;
+        }
+        
+        .instruction ul {
+            padding-left: 20px;
+            color: #555;
+        }
+        
+        .instruction li {
+            margin-bottom: 5px;
+        }
+        
+        @media (max-width: 768px) {
+            .login-container {
+                flex-direction: column;
+                height: auto;
+                max-width: 500px;
+            }
+            
+            .right-section {
+                order: -1;
+                padding: 30px 20px;
+            }
+            
+            .left-section {
+                padding: 40px 20px;
+            }
+            
+            .right-title {
+                font-size: 28px;
+            }
+        }
+        
+        .highlight {
+            background-color: #ffffe0;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="left-section">
+            <div class="logo-container">
+                <!-- Ganti path logo sesuai lokasi file Anda -->
+                <img src="logo-thekachoo.png" alt="Kachoo Logo" class="logo">
+            </div>
+            
+            <h1 class="login-title">Selamat Datang</h1>
+            <p class="login-subtitle">Silakan masuk ke akun Anda</p>
+            
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-user"></i>
+                        <input type="text" id="username" name="username" placeholder="Masukkan username" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="password" name="password" placeholder="Masukkan password" required>
+                    </div>
+                </div>
+                
+                <div class="error-message" id="errorMessage"></div>
+                
+                <button type="submit" class="login-btn">Masuk</button>
+            </form>
+            
+            <div class="instruction">
+                <h4>Info Login (untuk testing):</h4>
+                <ul>
+                    <li>Username: <span class="highlight">KAFKA</span> - Password: <span class="highlight">gath61</span></li>
+                    <li>Username: <span class="highlight">NONA</span> - Password: <span class="highlight">masukdulu123</span></li>
+                    <li>Username: <span class="highlight">VIVI</span> - Password: <span class="highlight">masukdulu123</span></li>
+                    <li>Username: <span class="highlight">NINGRUM</span> - Password: <span class="highlight">masukdulu123</span></li>
+                    <li>Username: <span class="highlight">FINANCE</span> - Password: <span class="highlight">masukdulu123</span></li>
+                </ul>
+            </div>
+            
+            <div class="copyright left-copyright">
+                &copy; 2023 Kachoo. All rights reserved.
+            </div>
+        </div>
+        
+        <div class="right-section">
+            <h2 class="right-title">Sistem Manajemen Kachoo</h2>
+            <p class="right-subtitle">Platform terintegrasi untuk manajemen operasional perusahaan</p>
+            
+            <ul class="features">
+                <li><i class="fas fa-check-circle"></i> Akses aman dengan autentikasi terenkripsi</li>
+                <li><i class="fas fa-check-circle"></i> Dashboard interaktif untuk setiap divisi</li>
+                <li><i class="fas fa-check-circle"></i> Monitoring real-time aktivitas perusahaan</li>
+                <li><i class="fas fa-check-circle"></i> Laporan terintegrasi dan terpusat</li>
+                <li><i class="fas fa-check-circle"></i> Antarmuka yang responsif dan mudah digunakan</li>
+            </ul>
+            
+            <div class="copyright">
+                V.1.0.0 | Secure Login System
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value.trim();
+            const errorMessage = document.getElementById('errorMessage');
+            
+            // Reset error message
+            errorMessage.textContent = '';
+            
+            // Validasi kredensial
+            const credentials = {
+                'KAFKA': { password: 'gath61', redirect: 'executive.html' },
+                'NONA': { password: 'masukdulu123', redirect: 'MUAcho.html' },
+                'VIVI': { password: 'masukdulu123', redirect: 'PRcho.html' },
+                'NINGRUM': { password: 'masukdulu123', redirect: 'executive.html' },
+                'FINANCE': { password: 'masukdulu123', redirect: 'finance.html' }
+            };
+            
+            if (credentials.hasOwnProperty(username)) {
+                if (credentials[username].password === password) {
+                    // Simpan informasi login (bisa diganti dengan session storage atau cookies)
+                    localStorage.setItem('kachoo_username', username);
+                    localStorage.setItem('kachoo_last_login', new Date().toISOString());
+                    
+                    // Redirect ke halaman yang sesuai
+                    window.location.href = credentials[username].redirect;
+                } else {
+                    errorMessage.textContent = 'Password yang Anda masukkan salah.';
+                }
+            } else {
+                errorMessage.textContent = 'Username tidak ditemukan.';
+            }
+        });
+        
+        // Optional: Highlight username field on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('username').focus();
+        });
+    </script>
+</body>
+</html>
