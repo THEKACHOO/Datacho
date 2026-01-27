@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Database Perusahaan KACHOO</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #ffffff;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 2px solid #f0f0f0;
+            margin-bottom: 40px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo-icon {
+            background-color: #000;
+            color: #fff;
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 24px;
+        }
+        
+        .logo-text h1 {
+            font-size: 28px;
+            color: #000;
+            letter-spacing: 1px;
+        }
+        
+        .logo-text p {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #000;
+            font-weight: 500;
+        }
+        
+        .user-icon {
+            width: 40px;
+            height: 40px;
+            background-color: #000;
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* Main Content */
+        .dashboard-header {
+            margin-bottom: 40px;
+        }
+        
+        .dashboard-header h2 {
+            font-size: 32px;
+            color: #000;
+            margin-bottom: 10px;
+        }
+        
+        .dashboard-header p {
+            color: #666;
+            max-width: 600px;
+        }
+        
+        /* Department Grid */
+        .departments {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+        
+        .department-card {
+            background-color: #fff;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid #eee;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: #333;
+            display: block;
+        }
+        
+        .department-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            border-color: #000;
+        }
+        
+        .department-icon {
+            width: 60px;
+            height: 60px;
+            background-color: #000;
+            color: #fff;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        
+        .department-card h3 {
+            font-size: 22px;
+            color: #000;
+            margin-bottom: 10px;
+        }
+        
+        .department-card p {
+            color: #666;
+            font-size: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .department-link {
+            color: #000;
+            font-weight: 600;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        /* Footer */
+        footer {
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 2px solid #f0f0f0;
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .copyright {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .system-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .status-indicator {
+            width: 10px;
+            height: 10px;
+            background-color: #2ecc71;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .departments {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+            
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 20px;
+            }
+            
+            .dashboard-header h2 {
+                font-size: 28px;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .departments {
+                grid-template-columns: 1fr;
+            }
+            
+            .container {
+                padding: 15px;
+            }
+            
+            .department-card {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <div class="logo">
+                <div class="logo-icon">K</div>
+                <div class="logo-text">
+                    <h1>KACHOO</h1>
+                    <p>Company Database System</p>
+                </div>
+            </div>
+            <div class="user-info">
+                <div class="user-icon">
+                    <i class="fas fa-user"></i>
+                </div>
+                <span>Admin Dashboard</span>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main>
+            <div class="dashboard-header">
+                <h2>Departemen Perusahaan</h2>
+                <p>Akses database masing-masing departemen dengan mengklik kartu di bawah ini. Sistem database terintegrasi untuk manajemen data perusahaan KACHOO.</p>
+            </div>
+
+            <!-- Department Cards -->
+            <div class="departments">
+                <a href="executive.html" class="department-card">
+                    <div class="department-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Executive</h3>
+                    <p>Akses data eksekutif, laporan kinerja perusahaan, dan informasi strategis untuk pengambilan keputusan.</p>
+                    <div class="department-link">
+                        <span>Buka Dashboard</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                </a>
+
+                <a href="finance.html" class="department-card">
+                    <div class="department-icon">
+                        <i class="fas fa-coins"></i>
+                    </div>
+                    <h3>Finance</h3>
+                    <p>Data keuangan, laporan anggaran, transaksi, dan informasi akuntansi perusahaan.</p>
+                    <div class="department-link">
+                        <span>Buka Dashboard</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                </a>
+
+                <a href="public-relation.html" class="department-card">
+                    <div class="department-icon">
+                        <i class="fas fa-bullhorn"></i>
+                    </div>
+                    <h3>Public Relation</h3>
+                    <p>Data media, hubungan masyarakat, komunikasi publik, dan informasi branding.</p>
+                    <div class="department-link">
+                        <span>Buka Dashboard</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                </a>
+
+                <a href="production.html" class="department-card">
+                    <div class="department-icon">
+                        <i class="fas fa-industry"></i>
+                    </div>
+                    <h3>Production Team</h3>
+                    <p>Data produksi, inventaris, jadwal produksi, dan informasi operasional tim.</p>
+                    <div class="department-link">
+                        <span>Buka Dashboard</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                </a>
+
+                <a href="editorial.html" class="department-card">
+                    <div class="department-icon">
+                        <i class="fas fa-edit"></i>
+                    </div>
+                    <h3>Editorial Team</h3>
+                    <p>Data konten, jadwal publikasi, tim kreatif, dan informasi editorial.</p>
+                    <div class="department-link">
+                        <span>Buka Dashboard</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                </a>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer>
+            <div class="footer-content">
+                <div class="copyright">
+                    <i class="far fa-copyright"></i>
+                    <span>2024 KACHOO Database System. Hak Cipta Dilindungi.</span>
+                </div>
+                <div class="system-info">
+                    <div class="status-indicator"></div>
+                    <span>Sistem Aktif - Terakhir diperbarui: 12:30 PM</span>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Menambahkan sedikit interaksi untuk kartu departemen
+        document.addEventListener('DOMContentLoaded', function() {
+            const departmentCards = document.querySelectorAll('.department-card');
+            
+            departmentCards.forEach(card => {
+                // Menambahkan efek klik
+                card.addEventListener('click', function(e) {
+                    // Untuk demo, kita mencegah navigasi yang sebenarnya
+                    // Dalam implementasi nyata, hapus baris berikut
+                    e.preventDefault();
+                    
+                    // Efek visual saat diklik
+                    this.style.transform = 'scale(0.98)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                        
+                        // Simulasi navigasi ke halaman lain
+                        const departmentName = this.querySelector('h3').textContent;
+                        alert(`Membuka dashboard ${departmentName}. Dalam implementasi nyata, ini akan mengarah ke halaman HTML terpisah.`);
+                    }, 200);
+                });
+            });
+            
+            // Update waktu sistem setiap menit
+            function updateSystemTime() {
+                const now = new Date();
+                const timeString = now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+                const systemInfo = document.querySelector('.system-info span');
+                systemInfo.textContent = `Sistem Aktif - Terakhir diperbarui: ${timeString}`;
+            }
+            
+            // Update waktu setiap menit
+            updateSystemTime();
+            setInterval(updateSystemTime, 60000);
+        });
+    </script>
+</body>
+</html>
