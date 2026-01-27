@@ -16,11 +16,11 @@
             background-color: #ffffff;
             color: #000000;
             min-height: 100vh;
-            padding-bottom: 40px;
+            line-height: 1.5;
         }
 
         .container {
-            max-width: 1400px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
         }
@@ -28,82 +28,105 @@
         header {
             background-color: #000000;
             color: #ffffff;
-            padding: 30px 0;
+            padding: 24px 0;
             text-align: center;
-            border-bottom: 5px solid #f0f0f0;
+            border-bottom: 1px solid #333;
         }
 
         .logo {
-            font-size: 2.8rem;
-            font-weight: 800;
-            letter-spacing: 2px;
-            margin-bottom: 10px;
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 6px;
         }
 
         .subtitle {
-            font-size: 1.5rem;
-            color: #f0f0f0;
+            font-size: 0.95rem;
+            color: #ddd;
             font-weight: 300;
         }
 
         .user-greeting {
-            background-color: #f8f8f8;
-            padding: 20px;
+            background-color: #f5f5f5;
+            padding: 18px 0;
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 24px;
             border-bottom: 1px solid #e0e0e0;
         }
 
         .user-greeting h2 {
             color: #333;
-            font-size: 1.8rem;
+            font-size: 1.2rem;
             font-weight: 500;
+        }
+
+        .department-badge {
+            display: inline-block;
+            background-color: #000;
+            color: white;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            margin-left: 8px;
+            vertical-align: middle;
+            font-weight: 500;
+        }
+
+        /* Desktop Tampilan */
+        .desktop-view {
+            display: block;
         }
 
         .task-header {
             display: grid;
-            grid-template-columns: 2fr 2fr 1fr 1fr 0.5fr;
+            grid-template-columns: 1.8fr 1.8fr 0.9fr 0.8fr 0.5fr;
             background-color: #000;
             color: #fff;
-            padding: 15px 20px;
-            font-weight: bold;
-            margin-bottom: 10px;
-            border-radius: 5px 5px 0 0;
+            padding: 14px 20px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            border-radius: 6px 6px 0 0;
+            font-size: 0.9rem;
+            align-items: center;
         }
 
         .task-row {
             display: grid;
-            grid-template-columns: 2fr 2fr 1fr 1fr 0.5fr;
+            grid-template-columns: 1.8fr 1.8fr 0.9fr 0.8fr 0.5fr;
             background-color: #f9f9f9;
-            padding: 15px 20px;
+            padding: 16px 20px;
             margin-bottom: 8px;
             border: 1px solid #e0e0e0;
             border-radius: 4px;
             align-items: center;
-            transition: all 0.2s;
+            transition: all 0.2s ease;
+            font-size: 0.9rem;
         }
 
         .task-row:hover {
             background-color: #f0f0f0;
-            transform: translateY(-2px);
-            box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+            box-shadow: 0 3px 8px rgba(0,0,0,0.05);
         }
 
         .task-name {
-            font-size: 1.1rem;
             font-weight: 600;
+            color: #000;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .task-desc {
-            font-size: 0.95rem;
             color: #444;
             line-height: 1.4;
+            font-size: 0.9rem;
         }
 
         .task-deadline {
-            font-size: 1rem;
             color: #333;
             font-weight: 500;
+            font-size: 0.9rem;
         }
 
         .deadline-discuss {
@@ -111,8 +134,26 @@
             font-weight: bold;
         }
 
+        .deadline-urgent {
+            color: #000;
+            font-weight: bold;
+            background-color: #ffebee;
+            padding: 2px 6px;
+            border-radius: 4px;
+            border: 1px solid #ffcdd2;
+        }
+
+        .deadline-approaching {
+            color: #000;
+            font-weight: bold;
+            background-color: #fff3e0;
+            padding: 2px 6px;
+            border-radius: 4px;
+            border: 1px solid #ffe0b2;
+        }
+
         .task-category {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             background-color: #000;
             color: white;
             padding: 4px 10px;
@@ -120,22 +161,7 @@
             display: inline-block;
             text-align: center;
             font-weight: 500;
-        }
-
-        .category-issue2 {
-            background-color: #000000;
-        }
-
-        .category-issue3 {
-            background-color: #000000;
-        }
-
-        .category-issue4 {
-            background-color: #000000;
-        }
-
-        .category-collection {
-            background-color: #000000;
+            max-width: 120px;
         }
 
         .task-status {
@@ -151,8 +177,8 @@
         }
 
         .custom-checkbox {
-            width: 24px;
-            height: 24px;
+            width: 22px;
+            height: 22px;
             border: 2px solid #000;
             border-radius: 4px;
             cursor: pointer;
@@ -171,12 +197,13 @@
             content: "✓";
             color: #fff;
             font-weight: bold;
+            font-size: 0.9rem;
         }
 
         .checkbox-loading {
             position: absolute;
-            width: 20px;
-            height: 20px;
+            width: 18px;
+            height: 18px;
             border: 2px solid #f3f3f3;
             border-top: 2px solid #000;
             border-radius: 50%;
@@ -189,29 +216,29 @@
             100% { transform: rotate(360deg); }
         }
 
-        input[type="checkbox"] {
-            display: none;
-        }
-
         .priority-indicator {
             display: inline-block;
-            width: 10px;
-            height: 10px;
+            width: 8px;
+            height: 8px;
             border-radius: 50%;
-            margin-right: 8px;
+            margin-right: 0;
             vertical-align: middle;
         }
 
         .priority-high {
-            background-color: #ff4d4d;
+            background-color: #000;
         }
 
         .priority-medium {
-            background-color: #ffa500;
+            background-color: #666;
         }
 
         .priority-low {
-            background-color: #32cd32;
+            background-color: #999;
+        }
+
+        input[type="checkbox"] {
+            display: none;
         }
 
         .auto-save-notice {
@@ -221,48 +248,59 @@
             border-radius: 5px;
             margin: 20px 0;
             text-align: center;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
-        }
-
-        .auto-save-notice i {
-            font-style: normal;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% { opacity: 1; }
-            50% { opacity: 0.5; }
-            100% { opacity: 1; }
+            gap: 8px;
         }
 
         .instructions {
             margin-top: 30px;
-            padding: 20px;
+            padding: 18px;
             background-color: #f8f8f8;
-            border-radius: 5px;
+            border-radius: 6px;
             border-left: 4px solid #000;
         }
 
         .instructions h3 {
             margin-bottom: 10px;
             color: #000;
+            font-size: 1.1rem;
+            font-weight: 600;
         }
 
         .instructions p {
             color: #333;
             line-height: 1.5;
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .priority-legend {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+
+        .priority-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.85rem;
         }
 
         footer {
             text-align: center;
-            margin-top: 40px;
+            margin-top: 30px;
             padding-top: 20px;
             border-top: 1px solid #e0e0e0;
             color: #666;
+            font-size: 0.85rem;
         }
 
         .toast {
@@ -272,71 +310,207 @@
             background-color: #000;
             color: white;
             padding: 12px 20px;
-            border-radius: 5px;
+            border-radius: 6px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
             display: none;
             z-index: 1000;
             font-size: 0.9rem;
+            max-width: 300px;
         }
 
-        .department-badge {
-            display: inline-block;
+        /* Mobile Tampilan */
+        .mobile-view {
+            display: none;
+        }
+
+        .mobile-task-card {
+            background-color: #f9f9f9;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 12px;
+            transition: all 0.2s;
+        }
+
+        .mobile-task-card:hover {
+            background-color: #f0f0f0;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.05);
+        }
+
+        .mobile-task-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 10px;
+        }
+
+        .mobile-task-name {
+            font-weight: 600;
+            color: #000;
+            font-size: 1rem;
+            flex: 1;
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .mobile-task-category {
+            font-size: 0.8rem;
             background-color: #000;
             color: white;
-            padding: 4px 12px;
+            padding: 4px 10px;
             border-radius: 12px;
-            font-size: 0.9rem;
-            margin-left: 10px;
-            vertical-align: middle;
             font-weight: 500;
+            white-space: nowrap;
         }
 
-        .deadline-urgent {
-            color: #ff0000;
-            font-weight: bold;
+        .mobile-task-desc {
+            color: #444;
+            font-size: 0.9rem;
+            line-height: 1.4;
+            margin-bottom: 12px;
         }
 
-        .deadline-approaching {
-            color: #ff8c00;
-            font-weight: bold;
+        .mobile-task-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 12px;
         }
 
-        @media (max-width: 1100px) {
-            .task-header, .task-row {
-                grid-template-columns: 1.5fr 1.5fr 0.8fr 0.8fr 0.5fr;
-            }
-            
-            .container {
-                max-width: 100%;
-                padding: 0 15px;
-            }
+        .mobile-deadline {
+            color: #333;
+            font-weight: 500;
+            font-size: 0.9rem;
         }
 
+        .mobile-status-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .mobile-status-label {
+            font-size: 0.85rem;
+            color: #666;
+        }
+
+        /* Responsive */
         @media (max-width: 768px) {
-            .task-header {
+            .desktop-view {
                 display: none;
             }
             
-            .task-row {
-                grid-template-columns: 1fr;
-                gap: 10px;
-                padding: 20px;
+            .mobile-view {
+                display: block;
+            }
+            
+            .container {
+                padding: 0 15px;
+            }
+            
+            header {
+                padding: 20px 0;
             }
             
             .logo {
-                font-size: 2.2rem;
+                font-size: 1.6rem;
+                margin-bottom: 4px;
             }
             
             .subtitle {
-                font-size: 1.2rem;
+                font-size: 0.9rem;
+            }
+            
+            .user-greeting {
+                padding: 16px 0;
+                margin-bottom: 20px;
+            }
+            
+            .user-greeting h2 {
+                font-size: 1.1rem;
+            }
+            
+            .department-badge {
+                font-size: 0.8rem;
+                padding: 3px 8px;
+                margin-left: 6px;
+            }
+            
+            .mobile-task-card {
+                padding: 14px;
+            }
+            
+            .instructions {
+                padding: 16px;
+                margin-top: 25px;
+            }
+            
+            .instructions h3 {
+                font-size: 1rem;
+            }
+            
+            .priority-legend {
+                flex-direction: column;
+                gap: 8px;
+            }
+            
+            .toast {
+                left: 15px;
+                right: 15px;
+                bottom: 15px;
+                max-width: none;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 1.4rem;
+            }
+            
+            .subtitle {
+                font-size: 0.85rem;
+            }
+            
+            .user-greeting h2 {
+                font-size: 1rem;
+            }
+            
+            .mobile-task-name {
+                font-size: 0.95rem;
+            }
+            
+            .mobile-task-desc {
+                font-size: 0.85rem;
+            }
+            
+            .mobile-deadline {
+                font-size: 0.85rem;
+            }
+        }
+
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .task-header {
+                grid-template-columns: 1.6fr 1.6fr 0.8fr 0.8fr 0.4fr;
+                padding: 12px 16px;
+                font-size: 0.85rem;
+            }
+            
+            .task-row {
+                grid-template-columns: 1.6fr 1.6fr 0.8fr 0.8fr 0.4fr;
+                padding: 14px 16px;
+                font-size: 0.85rem;
+            }
+            
+            .task-name, .task-desc, .task-deadline {
+                font-size: 0.85rem;
             }
             
             .task-category {
-                justify-self: start;
-            }
-            
-            .task-status {
-                justify-self: start;
+                font-size: 0.8rem;
+                padding: 3px 8px;
             }
         }
     </style>
@@ -350,19 +524,35 @@
     </header>
 
     <div class="user-greeting">
-        <h2>Ayo berikan warna untuk Kachoo, Nona! <span class="department-badge">Makeup Artist</span></h2>
+        <div class="container">
+            <h2>Ayo berikan warna untuk Kachoo, Nona! <span class="department-badge">Makeup Artist</span></h2>
+        </div>
     </div>
 
-        <div class="task-header">
-            <div>Tugas</div>
-            <div>Deskripsi</div>
-            <div>Deadline</div>
-            <div>Kategori</div>
-            <div>Status</div>
+    <div class="container">
+        <!-- Desktop View -->
+        <div class="desktop-view">
+            <div class="task-header">
+                <div>Tugas</div>
+                <div>Deskripsi</div>
+                <div>Deadline</div>
+                <div>Kategori</div>
+                <div>Status</div>
+            </div>
+
+            <div id="tasks-desktop-container">
+                <!-- Desktop task rows will be generated here -->
+            </div>
         </div>
 
-        <div id="tasks-container">
-            <!-- Task rows will be generated here -->
+        <!-- Mobile View -->
+        <div class="mobile-view" id="tasks-mobile-container">
+            <!-- Mobile task cards will be generated here -->
+        </div>
+
+        <div class="auto-save-notice">
+            <span>✓</span>
+            <span>Data otomatis dikirim ke sistem ketika tugas diselesaikan</span>
         </div>
 
         <div class="instructions">
@@ -370,9 +560,20 @@
             <p>1. Centang kotak pada kolom "Status" ketika tugas sudah selesai</p>
             <p>2. Data akan <strong>otomatis dikirim</strong> ke sistem</p>
             <p>3. Data Makeup Artist akan masuk ke data utama KACHOO</p>
-            <p>4. <span class="priority-indicator priority-high"></span> High Priority | 
-               <span class="priority-indicator priority-medium"></span> Medium Priority | 
-               <span class="priority-indicator priority-low"></span> Low Priority</p>
+            <div class="priority-legend">
+                <div class="priority-item">
+                    <span class="priority-indicator priority-high"></span>
+                    <span>High Priority</span>
+                </div>
+                <div class="priority-item">
+                    <span class="priority-indicator priority-medium"></span>
+                    <span>Medium Priority</span>
+                </div>
+                <div class="priority-item">
+                    <span class="priority-indicator priority-low"></span>
+                    <span>Low Priority</span>
+                </div>
+            </div>
         </div>
 
         <footer>
@@ -411,7 +612,7 @@
             { 
                 id: 3, 
                 name: "Finalisasi warna Kazine Vol 1 Issue 3", 
-                description: "Mencari dan menentukan warna untuk Kazine vol 1 issue 3 yang bertema kecantikan, dengan semua model perempuan, bertopik tentang para perempuan dengan style dan gaya mereka masing-masing yaitu calm, bold, cute, atau lainnya", 
+                description: "Mencari dan menentukan warna untuk Kazine vol 1 issue 3 yang bertema kecantikan", 
                 deadline: "14 Februari 2026", 
                 category: "Issue 3",
                 categoryClass: "category-issue3",
@@ -473,18 +674,28 @@
         function sendToChoreData(taskId) {
             // Tampilkan loading di checkbox
             const checkbox = document.querySelector(`.custom-checkbox[data-id="${taskId}"]`);
-            const loadingDiv = document.createElement('div');
-            loadingDiv.className = 'checkbox-loading';
-            checkbox.parentElement.appendChild(loadingDiv);
-            loadingDiv.style.display = 'block';
-            checkbox.style.opacity = '0.5';
+            const mobileCheckbox = document.querySelector(`.mobile-checkbox[data-id="${taskId}"]`);
+            
+            if (checkbox) {
+                const loadingDiv = document.createElement('div');
+                loadingDiv.className = 'checkbox-loading';
+                checkbox.parentElement.appendChild(loadingDiv);
+                loadingDiv.style.display = 'block';
+                checkbox.style.opacity = '0.5';
+            }
+            
+            if (mobileCheckbox) {
+                const loadingDiv = document.createElement('div');
+                loadingDiv.className = 'checkbox-loading';
+                mobileCheckbox.parentElement.appendChild(loadingDiv);
+                loadingDiv.style.display = 'block';
+                mobileCheckbox.style.opacity = '0.5';
+            }
 
             // Simulasi pengiriman data
             setTimeout(() => {
-                // Simpan data ke localStorage (simulasi database)
                 const task = tasks.find(t => t.id === taskId);
                 if (task) {
-                    // Simpan data MUA ke localStorage dengan key khusus
                     const muaData = {
                         ...task,
                         completedAt: new Date().toISOString(),
@@ -493,14 +704,11 @@
                         user: "Nona"
                     };
                     
-                    // Ambil data CHOREDATA yang sudah ada
                     let choreData = JSON.parse(localStorage.getItem('choreExecutiveData')) || { departments: [] };
                     
-                    // Cari apakah data MUA sudah ada
                     const muaIndex = choreData.departments.findIndex(d => d.name === "MAKEUP ARTIST");
                     
                     if (muaIndex === -1) {
-                        // Jika belum ada, buat entry baru
                         choreData.departments.push({
                             name: "MAKEUP ARTIST",
                             tasks: [muaData],
@@ -509,15 +717,12 @@
                             sourcePage: "mua-dashboard.html"
                         });
                     } else {
-                        // Jika sudah ada, update data
                         const taskExists = choreData.departments[muaIndex].tasks.find(t => t.id === taskId);
                         
                         if (taskExists) {
-                            // Update existing task
                             const taskIndex = choreData.departments[muaIndex].tasks.findIndex(t => t.id === taskId);
                             choreData.departments[muaIndex].tasks[taskIndex] = muaData;
                         } else {
-                            // Add new task
                             choreData.departments[muaIndex].tasks.push(muaData);
                             choreData.departments[muaIndex].totalCompleted++;
                         }
@@ -525,25 +730,22 @@
                         choreData.departments[muaIndex].lastUpdated = new Date().toISOString();
                     }
                     
-                    // Simpan kembali ke localStorage
                     localStorage.setItem('choreExecutiveData', JSON.stringify(choreData));
                     
-                    // Tampilkan notifikasi
-                    showToast(`✅ Tugas MUA "${task.name.substring(0, 30)}..." terkirim ke CHOREDATA`);
+                    showToast(`✅ Tugas "${task.name.substring(0, 25)}..." terkirim ke CHOREDATA`);
                 }
                 
                 // Hilangkan loading
-                loadingDiv.remove();
-                checkbox.style.opacity = '1';
+                document.querySelectorAll('.checkbox-loading').forEach(loading => loading.remove());
+                document.querySelectorAll('.custom-checkbox, .mobile-checkbox').forEach(cb => cb.style.opacity = '1');
                 
-            }, 800); // Simulasi delay pengiriman
+            }, 800);
         }
 
-        // Function untuk menentukan kelas deadline berdasarkan tanggal
+        // Function untuk menentukan kelas deadline
         function getDeadlineClass(deadline) {
             if (deadline === "In Discuss") return "deadline-discuss";
             
-            // Parse tanggal deadline
             const deadlineDate = parseDate(deadline);
             if (!deadlineDate) return "";
             
@@ -560,7 +762,6 @@
         function parseDate(dateString) {
             if (dateString === "In Discuss") return null;
             
-            // Format: "26 Januari 2026"
             const parts = dateString.split(' ');
             if (parts.length !== 3) return null;
             
@@ -594,19 +795,17 @@
             return indicators[priority] || '';
         }
 
-        // Function untuk render tasks
-        function renderTasks() {
-            const container = document.getElementById('tasks-container');
+        // Function untuk render desktop tasks
+        function renderDesktopTasks() {
+            const container = document.getElementById('tasks-desktop-container');
             container.innerHTML = '';
 
-            // Urutkan task berdasarkan prioritas (high -> medium -> low) dan deadline
             const sortedTasks = [...tasks].sort((a, b) => {
                 const priorityOrder = { high: 1, medium: 2, low: 3 };
                 const priorityDiff = priorityOrder[a.priority] - priorityOrder[b.priority];
                 
                 if (priorityDiff !== 0) return priorityDiff;
                 
-                // Jika priority sama, urutkan berdasarkan deadline
                 const dateA = parseDate(a.deadline);
                 const dateB = parseDate(b.deadline);
                 
@@ -631,39 +830,108 @@
                     <div class="task-status">
                         <div class="checkbox-container">
                             <div class="custom-checkbox ${task.completed ? 'checked' : ''}" data-id="${task.id}"></div>
-                            <input type="checkbox" id="task-${task.id}" ${task.completed ? 'checked' : ''}>
+                            <input type="checkbox" id="desktop-task-${task.id}" ${task.completed ? 'checked' : ''}>
                         </div>
                     </div>
                 `;
                 container.appendChild(taskRow);
             });
 
-            // Add event listeners to checkboxes
+            // Add event listeners to desktop checkboxes
             document.querySelectorAll('.custom-checkbox').forEach(checkbox => {
                 checkbox.addEventListener('click', function() {
                     const taskId = parseInt(this.getAttribute('data-id'));
-                    const task = tasks.find(t => t.id === taskId);
-                    
-                    if (task) {
-                        const wasCompleted = task.completed;
-                        task.completed = !task.completed;
-                        this.classList.toggle('checked');
-                        document.getElementById(`task-${taskId}`).checked = task.completed;
-                        
-                        // Save to localStorage
-                        localStorage.setItem('nonaMuaTasks', JSON.stringify(tasks));
-                        
-                        // Jika baru dicentang (bukan di-uncheck), kirim ke CHOREDATA
-                        if (task.completed && !wasCompleted) {
-                            sendToChoreData(taskId);
-                        }
-                    }
+                    toggleTaskCompletion(taskId, this);
                 });
             });
         }
 
+        // Function untuk render mobile tasks
+        function renderMobileTasks() {
+            const container = document.getElementById('tasks-mobile-container');
+            container.innerHTML = '';
+
+            const sortedTasks = [...tasks].sort((a, b) => {
+                const priorityOrder = { high: 1, medium: 2, low: 3 };
+                const priorityDiff = priorityOrder[a.priority] - priorityOrder[b.priority];
+                
+                if (priorityDiff !== 0) return priorityDiff;
+                
+                const dateA = parseDate(a.deadline);
+                const dateB = parseDate(b.deadline);
+                
+                if (!dateA && !dateB) return 0;
+                if (!dateA) return 1;
+                if (!dateB) return -1;
+                
+                return dateA - dateB;
+            });
+
+            sortedTasks.forEach(task => {
+                const deadlineClass = getDeadlineClass(task.deadline);
+                const priorityIndicator = getPriorityIndicator(task.priority);
+                
+                const taskCard = document.createElement('div');
+                taskCard.className = 'mobile-task-card';
+                taskCard.innerHTML = `
+                    <div class="mobile-task-header">
+                        <div class="mobile-task-name">${priorityIndicator}${task.name}</div>
+                        <div class="mobile-task-category ${task.categoryClass}">${task.category}</div>
+                    </div>
+                    <div class="mobile-task-desc">${task.description}</div>
+                    <div class="mobile-task-footer">
+                        <div class="mobile-deadline ${deadlineClass}">${task.deadline}</div>
+                        <div class="mobile-status-container">
+                            <span class="mobile-status-label">Selesai:</span>
+                            <div class="checkbox-container">
+                                <div class="custom-checkbox mobile-checkbox ${task.completed ? 'checked' : ''}" data-id="${task.id}"></div>
+                                <input type="checkbox" id="mobile-task-${task.id}" ${task.completed ? 'checked' : ''}>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(taskCard);
+            });
+
+            // Add event listeners to mobile checkboxes
+            document.querySelectorAll('.mobile-checkbox').forEach(checkbox => {
+                checkbox.addEventListener('click', function() {
+                    const taskId = parseInt(this.getAttribute('data-id'));
+                    toggleTaskCompletion(taskId, this);
+                });
+            });
+        }
+
+        // Function untuk toggle task completion
+        function toggleTaskCompletion(taskId, checkboxElement) {
+            const task = tasks.find(t => t.id === taskId);
+            
+            if (task) {
+                const wasCompleted = task.completed;
+                task.completed = !task.completed;
+                
+                // Update all checkboxes for this task
+                document.querySelectorAll(`.custom-checkbox[data-id="${taskId}"], .mobile-checkbox[data-id="${taskId}"]`)
+                    .forEach(cb => cb.classList.toggle('checked'));
+                
+                document.querySelectorAll(`#desktop-task-${taskId}, #mobile-task-${taskId}`)
+                    .forEach(cb => cb.checked = task.completed);
+                
+                // Save to localStorage
+                localStorage.setItem('nonaMuaTasks', JSON.stringify(tasks));
+                
+                // Jika baru dicentang (bukan di-uncheck), kirim ke CHOREDATA
+                if (task.completed && !wasCompleted) {
+                    sendToChoreData(taskId);
+                }
+            }
+        }
+
         // Initialize on page load
-        document.addEventListener('DOMContentLoaded', renderTasks);
+        document.addEventListener('DOMContentLoaded', function() {
+            renderDesktopTasks();
+            renderMobileTasks();
+        });
     </script>
 </body>
-</html>
+    </html>
