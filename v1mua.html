@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KACHOO TASK JOB - Nona (MUA)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #ffffff;
+            color: #000000;
+            min-height: 100vh;
+            padding-bottom: 40px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background-color: #000000;
+            color: #ffffff;
+            padding: 30px 0;
+            text-align: center;
+            border-bottom: 5px solid #f0f0f0;
+        }
+
+        .logo {
+            font-size: 2.8rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            color: #f0f0f0;
+            font-weight: 300;
+        }
+
+        .user-greeting {
+            background-color: #f8f8f8;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .user-greeting h2 {
+            color: #333;
+            font-size: 1.8rem;
+            font-weight: 500;
+        }
+
+        .task-header {
+            display: grid;
+            grid-template-columns: 2fr 2fr 1fr 1fr 0.5fr;
+            background-color: #000;
+            color: #fff;
+            padding: 15px 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            border-radius: 5px 5px 0 0;
+        }
+
+        .task-row {
+            display: grid;
+            grid-template-columns: 2fr 2fr 1fr 1fr 0.5fr;
+            background-color: #f9f9f9;
+            padding: 15px 20px;
+            margin-bottom: 8px;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            align-items: center;
+            transition: all 0.2s;
+        }
+
+        .task-row:hover {
+            background-color: #f0f0f0;
+            transform: translateY(-2px);
+            box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+        }
+
+        .task-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .task-desc {
+            font-size: 0.95rem;
+            color: #444;
+            line-height: 1.4;
+        }
+
+        .task-deadline {
+            font-size: 1rem;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .deadline-discuss {
+            color: #000000;
+            font-weight: bold;
+        }
+
+        .task-category {
+            font-size: 0.9rem;
+            background-color: #000;
+            color: white;
+            padding: 4px 10px;
+            border-radius: 12px;
+            display: inline-block;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .category-issue2 {
+            background-color: #8B0000;
+        }
+
+        .category-issue3 {
+            background-color: #8A2BE2;
+        }
+
+        .category-issue4 {
+            background-color: #006400;
+        }
+
+        .category-collection {
+            background-color: #00008B;
+        }
+
+        .task-status {
+            display: flex;
+            justify-content: center;
+        }
+
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .custom-checkbox {
+            width: 24px;
+            height: 24px;
+            border: 2px solid #000;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            background-color: white;
+        }
+
+        .custom-checkbox.checked {
+            background-color: #000;
+        }
+
+        .custom-checkbox.checked::after {
+            content: "✓";
+            color: #fff;
+            font-weight: bold;
+        }
+
+        .checkbox-loading {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid #000;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            display: none;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        input[type="checkbox"] {
+            display: none;
+        }
+
+        .priority-indicator {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+
+        .priority-high {
+            background-color: #ff4d4d;
+        }
+
+        .priority-medium {
+            background-color: #ffa500;
+        }
+
+        .priority-low {
+            background-color: #32cd32;
+        }
+
+        .auto-save-notice {
+            background-color: #000;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            text-align: center;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .auto-save-notice i {
+            font-style: normal;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        .instructions {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #f8f8f8;
+            border-radius: 5px;
+            border-left: 4px solid #000;
+        }
+
+        .instructions h3 {
+            margin-bottom: 10px;
+            color: #000;
+        }
+
+        .instructions p {
+            color: #333;
+            line-height: 1.5;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+            color: #666;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #000;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 5px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            display: none;
+            z-index: 1000;
+            font-size: 0.9rem;
+        }
+
+        .department-badge {
+            display: inline-block;
+            background-color: #000;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            margin-left: 10px;
+            vertical-align: middle;
+            font-weight: 500;
+        }
+
+        .deadline-urgent {
+            color: #ff0000;
+            font-weight: bold;
+        }
+
+        .deadline-approaching {
+            color: #ff8c00;
+            font-weight: bold;
+        }
+
+        @media (max-width: 1100px) {
+            .task-header, .task-row {
+                grid-template-columns: 1.5fr 1.5fr 0.8fr 0.8fr 0.5fr;
+            }
+            
+            .container {
+                max-width: 100%;
+                padding: 0 15px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .task-header {
+                display: none;
+            }
+            
+            .task-row {
+                grid-template-columns: 1fr;
+                gap: 10px;
+                padding: 20px;
+            }
+            
+            .logo {
+                font-size: 2.2rem;
+            }
+            
+            .subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .task-category {
+                justify-self: start;
+            }
+            
+            .task-status {
+                justify-self: start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">KACHOO TASK JOB</div>
+            <div class="subtitle">Makeup Artist Management</div>
+        </div>
+    </header>
+
+    <div class="user-greeting">
+        <h2>Selamat datang, Nona! <span class="department-badge">Makeup Artist</span></h2>
+    </div>
+
+    <div class="container">
+        <div class="auto-save-notice">
+            <i>💄</i> Sistem Auto-Save: Data otomatis dikirim ke CHOREDATA saat tugas dicentang
+        </div>
+
+        <div class="task-header">
+            <div>Tugas</div>
+            <div>Deskripsi</div>
+            <div>Deadline</div>
+            <div>Kategori</div>
+            <div>Status</div>
+        </div>
+
+        <div id="tasks-container">
+            <!-- Task rows will be generated here -->
+        </div>
+
+        <div class="instructions">
+            <h3>Informasi Sistem:</h3>
+            <p>1. Centang kotak pada kolom "Status" ketika tugas sudah selesai</p>
+            <p>2. Data akan <strong>otomatis dikirim</strong> ke sistem CHOREDATA</p>
+            <p>3. Data Makeup Artist akan masuk ke data utama KACHOO</p>
+            <p>4. <span class="priority-indicator priority-high"></span> High Priority | 
+               <span class="priority-indicator priority-medium"></span> Medium Priority | 
+               <span class="priority-indicator priority-low"></span> Low Priority</p>
+        </div>
+
+        <footer>
+            <p>&copy; 2026 KACHOO TASK JOB - MAKEUP ARTIST DEPARTMENT</p>
+        </footer>
+    </div>
+
+    <div class="toast" id="toast">Data berhasil dikirim ke CHOREDATA!</div>
+
+    <script>
+        // Initial tasks data untuk Makeup Artist (Nona)
+        const initialTasks = [
+            { 
+                id: 1, 
+                name: "MUA Brand Ambassador (Rachel)", 
+                description: "Menjadi makeup artist untuk Brand Ambassador Kazine untuk Kazine Collection dan Kazine Vol 1 Issue 2", 
+                deadline: "26 Januari 2026", 
+                category: "Kazine Issue 2 & Kazine Collection",
+                categoryClass: "category-issue2",
+                priority: "high",
+                completed: false,
+                department: "MAKEUP ARTIST"
+            },
+            { 
+                id: 2, 
+                name: "Koordinator MUA Kinaryo", 
+                description: "Menjadi pengawas dan koordinator MUA Kinaryo untuk komersial model dan campaign model", 
+                deadline: "28 Januari 2026", 
+                category: "Kazine Issue 2",
+                categoryClass: "category-issue2",
+                priority: "high",
+                deadlineClass: "deadline-urgent",
+                completed: false,
+                department: "MAKEUP ARTIST"
+            },
+            { 
+                id: 3, 
+                name: "Finalisasi warna Kazine Vol 1 Issue 3", 
+                description: "Mencari dan menentukan warna untuk Kazine vol 1 issue 3 yang bertema kecantikan, dengan semua model perempuan, bertopik tentang para perempuan dengan style dan gaya mereka masing-masing yaitu calm, bold, cute, atau lainnya", 
+                deadline: "14 Februari 2026", 
+                category: "Issue 3",
+                categoryClass: "category-issue3",
+                priority: "medium",
+                completed: false,
+                department: "MAKEUP ARTIST"
+            },
+            { 
+                id: 4, 
+                name: "Mencari MUA Freelance untuk Kazine Booklet", 
+                description: "Menentukan MUA untuk model di Booklet Kazine", 
+                deadline: "22 Februari 2026", 
+                category: "Kazine Collection",
+                categoryClass: "category-collection",
+                priority: "medium",
+                completed: false,
+                department: "MAKEUP ARTIST"
+            },
+            { 
+                id: 5, 
+                name: "Mencari MUA Freelance untuk Kazine vol 1 Issue 3", 
+                description: "Menentukan MUA Freelance untuk model di Kazine Vol 1 issue 3", 
+                deadline: "22 Februari 2026", 
+                category: "Issue 3",
+                categoryClass: "category-issue3",
+                priority: "medium",
+                completed: false,
+                department: "MAKEUP ARTIST"
+            },
+            { 
+                id: 6, 
+                name: "Finalisasi warna Kazine Vol 1 Issue 4", 
+                description: "Mencari dan menentukan warna untuk Kazine vol 1 issue 4 bertema Energic & Sporty", 
+                deadline: "In Discuss", 
+                category: "Issue 4",
+                categoryClass: "category-issue4",
+                priority: "low",
+                deadlineClass: "deadline-discuss",
+                completed: false,
+                department: "MAKEUP ARTIST"
+            }
+        ];
+
+        // Load tasks from localStorage or use initial data
+        let tasks = JSON.parse(localStorage.getItem('nonaMuaTasks')) || initialTasks;
+
+        // Function untuk show toast notification
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.style.display = 'block';
+            
+            setTimeout(() => {
+                toast.style.display = 'none';
+            }, 3000);
+        }
+
+        // Function untuk mengirim data ke CHOREDATA (simulasi)
+        function sendToChoreData(taskId) {
+            // Tampilkan loading di checkbox
+            const checkbox = document.querySelector(`.custom-checkbox[data-id="${taskId}"]`);
+            const loadingDiv = document.createElement('div');
+            loadingDiv.className = 'checkbox-loading';
+            checkbox.parentElement.appendChild(loadingDiv);
+            loadingDiv.style.display = 'block';
+            checkbox.style.opacity = '0.5';
+
+            // Simulasi pengiriman data
+            setTimeout(() => {
+                // Simpan data ke localStorage (simulasi database)
+                const task = tasks.find(t => t.id === taskId);
+                if (task) {
+                    // Simpan data MUA ke localStorage dengan key khusus
+                    const muaData = {
+                        ...task,
+                        completedAt: new Date().toISOString(),
+                        source: "mua-dashboard.html",
+                        department: "MAKEUP ARTIST",
+                        user: "Nona"
+                    };
+                    
+                    // Ambil data CHOREDATA yang sudah ada
+                    let choreData = JSON.parse(localStorage.getItem('choreExecutiveData')) || { departments: [] };
+                    
+                    // Cari apakah data MUA sudah ada
+                    const muaIndex = choreData.departments.findIndex(d => d.name === "MAKEUP ARTIST");
+                    
+                    if (muaIndex === -1) {
+                        // Jika belum ada, buat entry baru
+                        choreData.departments.push({
+                            name: "MAKEUP ARTIST",
+                            tasks: [muaData],
+                            lastUpdated: new Date().toISOString(),
+                            totalCompleted: 1,
+                            sourcePage: "mua-dashboard.html"
+                        });
+                    } else {
+                        // Jika sudah ada, update data
+                        const taskExists = choreData.departments[muaIndex].tasks.find(t => t.id === taskId);
+                        
+                        if (taskExists) {
+                            // Update existing task
+                            const taskIndex = choreData.departments[muaIndex].tasks.findIndex(t => t.id === taskId);
+                            choreData.departments[muaIndex].tasks[taskIndex] = muaData;
+                        } else {
+                            // Add new task
+                            choreData.departments[muaIndex].tasks.push(muaData);
+                            choreData.departments[muaIndex].totalCompleted++;
+                        }
+                        
+                        choreData.departments[muaIndex].lastUpdated = new Date().toISOString();
+                    }
+                    
+                    // Simpan kembali ke localStorage
+                    localStorage.setItem('choreExecutiveData', JSON.stringify(choreData));
+                    
+                    // Tampilkan notifikasi
+                    showToast(`✅ Tugas MUA "${task.name.substring(0, 30)}..." terkirim ke CHOREDATA`);
+                }
+                
+                // Hilangkan loading
+                loadingDiv.remove();
+                checkbox.style.opacity = '1';
+                
+            }, 800); // Simulasi delay pengiriman
+        }
+
+        // Function untuk menentukan kelas deadline berdasarkan tanggal
+        function getDeadlineClass(deadline) {
+            if (deadline === "In Discuss") return "deadline-discuss";
+            
+            // Parse tanggal deadline
+            const deadlineDate = parseDate(deadline);
+            if (!deadlineDate) return "";
+            
+            const today = new Date();
+            const timeDiff = deadlineDate.getTime() - today.getTime();
+            const daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
+            
+            if (daysDiff <= 3) return "deadline-urgent";
+            if (daysDiff <= 7) return "deadline-approaching";
+            return "";
+        }
+
+        // Function untuk parse tanggal dari string Indonesia
+        function parseDate(dateString) {
+            if (dateString === "In Discuss") return null;
+            
+            // Format: "26 Januari 2026"
+            const parts = dateString.split(' ');
+            if (parts.length !== 3) return null;
+            
+            const day = parseInt(parts[0]);
+            const month = getMonthNumber(parts[1]);
+            const year = parseInt(parts[2]);
+            
+            if (isNaN(day) || month === -1 || isNaN(year)) return null;
+            
+            return new Date(year, month, day);
+        }
+
+        // Function untuk konversi nama bulan Indonesia ke angka bulan
+        function getMonthNumber(monthName) {
+            const months = {
+                'januari': 0, 'februari': 1, 'maret': 2, 'april': 3,
+                'mei': 4, 'juni': 5, 'juli': 6, 'agustus': 7,
+                'september': 8, 'oktober': 9, 'november': 10, 'desember': 11
+            };
+            
+            return months[monthName.toLowerCase()] || -1;
+        }
+
+        // Function untuk mendapatkan indikator prioritas
+        function getPriorityIndicator(priority) {
+            const indicators = {
+                'high': '<span class="priority-indicator priority-high"></span>',
+                'medium': '<span class="priority-indicator priority-medium"></span>',
+                'low': '<span class="priority-indicator priority-low"></span>'
+            };
+            return indicators[priority] || '';
+        }
+
+        // Function untuk render tasks
+        function renderTasks() {
+            const container = document.getElementById('tasks-container');
+            container.innerHTML = '';
+
+            // Urutkan task berdasarkan prioritas (high -> medium -> low) dan deadline
+            const sortedTasks = [...tasks].sort((a, b) => {
+                const priorityOrder = { high: 1, medium: 2, low: 3 };
+                const priorityDiff = priorityOrder[a.priority] - priorityOrder[b.priority];
+                
+                if (priorityDiff !== 0) return priorityDiff;
+                
+                // Jika priority sama, urutkan berdasarkan deadline
+                const dateA = parseDate(a.deadline);
+                const dateB = parseDate(b.deadline);
+                
+                if (!dateA && !dateB) return 0;
+                if (!dateA) return 1;
+                if (!dateB) return -1;
+                
+                return dateA - dateB;
+            });
+
+            sortedTasks.forEach(task => {
+                const deadlineClass = getDeadlineClass(task.deadline);
+                const priorityIndicator = getPriorityIndicator(task.priority);
+                
+                const taskRow = document.createElement('div');
+                taskRow.className = 'task-row';
+                taskRow.innerHTML = `
+                    <div class="task-name">${priorityIndicator}${task.name}</div>
+                    <div class="task-desc">${task.description}</div>
+                    <div class="task-deadline ${deadlineClass}">${task.deadline}</div>
+                    <div class="task-category ${task.categoryClass}">${task.category}</div>
+                    <div class="task-status">
+                        <div class="checkbox-container">
+                            <div class="custom-checkbox ${task.completed ? 'checked' : ''}" data-id="${task.id}"></div>
+                            <input type="checkbox" id="task-${task.id}" ${task.completed ? 'checked' : ''}>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(taskRow);
+            });
+
+            // Add event listeners to checkboxes
+            document.querySelectorAll('.custom-checkbox').forEach(checkbox => {
+                checkbox.addEventListener('click', function() {
+                    const taskId = parseInt(this.getAttribute('data-id'));
+                    const task = tasks.find(t => t.id === taskId);
+                    
+                    if (task) {
+                        const wasCompleted = task.completed;
+                        task.completed = !task.completed;
+                        this.classList.toggle('checked');
+                        document.getElementById(`task-${taskId}`).checked = task.completed;
+                        
+                        // Save to localStorage
+                        localStorage.setItem('nonaMuaTasks', JSON.stringify(tasks));
+                        
+                        // Jika baru dicentang (bukan di-uncheck), kirim ke CHOREDATA
+                        if (task.completed && !wasCompleted) {
+                            sendToChoreData(taskId);
+                        }
+                    }
+                });
+            });
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', renderTasks);
+    </script>
+</body>
+</html>
