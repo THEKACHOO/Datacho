@@ -17,12 +17,16 @@
             background-color: #ffffff;
             color: #333;
             line-height: 1.6;
+            min-height: 100vh;
         }
         
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
         
         /* Header */
@@ -106,6 +110,7 @@
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 25px;
             margin-bottom: 50px;
+            flex-grow: 1;
         }
         
         .department-card {
@@ -118,6 +123,7 @@
             text-decoration: none;
             color: #333;
             display: block;
+            cursor: pointer;
         }
         
         .department-card:hover {
@@ -162,7 +168,7 @@
         
         /* Footer */
         footer {
-            margin-top: 50px;
+            margin-top: auto;
             padding-top: 20px;
             border-top: 2px solid #f0f0f0;
             color: #666;
@@ -267,7 +273,7 @@
 
             <!-- Department Cards -->
             <div class="departments">
-                <a href="login.html" class="department-card">
+                <a href="login.html" class="department-card" onclick="handleCardClick(event)">
                     <div class="department-icon">
                         <i class="fas fa-chart-line"></i>
                     </div>
@@ -279,7 +285,7 @@
                     </div>
                 </a>
 
-                <a href="login.html" class="department-card">
+                <a href="login.html" class="department-card" onclick="handleCardClick(event)">
                     <div class="department-icon">
                         <i class="fas fa-coins"></i>
                     </div>
@@ -291,7 +297,7 @@
                     </div>
                 </a>
 
-                <a href="login.html" class="department-card">
+                <a href="login.html" class="department-card" onclick="handleCardClick(event)">
                     <div class="department-icon">
                         <i class="fas fa-bullhorn"></i>
                     </div>
@@ -303,7 +309,7 @@
                     </div>
                 </a>
 
-                <a href="login.html" class="department-card">
+                <a href="login.html" class="department-card" onclick="handleCardClick(event)">
                     <div class="department-icon">
                         <i class="fas fa-industry"></i>
                     </div>
@@ -315,7 +321,7 @@
                     </div>
                 </a>
 
-                <a href="login.html" class="department-card">
+                <a href="login.html" class="department-card" onclick="handleCardClick(event)">
                     <div class="department-icon">
                         <i class="fas fa-edit"></i>
                     </div>
@@ -327,12 +333,12 @@
                     </div>
                 </a>
 
-                <a href="login.html" class="department-card">
+                <a href="login.html" class="department-card" onclick="handleCardClick(event)">
                     <div class="department-icon">
-                        <i class="fas fa-edit"></i>
+                        <i class="fas fa-paint-brush"></i>
                     </div>
                     <h3>Make-up Artist Team</h3>
-                    <p>Data konten, jadwal publikasi, tim kreatif, dan informasi Make-up Artist.</p>
+                    <p>Data tim makeup artist, jadwal kerja, produk makeup, dan informasi kreatif.</p>
                     <div class="department-link">
                         <span>Buka Dashboard</span>
                         <i class="fas fa-arrow-right"></i>
@@ -357,40 +363,94 @@
     </div>
 
     <script>
-        // Menambahkan sedikit interaksi untuk kartu departemen
+        // Fungsi untuk menangani klik pada kartu (opsional)
+        function handleCardClick(event) {
+            // Optional: Efek visual tanpa menghalangi navigasi
+            const card = event.currentTarget;
+            
+            // Efek visual saat diklik
+            card.style.transform = 'scale(0.98)';
+            
+            // Set timeout untuk reset efek visual
+            setTimeout(() => {
+                card.style.transform = '';
+                
+                // Optional: Simpan departemen yang dipilih ke sessionStorage
+                const departmentName = card.querySelector('h3').textContent;
+                sessionStorage.setItem('selectedDepartment', departmentName);
+                
+                // Optional: Tambahkan loading indicator
+                showLoading();
+            }, 200);
+        }
+        
+        // Fungsi untuk menampilkan loading indicator (opsional)
+        function showLoading() {
+            // Optional: Buat loading indicator
+            const loading = document.createElement('div');
+            loading.id = 'loading-overlay';
+            loading.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(255, 255, 255, 0.9);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 9999;
+                font-size: 18px;
+                color: #000;
+                flex-direction: column;
+                gap: 15px;
+            `;
+            
+            loading.innerHTML = `
+                <div style="width: 50px; height: 50px; border: 3px solid #f3f3f3; border-top: 3px solid #000; border-radius: 50%; animation: spin 1s linear infinite;"></div>
+                <p>Mengarahkan ke halaman login...</p>
+            `;
+            
+            document.body.appendChild(loading);
+            
+            // Hapus loading setelah 2 detik (jika page tidak redirect)
+            setTimeout(() => {
+                if (document.getElementById('loading-overlay')) {
+                    document.getElementById('loading-overlay').remove();
+                }
+            }, 2000);
+        }
+        
+        // Update waktu sistem setiap menit
         document.addEventListener('DOMContentLoaded', function() {
-            const departmentCards = document.querySelectorAll('.department-card');
-            
-            departmentCards.forEach(card => {
-                // Menambahkan efek klik
-                card.addEventListener('click', function(e) {
-                    // Untuk demo, kita mencegah navigasi yang sebenarnya
-                    // Dalam implementasi nyata, hapus baris berikut
-                    e.preventDefault();
-                    
-                    // Efek visual saat diklik
-                    this.style.transform = 'scale(0.98)';
-                    setTimeout(() => {
-                        this.style.transform = '';
-                        
-                        // Simulasi navigasi ke halaman lain
-                        const departmentName = this.querySelector('h3').textContent;
-                        alert(`Membuka dashboard ${departmentName}. Dalam implementasi nyata, ini akan mengarah ke halaman HTML terpisah.`);
-                    }, 200);
-                });
-            });
-            
-            // Update waktu sistem setiap menit
             function updateSystemTime() {
                 const now = new Date();
-                const timeString = now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+                const timeString = now.toLocaleTimeString('id-ID', { 
+                    hour: '2-digit', 
+                    minute: '2-digit' 
+                });
                 const systemInfo = document.querySelector('.system-info span');
-                systemInfo.textContent = `Sistem Aktif - Terakhir diperbarui: ${timeString}`;
+                if (systemInfo) {
+                    systemInfo.textContent = `Sistem Aktif - Terakhir diperbarui: ${timeString}`;
+                }
             }
             
             // Update waktu setiap menit
             updateSystemTime();
             setInterval(updateSystemTime, 60000);
+            
+            // Tambahkan CSS untuk spin animation
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes spin {
+                    0% { transform: rotate(0deg); }
+                    100% { transform: rotate(360deg); }
+                }
+            `;
+            document.head.appendChild(style);
+            
+            // Debug: Log untuk memastikan link berfungsi
+            console.log('Total link ke login.html:', document.querySelectorAll('a[href="login.html"]').length);
         });
     </script>
 </body>
