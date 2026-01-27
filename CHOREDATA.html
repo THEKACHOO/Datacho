@@ -533,7 +533,7 @@
                             <div class="member-name">NONA</div>
                             <div class="member-role">MAKEUP ARTIST</div>
                         </div>
-                        <div class="member-status status-waiting">WAITING DATA</div>
+                        <div class="member-status status-active">ACTIVE</div>
                     </div>
                 </div>
             </div>
@@ -591,10 +591,10 @@
                 name: "MAKEUP ARTIST", 
                 icon: "💄", 
                 color: "#FF6B6B",
-                description: "Makeup & Styling",
-                sourcePage: "makeup.html",
+                description: "Makeup & Styling for Kazine",
+                sourcePage: "mua-dashboard.html",
                 person: "NONA",
-                totalTasks: 4
+                totalTasks: 6 // 6 tasks untuk MUA seperti yang di spesifikasi
             },
             { 
                 id: "management", 
@@ -664,6 +664,78 @@
             };
         }
 
+        // Function untuk load data Makeup Artist dari mua-dashboard.html
+        function loadMakeupData() {
+            const muaTasks = JSON.parse(localStorage.getItem('nonaMuaTasks')) || [];
+            const completedTasks = muaTasks.filter(task => task.completed);
+            
+            // Daftar tugas MUA berdasarkan spesifikasi
+            const muaTaskList = [
+                {
+                    id: 1,
+                    name: "MUA Brand Ambassador (Rachel)",
+                    description: "Menjadi makeup artist untuk Brand Ambassador Kazine untuk Kazine Collection dan Kazine Vol 1 Issue 2",
+                    deadline: "26 Januari 2026",
+                    category: "Kazine Issue 2 & Kazine Collection"
+                },
+                {
+                    id: 2,
+                    name: "Koordinator MUA Kinaryo",
+                    description: "Menjadi pengawas dan koordinator MUA Kinaryo untuk komersial model dan campaign model",
+                    deadline: "28 Januari 2026",
+                    category: "Kazine Issue 2"
+                },
+                {
+                    id: 3,
+                    name: "Finalisasi warna Kazine Vol 1 Issue 3",
+                    description: "Mencari dan menentukan warna untuk Kazine vol 1 issue 3 yang bertema kecantikan",
+                    deadline: "14 Februari 2026",
+                    category: "Issue 3"
+                },
+                {
+                    id: 4,
+                    name: "Mencari MUA Freelance untuk Kazine Booklet",
+                    description: "Menentukan MUA untuk model di Booklet Kazine",
+                    deadline: "22 Februari 2026",
+                    category: "Kazine Collection"
+                },
+                {
+                    id: 5,
+                    name: "Mencari MUA Freelance untuk Kazine vol 1 Issue 3",
+                    description: "Menentukan MUA Freelance untuk model di Kazine Vol 1 issue 3",
+                    deadline: "22 Februari 2026",
+                    category: "Issue 3"
+                },
+                {
+                    id: 6,
+                    name: "Finalisasi warna Kazine Vol 1 Issue 4",
+                    description: "Mencari dan menentukan warna untuk Kazine vol 1 issue 4 bertema Energic & Sporty",
+                    deadline: "In Discuss",
+                    category: "Issue 4"
+                }
+            ];
+            
+            return {
+                name: "MAKEUP ARTIST",
+                tasks: completedTasks.map(task => {
+                    const originalTask = muaTaskList.find(t => t.id === task.id);
+                    return {
+                        id: task.id,
+                        name: task.name || originalTask?.name || `Task MUA ${task.id}`,
+                        description: task.description || originalTask?.description || "",
+                        deadline: task.deadline || originalTask?.deadline || "",
+                        category: task.category || originalTask?.category || "MUA",
+                        completedAt: new Date().toISOString(),
+                        department: "MAKEUP ARTIST"
+                    };
+                }),
+                lastUpdated: completedTasks.length > 0 ? new Date().toLocaleString('id-ID') : "Menunggu data MUA",
+                totalCompleted: completedTasks.length,
+                person: "NONA",
+                totalTasks: 6
+            };
+        }
+
         // Function untuk load data departemen lain (placeholder)
         function loadDepartmentData(departmentId) {
             const dept = departmentStructure.find(d => d.id === departmentId);
@@ -694,6 +766,9 @@
                 } else if (dept.id === 'design') {
                     // Load data Creative Design dari v1CC.html
                     departmentData = loadDesignData();
+                } else if (dept.id === 'makeup') {
+                    // Load data Makeup Artist dari mua-dashboard.html
+                    departmentData = loadMakeupData();
                 } else {
                     // Load data placeholder untuk departemen lain
                     departmentData = loadDepartmentData(dept.id);
@@ -703,6 +778,14 @@
                 const progress = departmentData.totalTasks > 0 
                     ? Math.round((departmentData.totalCompleted / departmentData.totalTasks) * 100) 
                     : 0;
+                
+                // Update status NONA di team structure
+                const nonaElement = document.querySelector('.team-member .member-avatar[style*="#FF6B6B"]').parentElement;
+                const statusElement = nonaElement.querySelector('.member-status');
+                if (statusElement) {
+                    statusElement.textContent = "ACTIVE";
+                    statusElement.className = "member-status status-active";
+                }
                 
                 // Create department card
                 const card = document.createElement('div');
@@ -733,7 +816,7 @@
                                 <div class="task-item" style="--dept-color: ${dept.color}">
                                     <div class="task-name">${task.name.substring(0, 40)}${task.name.length > 40 ? '...' : ''}</div>
                                     <div class="task-meta">
-                                        <span>${task.deadline}</span>
+                                        <span>${task.deadline || 'No deadline'}</span>
                                         <span class="task-status">✓ SELESAI</span>
                                     </div>
                                 </div>
@@ -753,6 +836,7 @@
                             Update: ${departmentData.lastUpdated}
                             ${dept.id === 'pr' ? ' • Source: v1pr.html' : ''}
                             ${dept.id === 'design' ? ' • Source: v1CC.html' : ''}
+                            ${dept.id === 'makeup' ? ' • Source: mua-dashboard.html' : ''}
                         </div>
                     </div>
                 `;
