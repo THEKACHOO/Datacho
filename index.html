@@ -35,8 +35,9 @@
             justify-content: space-between;
             align-items: center;
             padding: 20px 0;
-            border-bottom: 2px solid #f0f0f0;
+            border-bottom: 2px solid #000;
             margin-bottom: 40px;
+            flex-wrap: wrap;
         }
         
         .logo {
@@ -45,23 +46,17 @@
             gap: 15px;
         }
         
-        .logo-icon {
-            background-color: #000;
-            color: #fff;
-            width: 50px;
-            height: 50px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 24px;
+        .logo img {
+            height: 60px;
+            width: auto;
+            object-fit: contain;
         }
         
         .logo-text h1 {
             font-size: 28px;
             color: #000;
             letter-spacing: 1px;
+            font-weight: bold;
         }
         
         .logo-text p {
@@ -97,6 +92,7 @@
             font-size: 32px;
             color: #000;
             margin-bottom: 10px;
+            font-weight: bold;
         }
         
         .dashboard-header p {
@@ -104,11 +100,11 @@
             max-width: 600px;
         }
         
-        /* Department Grid */
+        /* Department Grid - 3 Kartu */
         .departments {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
             margin-bottom: 50px;
             flex-grow: 1;
         }
@@ -118,18 +114,32 @@
             border-radius: 12px;
             padding: 30px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            border: 1px solid #eee;
+            border: 2px solid #000;
             transition: all 0.3s ease;
             text-decoration: none;
             color: #333;
-            display: block;
+            display: flex;
+            flex-direction: column;
             cursor: pointer;
+            height: 100%;
         }
         
         .department-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-            border-color: #000;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            background-color: #000;
+            color: #fff;
+        }
+        
+        .department-card:hover h3,
+        .department-card:hover p,
+        .department-card:hover .department-link {
+            color: #fff;
+        }
+        
+        .department-card:hover .department-icon {
+            background-color: #fff;
+            color: #000;
         }
         
         .department-icon {
@@ -143,18 +153,21 @@
             justify-content: center;
             font-size: 24px;
             margin-bottom: 20px;
+            transition: all 0.3s ease;
         }
         
         .department-card h3 {
             font-size: 22px;
             color: #000;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
+            font-weight: bold;
         }
         
         .department-card p {
             color: #666;
             font-size: 15px;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+            flex-grow: 1;
         }
         
         .department-link {
@@ -164,13 +177,14 @@
             display: flex;
             align-items: center;
             gap: 5px;
+            margin-top: auto;
         }
         
         /* Footer */
         footer {
             margin-top: auto;
             padding-top: 20px;
-            border-top: 2px solid #f0f0f0;
+            border-top: 2px solid #000;
             color: #666;
             font-size: 14px;
         }
@@ -196,7 +210,7 @@
         .status-indicator {
             width: 10px;
             height: 10px;
-            background-color: #2ecc71;
+            background-color: #000;
             border-radius: 50%;
             animation: pulse 2s infinite;
         }
@@ -208,11 +222,13 @@
         }
         
         /* Responsive Design */
-        @media (max-width: 768px) {
+        @media (max-width: 900px) {
             .departments {
-                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             }
-            
+        }
+        
+        @media (max-width: 768px) {
             header {
                 flex-direction: column;
                 align-items: flex-start;
@@ -228,19 +244,31 @@
                 align-items: flex-start;
                 gap: 15px;
             }
+            
+            .departments {
+                grid-template-columns: 1fr;
+                max-width: 500px;
+                margin-left: auto;
+                margin-right: auto;
+            }
         }
         
         @media (max-width: 480px) {
-            .departments {
-                grid-template-columns: 1fr;
-            }
-            
             .container {
                 padding: 15px;
             }
             
             .department-card {
                 padding: 25px;
+                border-width: 1px;
+            }
+            
+            .logo img {
+                height: 50px;
+            }
+            
+            header, footer {
+                border-width: 1px;
             }
         }
     </style>
@@ -250,7 +278,7 @@
         <!-- Header -->
         <header>
             <div class="logo">
-                <div class="logo-icon">K</div>
+                <img src="logo-thekachoo.png" alt="KACHOO Logo">
                 <div class="logo-text">
                     <h1>KACHOO</h1>
                     <p>Company Database System</p>
@@ -271,74 +299,41 @@
                 <p>Akses database masing-masing departemen dengan mengklik kartu di bawah ini. Sistem database terintegrasi untuk manajemen data perusahaan KACHOO.</p>
             </div>
 
-            <!-- Department Cards -->
+            <!-- Department Cards - Hanya 3 Departemen -->
             <div class="departments">
+                <!-- CORE -->
                 <a href="login.html" class="department-card" onclick="handleCardClick(event)">
                     <div class="department-icon">
-                        <i class="fas fa-chart-line"></i>
+                        <i class="fas fa-code"></i>
                     </div>
-                    <h3>Executive</h3>
-                    <p>Akses data eksekutif, laporan kinerja perusahaan, dan informasi strategis untuk pengambilan keputusan.</p>
+                    <h3>CORE</h3>
+                    <p>Tim inti yang mengembangkan teknologi dasar, sistem, dan infrastruktur perusahaan. Bertanggung jawab atas platform utama dan arsitektur sistem.</p>
                     <div class="department-link">
                         <span>Buka Dashboard</span>
                         <i class="fas fa-arrow-right"></i>
                     </div>
                 </a>
 
+                <!-- KAZINE -->
                 <a href="login.html" class="department-card" onclick="handleCardClick(event)">
                     <div class="department-icon">
-                        <i class="fas fa-coins"></i>
+                        <i class="fas fa-newspaper"></i>
                     </div>
-                    <h3>Finance</h3>
-                    <p>Data keuangan, laporan anggaran, transaksi, dan informasi akuntansi perusahaan.</p>
+                    <h3>KAZINE</h3>
+                    <p>Tim media dan publikasi yang menangani konten, majalah digital, artikel, dan komunikasi publik perusahaan.</p>
                     <div class="department-link">
                         <span>Buka Dashboard</span>
                         <i class="fas fa-arrow-right"></i>
                     </div>
                 </a>
 
+                <!-- KABOOM -->
                 <a href="login.html" class="department-card" onclick="handleCardClick(event)">
                     <div class="department-icon">
-                        <i class="fas fa-bullhorn"></i>
+                        <i class="fas fa-bolt"></i>
                     </div>
-                    <h3>Public Relation</h3>
-                    <p>Data media, hubungan masyarakat, komunikasi publik, dan informasi branding.</p>
-                    <div class="department-link">
-                        <span>Buka Dashboard</span>
-                        <i class="fas fa-arrow-right"></i>
-                    </div>
-                </a>
-
-                <a href="login.html" class="department-card" onclick="handleCardClick(event)">
-                    <div class="department-icon">
-                        <i class="fas fa-industry"></i>
-                    </div>
-                    <h3>Production Team</h3>
-                    <p>Data produksi, inventaris, jadwal produksi, dan informasi operasional tim.</p>
-                    <div class="department-link">
-                        <span>Buka Dashboard</span>
-                        <i class="fas fa-arrow-right"></i>
-                    </div>
-                </a>
-
-                <a href="login.html" class="department-card" onclick="handleCardClick(event)">
-                    <div class="department-icon">
-                        <i class="fas fa-edit"></i>
-                    </div>
-                    <h3>Editorial Team</h3>
-                    <p>Data konten, jadwal publikasi, tim kreatif, dan informasi editorial.</p>
-                    <div class="department-link">
-                        <span>Buka Dashboard</span>
-                        <i class="fas fa-arrow-right"></i>
-                    </div>
-                </a>
-
-                <a href="login.html" class="department-card" onclick="handleCardClick(event)">
-                    <div class="department-icon">
-                        <i class="fas fa-paint-brush"></i>
-                    </div>
-                    <h3>Make-up Artist Team</h3>
-                    <p>Data tim makeup artist, jadwal kerja, produk makeup, dan informasi kreatif.</p>
+                    <h3>KABOOM</h3>
+                    <p>Tim kreatif dan inovasi yang mengembangkan kampanye, proyek khusus, dan inisiatif eksperimental perusahaan.</p>
                     <div class="department-link">
                         <span>Buka Dashboard</span>
                         <i class="fas fa-arrow-right"></i>
@@ -395,7 +390,7 @@
                 left: 0;
                 width: 100%;
                 height: 100%;
-                background: rgba(255, 255, 255, 0.9);
+                background: rgba(255, 255, 255, 0.95);
                 display: flex;
                 justify-content: center;
                 align-items: center;
@@ -404,11 +399,12 @@
                 color: #000;
                 flex-direction: column;
                 gap: 15px;
+                border: 2px solid #000;
             `;
             
             loading.innerHTML = `
                 <div style="width: 50px; height: 50px; border: 3px solid #f3f3f3; border-top: 3px solid #000; border-radius: 50%; animation: spin 1s linear infinite;"></div>
-                <p>Mengarahkan ke halaman login...</p>
+                <p style="font-weight: bold;">Mengarahkan ke halaman login...</p>
             `;
             
             document.body.appendChild(loading);
@@ -449,8 +445,14 @@
             `;
             document.head.appendChild(style);
             
-            // Debug: Log untuk memastikan link berfungsi
-            console.log('Total link ke login.html:', document.querySelectorAll('a[href="login.html"]').length);
+            // Jika logo tidak ditemukan, tampilkan placeholder
+            const logoImg = document.querySelector('.logo img');
+            logoImg.onerror = function() {
+                this.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23000'/%3E%3Ctext x='50' y='60' font-family='Arial' font-size='40' fill='%23fff' text-anchor='middle'%3EK%3C/text%3E%3C/svg%3E";
+                console.log("Logo tidak ditemukan, menggunakan placeholder");
+            };
+            
+            console.log('Database KACHOO - 3 Departemen: CORE, KAZINE, KABOOM');
         });
     </script>
 </body>
