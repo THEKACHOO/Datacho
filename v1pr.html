@@ -20,7 +20,7 @@
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 0 20px;
         }
@@ -62,7 +62,7 @@
 
         .task-header {
             display: grid;
-            grid-template-columns: 2fr 1fr 0.5fr;
+            grid-template-columns: 2fr 2fr 1fr 1fr 0.5fr;
             background-color: #000;
             color: #fff;
             padding: 15px 20px;
@@ -73,7 +73,7 @@
 
         .task-row {
             display: grid;
-            grid-template-columns: 2fr 1fr 0.5fr;
+            grid-template-columns: 2fr 2fr 1fr 1fr 0.5fr;
             background-color: #f9f9f9;
             padding: 15px 20px;
             margin-bottom: 8px;
@@ -91,12 +91,30 @@
 
         .task-name {
             font-size: 1.1rem;
-            font-weight: 500;
+            font-weight: 600;
+        }
+
+        .task-desc {
+            font-size: 0.95rem;
+            color: #444;
+            line-height: 1.4;
         }
 
         .task-deadline {
             font-size: 1rem;
             color: #333;
+            font-weight: 500;
+        }
+
+        .task-category {
+            font-size: 0.9rem;
+            background-color: #000;
+            color: white;
+            padding: 4px 10px;
+            border-radius: 12px;
+            display: inline-block;
+            text-align: center;
+            font-weight: 500;
         }
 
         .task-status {
@@ -107,6 +125,7 @@
         .checkbox-container {
             display: flex;
             align-items: center;
+            justify-content: center;
         }
 
         .custom-checkbox {
@@ -129,6 +148,19 @@
             content: "✓";
             color: #fff;
             font-weight: bold;
+        }
+
+        .username-link {
+            color: #1DA1F2;
+            text-decoration: none;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .username-link:hover {
+            text-decoration: underline;
+            color: #0d8bd9;
         }
 
         input[type="checkbox"] {
@@ -199,9 +231,26 @@
             color: #666;
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 1100px) {
             .task-header, .task-row {
-                grid-template-columns: 1fr 1fr 0.5fr;
+                grid-template-columns: 1.5fr 1.5fr 0.8fr 0.8fr 0.5fr;
+            }
+            
+            .container {
+                max-width: 100%;
+                padding: 0 15px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .task-header {
+                display: none;
+            }
+            
+            .task-row {
+                grid-template-columns: 1fr;
+                gap: 10px;
+                padding: 20px;
             }
             
             .logo {
@@ -210,6 +259,14 @@
             
             .subtitle {
                 font-size: 1.2rem;
+            }
+            
+            .task-category {
+                justify-self: start;
+            }
+            
+            .task-status {
+                justify-self: start;
             }
         }
     </style>
@@ -229,7 +286,9 @@
     <div class="container">
         <div class="task-header">
             <div>Tugas</div>
+            <div>Deskripsi</div>
             <div>Deadline</div>
+            <div>Kategori</div>
             <div>Status</div>
         </div>
 
@@ -238,16 +297,17 @@
         </div>
 
         <div class="buttons">
-            <button class="btn btn-save" id="saveBtn">Simpan Perubahan</button>
-            <button class="btn btn-view" id="viewBtn">Lihat Tugas Selesai</button>
+            <button class="btn btn-save" id="saveBtn">Simpan & Kirim ke CHOREDATA</button>
+            <button class="btn btn-view" id="viewBtn">Lihat Tugas Selesai (CHOREDATA)</button>
         </div>
 
         <div class="instructions">
             <h3>Cara menggunakan:</h3>
             <p>1. Centang kotak pada kolom "Status" ketika tugas sudah selesai</p>
-            <p>2. Klik "Simpan Perubahan" untuk menyimpan status tugas</p>
-            <p>3. Klik "Lihat Tugas Selesai" untuk melihat tugas yang sudah dicentang di halaman CHOREDATA.</p>
-            <p>4. Data akan tersimpan di browser Anda (localStorage)</p>
+            <p>2. Klik "Simpan & Kirim ke CHOREDATA" untuk mengirim data yang sudah dicentang (data akan tersembunyi di CHOREDATA)</p>
+            <p>3. Klik "Lihat Tugas Selesai" untuk membuka halaman CHOREDATA</p>
+            <p>4. Klik pada username (contoh: @SAESTUKAWI) untuk membuka profil Twitter</p>
+            <p>5. Data akan tersimpan di localStorage browser Anda</p>
         </div>
 
         <footer>
@@ -256,26 +316,73 @@
     </div>
 
     <script>
-        // Initial tasks data
+        // Initial tasks data berdasarkan permintaan
         const initialTasks = [
-            { id: 1, name: "Follow Up Agensi Cadence Untuk Revisi Majalah Kazine Vol 1 Issue 2", deadline: "2026-02-7", completed: false },
-            { id: 2, name: "Me", deadline: "2023-10-28", completed: false },
-            { id: 3, name: "Mengirim email follow-up ke klien", deadline: "2023-10-20", completed: false },
-            { id: 4, name: "Memeriksa dan membalas pesan di platform kerja", deadline: "2023-10-12", completed: false },
-            { id: 5, name: "Menyusun agenda kerja untuk minggu depan", deadline: "2023-10-14", completed: false },
-            { id: 6, name: "Melakukan riset kompetitor produk baru", deadline: "2023-10-25", completed: false },
-            { id: 7, name: "Menyiapkan materi training untuk staf baru", deadline: "2023-10-30", completed: false },
-            { id: 8, name: "Memperbarui database pelanggan", deadline: "2023-10-22", completed: false },
-            { id: 9, name: "Mengikuti webinar industri pukul 14.00", deadline: "2023-10-16", completed: false },
-            { id: 10, name: "Menyelesaikan desain grafis untuk kampanye", deadline: "2023-10-28", completed: false },
-            { id: 11, name: "Mengatur jadwal meeting dengan vendor", deadline: "2023-10-19", completed: false },
-            { id: 12, name: "Menyusun anggaran untuk proyek Q4", deadline: "2023-10-31", completed: false }
+            { 
+                id: 1, 
+                name: "Follow up Cadence untuk Photoshoot BA dan Model", 
+                description: "Follow up di grup DM KACHOOxCADENCE atau PR Mas Aryo (<a href='https://twitter.com/SAESTUKAWI' class='username-link' target='_blank'>@SAESTUKAWI</a>)", 
+                deadline: "28 Januari 2026", 
+                category: "Kazine vol 1 issue 2",
+                completed: false 
+            },
+            { 
+                id: 2, 
+                name: "Follow up ke model Vishaka", 
+                description: "Follow up untuk masuk ke gdm photoshoot (<a href='https://twitter.com/Mevrouvvv' class='username-link' target='_blank'>@Mevrouvvv</a>)", 
+                deadline: "28 Januari 2026", 
+                category: "Kazine vol 1 issue 2",
+                completed: false 
+            },
+            { 
+                id: 3, 
+                name: "Follow up produk ke pihak kolaborasi", 
+                description: "Menghubungi pihak kolaborasi dan mengirimkan link demo webpage sebelum produk terbit", 
+                deadline: "4 Februari 2026", 
+                category: "Kazine Collection",
+                completed: false 
+            },
+            { 
+                id: 4, 
+                name: "Follow up ke model dan agensi untuk hasil editing majalah", 
+                description: "Menghubungi pihak model dan agensi untuk tanggapan atau revisi pada majalah issue 2", 
+                deadline: "7 Februari 2026", 
+                category: "Kazine vol 1 issue 2",
+                completed: false 
+            },
+            { 
+                id: 5, 
+                name: "Mengisi data relasi", 
+                description: "Mengisi data berupa nama dan username untuk relasi", 
+                deadline: "28 Februari 2026", 
+                category: "Monthly Task",
+                completed: false 
+            },
+            { 
+                id: 6, 
+                name: "Invoice", 
+                description: "Meminta Invoice dan mengirimkan Invoice dari pihak relasi ke tim finance Kachoo (<a href='https://twitter.com/HAIKACHOO' class='username-link' target='_blank'>@HAIKACHOO</a>)", 
+                deadline: "28 Februari 2026", 
+                category: "Issue 2",
+                completed: false 
+            },
+            { 
+                id: 7, 
+                name: "Model Audition", 
+                description: "Mencari model yang cocok untuk issue 3 dan booklet Kazine", 
+                deadline: "7 Maret 2026", 
+                category: "Issue 3 & Kazine Collection",
+                completed: false 
+            }
         ];
+
+        // Data untuk dikirim ke CHOREDATA (tersembunyi)
+        let hiddenCompletedData = JSON.parse(localStorage.getItem('hiddenChoreData')) || [];
 
         // Load tasks from localStorage or use initial data
         let tasks = JSON.parse(localStorage.getItem('kachooTasks')) || initialTasks;
 
-        // Function to render tasks
+        // Function untuk render tasks
         function renderTasks() {
             const container = document.getElementById('tasks-container');
             container.innerHTML = '';
@@ -285,7 +392,9 @@
                 taskRow.className = 'task-row';
                 taskRow.innerHTML = `
                     <div class="task-name">${task.name}</div>
+                    <div class="task-desc">${task.description}</div>
                     <div class="task-deadline">${task.deadline}</div>
+                    <div class="task-category">${task.category}</div>
                     <div class="task-status">
                         <div class="checkbox-container">
                             <div class="custom-checkbox ${task.completed ? 'checked' : ''}" data-id="${task.id}"></div>
@@ -309,16 +418,60 @@
                     }
                 });
             });
+
+            // Add event listeners to username links
+            document.querySelectorAll('.username-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.stopPropagation(); // Mencegah event bubble
+                });
+            });
         }
 
-        // Save tasks to localStorage
-        document.getElementById('saveBtn').addEventListener('click', function() {
+        // Function untuk mengirim data tersembunyi ke CHOREDATA
+        function sendToChoreData() {
+            // Simpan tasks yang sedang dicentang
             localStorage.setItem('kachooTasks', JSON.stringify(tasks));
-            alert('Perubahan telah disimpan!');
-        });
+            
+            // Ambil hanya tugas yang baru saja dicentang
+            const newlyCompleted = tasks.filter(task => task.completed);
+            
+            // Tambahkan ke data tersembunyi dengan timestamp
+            const timestamp = new Date().toISOString();
+            newlyCompleted.forEach(task => {
+                // Cek apakah task sudah ada di data tersembunyi
+                const existingIndex = hiddenCompletedData.findIndex(t => t.id === task.id);
+                
+                if (existingIndex === -1) {
+                    // Tambahkan task dengan timestamp
+                    hiddenCompletedData.push({
+                        ...task,
+                        completedAt: timestamp
+                    });
+                } else {
+                    // Update timestamp jika sudah ada
+                    hiddenCompletedData[existingIndex].completedAt = timestamp;
+                }
+            });
+            
+            // Simpan data tersembunyi
+            localStorage.setItem('hiddenChoreData', JSON.stringify(hiddenCompletedData));
+            
+            // Tampilkan konfirmasi
+            const completedCount = newlyCompleted.length;
+            if (completedCount > 0) {
+                alert(`✅ ${completedCount} tugas berhasil disimpan dan dikirim ke CHOREDATA (data tersembunyi)`);
+            } else {
+                alert('⚠️ Tidak ada tugas yang dicentang. Centang terlebih dahulu sebelum menyimpan.');
+            }
+        }
+
+        // Event listener untuk tombol simpan
+        document.getElementById('saveBtn').addEventListener('click', sendToChoreData);
 
         // Navigate to CHOREDATA.html
         document.getElementById('viewBtn').addEventListener('click', function() {
+            // Simpan data terlebih dahulu sebelum pindah halaman
+            sendToChoreData();
             window.location.href = 'CHOREDATA.html';
         });
 
