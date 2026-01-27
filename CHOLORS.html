@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CHOLORS - Color Palette Generator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+
+        :root {
+            --primary: #ffffff;
+            --secondary: #000000;
+            --accent: #3a86ff;
+            --bg: #f8f9fa;
+            --card: #ffffff;
+            --text: #212529;
+            --text-light: #6c757d;
+            --border: #dee2e6;
+            --shadow: rgba(0, 0, 0, 0.08);
+            --shadow-hover: rgba(0, 0, 0, 0.12);
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        header {
+            text-align: center;
+            padding: 20px 0;
+            border-bottom: 1px solid var(--border);
+            width: 100%;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+
+        .logo-icon {
+            font-size: 2.2rem;
+            color: var(--accent);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--secondary);
+            letter-spacing: -0.5px;
+        }
+
+        .tagline {
+            color: var(--text-light);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .controls {
+            background-color: var(--card);
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 8px 25px var(--shadow);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 25px;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .control-label {
+            font-weight: 600;
+            color: var(--text);
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .control-label i {
+            color: var(--accent);
+        }
+
+        .slider-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .slider-value {
+            font-weight: 700;
+            color: var(--accent);
+            min-width: 40px;
+            text-align: center;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            height: 8px;
+            -webkit-appearance: none;
+            background: linear-gradient(to right, var(--secondary), var(--accent));
+            border-radius: 4px;
+            outline: none;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            border: 3px solid var(--accent);
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .color-count {
+            display: flex;
+            gap: 5px;
+        }
+
+        .color-count-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            border: 2px solid var(--border);
+            background-color: var(--primary);
+            font-weight: 700;
+            color: var(--text);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .color-count-btn.active {
+            background-color: var(--accent);
+            color: var(--primary);
+            border-color: var(--accent);
+        }
+
+        .buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 14px 24px;
+            border-radius: 12px;
+            border: none;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px var(--shadow);
+        }
+
+        .btn-primary {
+            background-color: var(--accent);
+            color: var(--primary);
+        }
+
+        .btn-secondary {
+            background-color: var(--primary);
+            color: var(--text);
+            border: 2px solid var(--border);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 18px var(--shadow-hover);
+        }
+
+        .btn:active {
+            transform: translateY(-1px);
+        }
+
+        .palette-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+            width: 100%;
+        }
+
+        .color-card {
+            background-color: var(--card);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px var(--shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .color-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px var(--shadow-hover);
+        }
+
+        .color-preview {
+            height: 160px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .color-info {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .color-name {
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--text);
+        }
+
+        .color-hex {
+            font-family: monospace;
+            font-size: 1.1rem;
+            color: var(--text-light);
+            padding: 8px 12px;
+            background-color: var(--bg);
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .color-copy {
+            background: none;
+            border: none;
+            color: var(--text-light);
+            cursor: pointer;
+            font-size: 1rem;
+            transition: color 0.2s ease;
+        }
+
+        .color-copy:hover {
+            color: var(--accent);
+        }
+
+        .saved-palettes {
+            margin-top: 20px;
+            width: 100%;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .saved-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        .saved-palette {
+            background-color: var(--card);
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 6px 15px var(--shadow);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            transition: transform 0.2s ease;
+        }
+
+        .saved-palette:hover {
+            transform: translateY(-5px);
+        }
+
+        .saved-colors {
+            display: flex;
+            height: 50px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .saved-color {
+            flex: 1;
+        }
+
+        .saved-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .saved-name {
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .saved-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .saved-btn {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: var(--text-light);
+            transition: color 0.2s ease;
+        }
+
+        .saved-btn:hover {
+            color: var(--accent);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-light);
+            font-style: italic;
+            grid-column: 1 / -1;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background-color: var(--secondary);
+            color: var(--primary);
+            padding: 15px 25px;
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            font-weight: 600;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        footer {
+            margin-top: 40px;
+            text-align: center;
+            color: var(--text-light);
+            font-size: 0.9rem;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+            width: 100%;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                gap: 20px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .control-group {
+                min-width: 100%;
+            }
+            
+            .palette-container {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+            
+            .color-preview {
+                height: 140px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 15px;
+            }
+            
+            .palette-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .buttons {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <i class="fas fa-palette logo-icon"></i>
+                <h1>CHOLORS</h1>
+            </div>
+            <p class="tagline">Generator palet warna yang elegan dengan perpaduan putih dan hitam. Buat, simpan, dan ekspor palet warna Anda.</p>
+        </header>
+
+        <div class="controls">
+            <div class="control-group">
+                <div class="control-label">
+                    <i class="fas fa-sliders-h"></i>
+                    <span>Kecerahan Warna</span>
+                </div>
+                <div class="slider-container">
+                    <input type="range" id="brightness-slider" min="0" max="100" value="50">
+                    <span class="slider-value" id="brightness-value">50%</span>
+                </div>
+            </div>
+            
+            <div class="control-group">
+                <div class="control-label">
+                    <i class="fas fa-adjust"></i>
+                    <span>Kontras Warna</span>
+                </div>
+                <div class="slider-container">
+                    <input type="range" id="contrast-slider" min="0" max="100" value="50">
+                    <span class="slider-value" id="contrast-value">50%</span>
+                </div>
+            </div>
+            
+            <div class="control-group">
+                <div class="control-label">
+                    <i class="fas fa-layer-group"></i>
+                    <span>Jumlah Warna</span>
+                </div>
+                <div class="color-count">
+                    <button class="color-count-btn active" data-count="5">5</button>
+                    <button class="color-count-btn" data-count="6">6</button>
+                    <button class="color-count-btn" data-count="7">7</button>
+                    <button class="color-count-btn" data-count="8">8</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="buttons">
+            <button class="btn btn-primary" id="generate-btn">
+                <i class="fas fa-magic"></i>
+                <span>Generate Palette</span>
+            </button>
+            <button class="btn btn-secondary" id="save-btn">
+                <i class="fas fa-bookmark"></i>
+                <span>Simpan Palette</span>
+            </button>
+            <button class="btn btn-secondary" id="download-btn">
+                <i class="fas fa-download"></i>
+                <span>Download Gambar</span>
+            </button>
+        </div>
+
+        <div class="palette-container" id="palette-container">
+            <!-- Color cards will be generated here -->
+        </div>
+
+        <div class="saved-palettes">
+            <h2 class="section-title">
+                <i class="fas fa-bookmark"></i>
+                <span>Palet Tersimpan</span>
+            </h2>
+            <div class="saved-container" id="saved-container">
+                <!-- Saved palettes will appear here -->
+            </div>
+        </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <footer>
+        <p>CHOLORS &copy; 2023 | Generator Palet Warna Modern</p>
+    </footer>
+
+    <script>
+        // DOM Elements
+        const brightnessSlider = document.getElementById('brightness-slider');
+        const brightnessValue = document.getElementById('brightness-value');
+        const contrastSlider = document.getElementById('contrast-slider');
+        const contrastValue = document.getElementById('contrast-value');
+        const colorCountButtons = document.querySelectorAll('.color-count-btn');
+        const generateBtn = document.getElementById('generate-btn');
+        const saveBtn = document.getElementById('save-btn');
+        const downloadBtn = document.getElementById('download-btn');
+        const paletteContainer = document.getElementById('palette-container');
+        const savedContainer = document.getElementById('saved-container');
+        const toast = document.getElementById('toast');
+
+        // State variables
+        let currentColors = [];
+        let colorCount = 5;
+        let savedPalettes = JSON.parse(localStorage.getItem('cholors-saved')) || [];
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            updateSliders();
+            generatePalette();
+            renderSavedPalettes();
+        });
+
+        // Update slider values
+        function updateSliders() {
+            brightnessValue.textContent = `${brightnessSlider.value}%`;
+            contrastValue.textContent = `${contrastSlider.value}%`;
+        }
+
+        // Generate random color
+        function generateColor() {
+            const brightness = parseInt(brightnessSlider.value) / 100;
+            const contrast = parseInt(contrastSlider.value) / 100;
+            
+            // Generate base color with brightness adjustment
+            let r = Math.floor(Math.random() * 256);
+            let g = Math.floor(Math.random() * 256);
+            let b = Math.floor(Math.random() * 256);
+            
+            // Apply brightness
+            r = Math.floor(r * brightness);
+            g = Math.floor(g * brightness);
+            b = Math.floor(b * brightness);
+            
+            // Apply contrast
+            const contrastFactor = (259 * (contrast * 255 + 255)) / (255 * (259 - contrast * 255));
+            r = Math.floor(contrastFactor * (r - 128) + 128);
+            g = Math.floor(contrastFactor * (g - 128) + 128);
+            b = Math.floor(contrastFactor * (b - 128) + 128);
+            
+            // Clamp values
+            r = Math.max(0, Math.min(255, r));
+            g = Math.max(0, Math.min(255, g));
+            b = Math.max(0, Math.min(255, b));
+            
+            return { r, g, b };
+        }
+
+        // Convert RGB to HEX
+        function rgbToHex(r, g, b) {
+            return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1).toUpperCase();
+        }
+
+        // Generate color name from hex
+        function generateColorName(hex) {
+            // Simple color name generator based on hex value
+            const colorNames = [
+                "Crimson", "Sapphire", "Emerald", "Amber", "Violet", "Coral", "Azure", "Rose",
+                "Slate", "Ivory", "Obsidian", "Pearl", "Graphite", "Silver", "Gold", "Bronze",
+                "Turquoise", "Magenta", "Cyan", "Lavender", "Maroon", "Teal", "Olive", "Navy"
+            ];
+            
+            // Use part of hex to pick a name
+            const index = parseInt(hex.slice(1, 3), 16) % colorNames.length;
+            const modifier = parseInt(hex.slice(3, 5), 16) % 5;
+            
+            const modifiers = ["Dark", "Deep", "Light", "Pale", "Bright"];
+            
+            return modifiers[modifier] + " " + colorNames[index];
+        }
+
+        // Generate palette
+        function generatePalette() {
+            currentColors = [];
+            paletteContainer.innerHTML = '';
+            
+            for (let i = 0; i < colorCount; i++) {
+                const color = generateColor();
+                const hex = rgbToHex(color.r, color.g, color.b);
+                const name = generateColorName(hex);
+                
+                currentColors.push({ hex, name, r: color.r, g: color.g, b: color.b });
+                
+                // Create color card
+                const colorCard = document.createElement('div');
+                colorCard.className = 'color-card';
+                colorCard.innerHTML = `
+                    <div class="color-preview" style="background-color: ${hex};">
+                        <i class="fas fa-eye-dropper" style="font-size: 2rem; color: ${color.r + color.g + color.b > 382 ? '#000' : '#fff'}; opacity: 0.7;"></i>
+                    </div>
+                    <div class="color-info">
+                        <div class="color-name">${name}</div>
+                        <div class="color-hex">
+                            <span>${hex}</span>
+                            <button class="color-copy" data-hex="${hex}">
+                                <i class="far fa-copy"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+                
+                paletteContainer.appendChild(colorCard);
+            }
+            
+            // Add event listeners to copy buttons
+            document.querySelectorAll('.color-copy').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const hex = e.currentTarget.getAttribute('data-hex');
+                    copyToClipboard(hex);
+                    showToast(`Disalin: ${hex}`);
+                });
+            });
+        }
+
+        // Save current palette
+        function savePalette() {
+            if (currentColors.length === 0) {
+                showToast("Tidak ada palet untuk disimpan");
+                return;
+            }
+            
+            const paletteName = prompt("Berikan nama untuk palet ini:", `Palet ${new Date().toLocaleDateString()}`);
+            
+            if (paletteName) {
+                const palette = {
+                    id: Date.now(),
+                    name: paletteName,
+                    colors: currentColors,
+                    date: new Date().toISOString()
+                };
+                
+                savedPalettes.push(palette);
+                localStorage.setItem('cholors-saved', JSON.stringify(savedPalettes));
+                renderSavedPalettes();
+                showToast(`Palet "${paletteName}" disimpan`);
+            }
+        }
+
+        // Render saved palettes
+        function renderSavedPalettes() {
+            savedContainer.innerHTML = '';
+            
+            if (savedPalettes.length === 0) {
+                savedContainer.innerHTML = '<div class="empty-state">Belum ada palet yang disimpan. Buat dan simpan palet Anda!</div>';
+                return;
+            }
+            
+            savedPalettes.forEach(palette => {
+                const paletteEl = document.createElement('div');
+                paletteEl.className = 'saved-palette';
+                
+                // Create color bars
+                let colorsHTML = '';
+                palette.colors.forEach(color => {
+                    colorsHTML += `<div class="saved-color" style="background-color: ${color.hex};"></div>`;
+                });
+                
+                paletteEl.innerHTML = `
+                    <div class="saved-colors">
+                        ${colorsHTML}
+                    </div>
+                    <div class="saved-info">
+                        <div class="saved-name">${palette.name}</div>
+                        <div class="saved-actions">
+                            <button class="saved-btn" data-action="load" data-id="${palette.id}">
+                                <i class="fas fa-undo"></i>
+                            </button>
+                            <button class="saved-btn" data-action="delete" data-id="${palette.id}">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+                
+                savedContainer.appendChild(paletteEl);
+            });
+            
+            // Add event listeners to saved palette buttons
+            document.querySelectorAll('.saved-btn[data-action="load"]').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const id = parseInt(e.currentTarget.getAttribute('data-id'));
+                    loadPalette(id);
+                });
+            });
+            
+            document.querySelectorAll('.saved-btn[data-action="delete"]').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const id = parseInt(e.currentTarget.getAttribute('data-id'));
+                    deletePalette(id);
+                });
+            });
+        }
+
+        // Load palette
+        function loadPalette(id) {
+            const palette = savedPalettes.find(p => p.id === id);
+            
+            if (palette) {
+                currentColors = [...palette.colors];
+                colorCount = palette.colors.length;
+                
+                // Update color count buttons
+                colorCountButtons.forEach(btn => {
+                    if (parseInt(btn.getAttribute('data-count')) === colorCount) {
+                        btn.classList.add('active');
+                    } else {
+                        btn.classList.remove('active');
+                    }
+                });
+                
+                // Render the palette
+                paletteContainer.innerHTML = '';
+                currentColors.forEach(color => {
+                    const colorCard = document.createElement('div');
+                    colorCard.className = 'color-card';
+                    colorCard.innerHTML = `
+                        <div class="color-preview" style="background-color: ${color.hex};">
+                            <i class="fas fa-eye-dropper" style="font-size: 2rem; color: ${color.r + color.g + color.b > 382 ? '#000' : '#fff'}; opacity: 0.7;"></i>
+                        </div>
+                        <div class="color-info">
+                            <div class="color-name">${color.name}</div>
+                            <div class="color-hex">
+                                <span>${color.hex}</span>
+                                <button class="color-copy" data-hex="${color.hex}">
+                                    <i class="far fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                    
+                    paletteContainer.appendChild(colorCard);
+                });
+                
+                // Add event listeners to copy buttons
+                document.querySelectorAll('.color-copy').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const hex = e.currentTarget.getAttribute('data-hex');
+                        copyToClipboard(hex);
+                        showToast(`Disalin: ${hex}`);
+                    });
+                });
+                
+                showToast(`Palet "${palette.name}" dimuat`);
+            }
+        }
+
+        // Delete palette
+        function deletePalette(id) {
+            if (confirm("Hapus palet ini?")) {
+                savedPalettes = savedPalettes.filter(p => p.id !== id);
+                localStorage.setItem('cholors-saved', JSON.stringify(savedPalettes));
+                renderSavedPalettes();
+                showToast("Palet dihapus");
+            }
+        }
+
+        // Download palette as image
+        function downloadPalette() {
+            if (currentColors.length === 0) {
+                showToast("Tidak ada palet untuk diunduh");
+                return;
+            }
+            
+            // Create a canvas element
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            
+            // Set canvas dimensions
+            const colorHeight = 150;
+            const colorWidth = 100;
+            const textHeight = 50;
+            canvas.width = colorWidth * colorCount;
+            canvas.height = colorHeight + textHeight + 40;
+            
+            // Draw background
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Draw colors
+            currentColors.forEach((color, index) => {
+                const x = index * colorWidth;
+                
+                // Draw color rectangle
+                ctx.fillStyle = color.hex;
+                ctx.fillRect(x, 20, colorWidth, colorHeight);
+                
+                // Draw color border
+                ctx.strokeStyle = '#000000';
+                ctx.lineWidth = 2;
+                ctx.strokeRect(x, 20, colorWidth, colorHeight);
+                
+                // Draw hex code
+                ctx.fillStyle = '#000000';
+                ctx.font = 'bold 16px Arial';
+                ctx.textAlign = 'center';
+                ctx.fillText(color.hex, x + colorWidth/2, colorHeight + 45);
+                
+                // Draw color name
+                ctx.fillStyle = '#666666';
+                ctx.font = '14px Arial';
+                ctx.fillText(color.name, x + colorWidth/2, colorHeight + 65);
+            });
+            
+            // Draw title
+            ctx.fillStyle = '#000000';
+            ctx.font = 'bold 20px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText('CHOLORS Palette', canvas.width/2, 15);
+            
+            // Convert canvas to data URL and trigger download
+            const link = document.createElement('a');
+            link.download = `cholors-palette-${new Date().toISOString().slice(0,10)}.png`;
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+            
+            showToast("Palet diunduh sebagai gambar");
+        }
+
+        // Copy to clipboard
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).catch(err => {
+                // Fallback for older browsers
+                const textArea = document.createElement('textarea');
+                textArea.value = text;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+            });
+        }
+
+        // Show toast notification
+        function showToast(message) {
+            toast.textContent = message;
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // Event Listeners
+        brightnessSlider.addEventListener('input', updateSliders);
+        contrastSlider.addEventListener('input', updateSliders);
+
+        colorCountButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                colorCountButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                colorCount = parseInt(btn.getAttribute('data-count'));
+                generatePalette();
+            });
+        });
+
+        generateBtn.addEventListener('click', generatePalette);
+        saveBtn.addEventListener('click', savePalette);
+        downloadBtn.addEventListener('click', downloadPalette);
+    </script>
+</body>
+</html>
