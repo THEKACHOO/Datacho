@@ -164,6 +164,40 @@
             opacity: 0.8;
         }
         
+        /* Loading indicator */
+        .loading {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        
+        .loading.active {
+            display: flex;
+        }
+        
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #000000;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
         /* Responsive Design */
         @media (max-width: 768px) {
             .main-title {
@@ -195,6 +229,12 @@
     </style>
 </head>
 <body>
+    <!-- Loading indicator -->
+    <div class="loading" id="loading">
+        <div class="spinner"></div>
+        <p>Mengarahkan ke halaman tujuan...</p>
+    </div>
+    
     <!-- Header Section -->
     <header class="header">
         <h1 class="main-title">KACHOO</h1>
@@ -225,7 +265,7 @@
                     <p class="card-description">
                         Akses dan kelola daftar tugas, penugasan, dan monitoring progress pekerjaan tim.
                     </p>
-                    <a href="CHOREDATA.html" class="btn">Buka CHORE</a>
+                    <a href="CHOREDATA.html" class="btn chore-btn">Buka CHORE</a>
                 </div>
             </div>
             
@@ -241,7 +281,7 @@
                     <p class="card-description">
                         Informasi detail tentang struktur organisasi dan anggota tim di Kachoo.
                     </p>
-                    <a href="inticho.html" class="btn">Buka Tim</a>
+                    <a href="inticho.html" class="btn team-btn">Buka Tim</a>
                 </div>
             </div>
             
@@ -257,7 +297,7 @@
                     <p class="card-description">
                         Pantau progress, timeline, dan detail semua proyek yang sedang berjalan.
                     </p>
-                    <a href="procho.html" class="btn">Buka Project</a>
+                    <a href="procho.html" class="btn project-btn">Buka Project</a>
                 </div>
             </div>
             
@@ -273,7 +313,7 @@
                     <p class="card-description">
                         Akses arsip dokumen dan file perusahaan yang tersimpan di Google Drive.
                     </p>
-                    <a href="https://drive.google.com" target="_blank" class="btn">Buka Archive</a>
+                    <a href="https://drive.google.com" target="_blank" class="btn archive-btn">Buka Archive</a>
                 </div>
             </div>
         </section>
@@ -285,41 +325,9 @@
     </footer>
     
     <script>
-        // Menambahkan efek interaktif pada tombol
         document.addEventListener('DOMContentLoaded', function() {
-            const buttons = document.querySelectorAll('.btn');
-            
-            buttons.forEach(button => {
-                button.addEventListener('mouseenter', function() {
-                    this.style.transform = 'scale(1.05)';
-                });
-                
-                button.addEventListener('mouseleave', function() {
-                    this.style.transform = 'scale(1)';
-                });
-                
-                // Simulasi loading saat tombol diklik
-                button.addEventListener('click', function(e) {
-                    if (!this.getAttribute('href').includes('google.com') && 
-                        !this.getAttribute('href').includes('google.drive')) {
-                        e.preventDefault();
-                        
-                        // Simulasi loading
-                        const originalText = this.textContent;
-                        this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Membuka...';
-                        this.style.pointerEvents = 'none';
-                        
-                        // Setelah 1 detik, kembali ke teks asli
-                        setTimeout(() => {
-                            this.innerHTML = originalText;
-                            this.style.pointerEvents = 'auto';
-                            // Arahkan ke halaman yang sesuai (dalam implementasi nyata)
-                            // window.location.href = this.getAttribute('href');
-                            alert('Dalam implementasi nyata, Anda akan diarahkan ke ' + this.getAttribute('href'));
-                        }, 1000);
-                    }
-                });
-            });
+            const loading = document.getElementById('loading');
+            const buttons = document.querySelectorAll('.btn:not(.archive-btn)');
             
             // Menambahkan animasi saat halaman dimuat
             const cards = document.querySelectorAll('.dashboard-card');
@@ -333,6 +341,35 @@
                     card.style.transform = 'translateY(0)';
                 }, 100 + (index * 150));
             });
+            
+            // Untuk tombol internal (bukan Google Drive)
+            buttons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const href = this.getAttribute('href');
+                    
+                    // Tampilkan loading indicator
+                    loading.classList.add('active');
+                    
+                    // Simulasi loading sebentar, lalu navigasi
+                    setTimeout(() => {
+                        window.location.href = href;
+                    }, 800);
+                });
+            });
+            
+            // Untuk tombol Google Drive (buka di tab baru)
+            const archiveBtn = document.querySelector('.archive-btn');
+            if (archiveBtn) {
+                archiveBtn.addEventListener('click', function(e) {
+                    loading.classList.add('active');
+                    // Untuk Google Drive, kita biarkan link default bekerja
+                    // Tidak perlu setTimeout karena akan membuka tab baru
+                    setTimeout(() => {
+                        loading.classList.remove('active');
+                    }, 1000);
+                });
+            }
         });
     </script>
 </body>
