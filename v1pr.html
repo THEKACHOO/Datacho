@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KACHOO TASK JOB - PR (Sistem Terpusat)</title>
+    <title>KACHOO TASK JOB - PR (Terintegrasi CHOREDATA)</title>
     <style>
+        /* ===== CSS SAMA PERSIS SEPERTI SEBELUMNYA ===== */
         * {
             margin: 0;
             padding: 0;
@@ -60,10 +61,7 @@
             font-weight: 500;
         }
 
-        /* Desktop Tampilan */
-        .desktop-view {
-            display: block;
-        }
+        .desktop-view { display: block; }
 
         .task-header {
             display: grid;
@@ -96,18 +94,8 @@
             box-shadow: 0 3px 8px rgba(0,0,0,0.05);
         }
 
-        .task-name {
-            font-weight: 600;
-            color: #000;
-            font-size: 0.95rem;
-        }
-
-        .task-desc {
-            color: #444;
-            line-height: 1.4;
-            font-size: 0.9rem;
-        }
-
+        .task-name { font-weight: 600; color: #000; font-size: 0.95rem; }
+        .task-desc { color: #444; line-height: 1.4; font-size: 0.9rem; }
         .task-desc a {
             color: #000;
             text-decoration: none;
@@ -115,17 +103,8 @@
             border-bottom: 1px dotted #666;
             transition: all 0.2s;
         }
-
-        .task-desc a:hover {
-            border-bottom: 1px solid #000;
-        }
-
-        .task-deadline {
-            color: #333;
-            font-weight: 500;
-            font-size: 0.9rem;
-        }
-
+        .task-desc a:hover { border-bottom: 1px solid #000; }
+        .task-deadline { color: #333; font-weight: 500; font-size: 0.9rem; }
         .task-category {
             font-size: 0.85rem;
             background-color: #000;
@@ -137,11 +116,7 @@
             font-weight: 500;
             max-width: 120px;
         }
-
-        .task-status {
-            display: flex;
-            justify-content: center;
-        }
+        .task-status { display: flex; justify-content: center; }
 
         .checkbox-container {
             display: flex;
@@ -190,9 +165,7 @@
             100% { transform: rotate(360deg); }
         }
 
-        input[type="checkbox"] {
-            display: none;
-        }
+        input[type="checkbox"] { display: none; }
 
         .auto-save-notice {
             background-color: #000;
@@ -254,10 +227,7 @@
             max-width: 300px;
         }
 
-        /* Mobile Tampilan */
-        .mobile-view {
-            display: none;
-        }
+        .mobile-view { display: none; }
 
         .mobile-task-card {
             background-color: #f9f9f9;
@@ -267,19 +237,16 @@
             margin-bottom: 12px;
             transition: all 0.2s;
         }
-
         .mobile-task-card:hover {
             background-color: #f0f0f0;
             box-shadow: 0 3px 8px rgba(0,0,0,0.05);
         }
-
         .mobile-task-header {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
             margin-bottom: 10px;
         }
-
         .mobile-task-name {
             font-weight: 600;
             color: #000;
@@ -287,7 +254,6 @@
             flex: 1;
             margin-right: 10px;
         }
-
         .mobile-task-category {
             font-size: 0.8rem;
             background-color: #000;
@@ -297,150 +263,42 @@
             font-weight: 500;
             white-space: nowrap;
         }
-
         .mobile-task-desc {
             color: #444;
             font-size: 0.9rem;
             line-height: 1.4;
             margin-bottom: 12px;
         }
-
         .mobile-task-desc a {
             color: #000;
             text-decoration: none;
             font-weight: 500;
             border-bottom: 1px dotted #666;
         }
-
         .mobile-task-footer {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-top: 12px;
         }
-
         .mobile-deadline {
             color: #333;
             font-weight: 500;
             font-size: 0.9rem;
         }
-
         .mobile-status-container {
             display: flex;
             align-items: center;
             gap: 8px;
         }
-
         .mobile-status-label {
             font-size: 0.85rem;
             color: #666;
         }
 
-        /* Responsive */
         @media (max-width: 768px) {
-            .desktop-view {
-                display: none;
-            }
-            
-            .mobile-view {
-                display: block;
-            }
-            
-            .container {
-                padding: 0 15px;
-            }
-            
-            header {
-                padding: 20px 0;
-            }
-            
-            .logo {
-                font-size: 1.6rem;
-                margin-bottom: 4px;
-            }
-            
-            .subtitle {
-                font-size: 0.9rem;
-            }
-            
-            .user-greeting {
-                padding: 16px 0;
-                margin-bottom: 20px;
-            }
-            
-            .user-greeting h2 {
-                font-size: 1.1rem;
-            }
-            
-            .mobile-task-card {
-                padding: 14px;
-            }
-            
-            .instructions {
-                padding: 16px;
-                margin-top: 25px;
-            }
-            
-            .instructions h3 {
-                font-size: 1rem;
-            }
-            
-            .toast {
-                left: 15px;
-                right: 15px;
-                bottom: 15px;
-                max-width: none;
-                text-align: center;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .logo {
-                font-size: 1.4rem;
-            }
-            
-            .subtitle {
-                font-size: 0.85rem;
-            }
-            
-            .user-greeting h2 {
-                font-size: 1rem;
-            }
-            
-            .mobile-task-name {
-                font-size: 0.95rem;
-            }
-            
-            .mobile-task-desc {
-                font-size: 0.85rem;
-            }
-            
-            .mobile-deadline {
-                font-size: 0.85rem;
-            }
-        }
-
-        @media (min-width: 769px) and (max-width: 1024px) {
-            .task-header {
-                grid-template-columns: 1.6fr 1.6fr 0.8fr 0.8fr 0.4fr;
-                padding: 12px 16px;
-                font-size: 0.85rem;
-            }
-            
-            .task-row {
-                grid-template-columns: 1.6fr 1.6fr 0.8fr 0.8fr 0.4fr;
-                padding: 14px 16px;
-                font-size: 0.85rem;
-            }
-            
-            .task-name, .task-desc, .task-deadline {
-                font-size: 0.85rem;
-            }
-            
-            .task-category {
-                font-size: 0.8rem;
-                padding: 3px 8px;
-            }
+            .desktop-view { display: none; }
+            .mobile-view { display: block; }
         }
     </style>
 </head>
@@ -448,18 +306,18 @@
     <header>
         <div class="container">
             <div class="logo">KACHOO TASK JOB</div>
-            <div class="subtitle">Manajemen Tugas Pribadi • Sinkron Semua Device</div>
+            <div class="subtitle">PR DIVISION • Terintegrasi CHOREDATA</div>
         </div>
     </header>
 
     <div class="user-greeting">
         <div class="container">
-            <h2>Komunikasi adalah kunci, kunci Kachoo adalah Vivi!</h2>
+            <h2>Komunikasi adalah kunci, kunci Kachoo adalah Vivi! 🗝️</h2>
         </div>
     </div>
 
     <div class="container">
-        <!-- Desktop View -->
+        <!-- DESKTOP VIEW -->
         <div class="desktop-view">
             <div class="task-header">
                 <div>Tugas</div>
@@ -468,42 +326,42 @@
                 <div>Kategori</div>
                 <div>Status</div>
             </div>
-
-            <div id="tasks-desktop-container">
-                <!-- Desktop task rows akan di-generate di sini -->
-            </div>
+            <div id="tasks-desktop-container"></div>
         </div>
 
-        <!-- Mobile View -->
-        <div class="mobile-view" id="tasks-mobile-container">
-            <!-- Mobile task cards akan di-generate di sini -->
-        </div>
+        <!-- MOBILE VIEW -->
+        <div class="mobile-view" id="tasks-mobile-container"></div>
 
         <div class="auto-save-notice">
             <span>✓</span>
-            <span>✓ Data otomatis tersimpan di sistem (lokal) & sinkron semua device</span>
+            <span>✅ Data otomatis terkirim ke <strong>CHOREDATA EXECUTIVE DASHBOARD</strong> ketika dicentang</span>
         </div>
 
         <div class="instructions">
-            <h3>Cara menggunakan:</h3>
+            <h3>📋 Cara menggunakan:</h3>
             <p>1. Centang kotak pada kolom "Status" ketika tugas sudah selesai</p>
-            <p>2. Data akan <strong>otomatis tersimpan</strong> dan sistem akan sinkron di device manapun</p>
-            <p>3. Status centang akan <strong>sama persis</strong> di desktop, mobile, dan device lain</p>
+            <p>2. Data akan <strong>otomatis masuk ke CHOREDATA</strong> (Executive Dashboard) dan muncul di bagian PUBLIC RELATION</p>
+            <p>3. Status centang sinkron di semua device (desktop, mobile, tab lain)</p>
         </div>
 
         <footer>
-            <p>&copy; 2026 KACHOO TASK JOB - PUBLIC RELATION (Sistem Terpusat)</p>
+            <p>© 2026 KACHOO TASK JOB - PUBLIC RELATION (v3.0 - CHOREDATA Integration)</p>
+            <p style="font-size:0.8rem; margin-top:5px;">🔗 Data terhubung dengan Executive Dashboard</p>
         </footer>
     </div>
 
-    <div class="toast" id="toast">✅ Data berhasil disinkronkan ke sistem!</div>
+    <div class="toast" id="toast"></div>
 
     <script>
-        // ============ SISTEM SENTRAL ============
-        // Semua device menggunakan localStorage yang sama
-        // Status centang akan SAMA di manapun
+        // ============================================
+        // KACHOO PR TASK - INTEGRASI CHOREDATA
+        // ============================================
         
-        // Data master tugas - TIDAK BOLEH DIUBAH URUTAN/ID NYA
+        // --- KUNCI STORAGE ---
+        const PR_STORAGE_KEY = 'kachooTasks';           // Key untuk data tugas PR (v1pr.html)
+        const CHORE_STORAGE_KEY = 'choreExecutiveData'; // Key untuk CHOREDATA (Executive Dashboard)
+        
+        // --- MASTER DATA TUGAS PR (7 TUGAS) ---
         const MASTER_TASKS = [
             { 
                 id: 1, 
@@ -570,137 +428,199 @@
             }
         ];
 
-        // ============ INISIALISASI DATA ============
-        // Kunci utama untuk localStorage
-        const STORAGE_KEY = 'kachoo_tasks_pr_system';
-        const CHORE_STORAGE_KEY = 'choreExecutiveData';
-        
-        // Load tasks: prioritas dari localStorage, jika kosong pakai master
+        // --- LOAD TUGAS (Prioritas dari localStorage) ---
         function loadTasks() {
-            const stored = localStorage.getItem(STORAGE_KEY);
+            const stored = localStorage.getItem(PR_STORAGE_KEY);
             if (stored) {
                 try {
                     const parsed = JSON.parse(stored);
-                    // Validasi: pastikan semua ID dari master ada
-                    // (anti error jika struktur data berubah)
                     if (Array.isArray(parsed) && parsed.length === MASTER_TASKS.length) {
                         return parsed;
                     }
-                } catch (e) {
-                    console.warn('Gagal parse localStorage, pakai master');
-                }
+                } catch (e) {}
             }
-            // Jika belum ada data, simpan master tasks ke localStorage
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(MASTER_TASKS));
+            // Jika belum ada, simpan master tasks
+            localStorage.setItem(PR_STORAGE_KEY, JSON.stringify(MASTER_TASKS));
             return [...MASTER_TASKS];
         }
 
-        // Global state - ini yang dipakai di seluruh fungsi
+        // --- STATE GLOBAL ---
         let tasks = loadTasks();
 
-        // ============ FUNGSI SISTEM ============
-        
-        // Simpan ke localStorage dan PASTIKAN semua device mendapatkan update
-        function saveToSystem() {
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
-            
-            // Trigger event storage untuk komunikasi antar tab/device
-            // Ini MEMASTIKAN semua tab yang terbuka akan sinkron
-            try {
-                localStorage.setItem('kachoo_trigger_' + Date.now(), 'update');
-                localStorage.removeItem('kachoo_trigger_' + Date.now());
-            } catch(e) {}
-        }
-
-        // Kirim ke CHOREDATA (simulasi)
+        // ============================================
+        // INTI: KIRIM DATA KE CHOREDATA (EXECUTIVE DASHBOARD)
+        // ============================================
         function sendToChoreData(taskId) {
             const task = tasks.find(t => t.id === taskId);
             if (!task) return;
 
-            // Tampilkan loading
-            document.querySelectorAll(`.custom-checkbox[data-id="${taskId}"], .mobile-checkbox[data-id="${taskId}"]`).forEach(el => {
-                el.style.opacity = '0.5';
-                const parent = el.parentElement;
-                let loading = parent.querySelector('.checkbox-loading');
-                if (!loading) {
-                    loading = document.createElement('div');
-                    loading.className = 'checkbox-loading';
-                    parent.appendChild(loading);
-                }
-                loading.style.display = 'block';
-            });
+            // Tampilkan loading spinner
+            showLoadingSpinner(taskId, true);
 
-            // Simulasi pengiriman
-            setTimeout(() => {
-                // Hapus loading
-                document.querySelectorAll('.checkbox-loading').forEach(el => el.remove());
-                document.querySelectorAll('.custom-checkbox, .mobile-checkbox').forEach(el => el.style.opacity = '1');
+            // Siapkan data PR untuk CHOREDATA
+            const prData = {
+                id: task.id,
+                name: task.name,
+                description: task.description.replace(/<[^>]*>/g, ''), // Hapus tag HTML
+                deadline: task.deadline,
+                category: task.category,
+                completed: true,
+                completedAt: new Date().toISOString(),
+                department: "PUBLIC RELATION",
+                source: "v1pr.html",
+                person: "VIVI"
+            };
 
-                // Data untuk CHOREDATA
-                const prData = {
-                    ...task,
-                    completedAt: new Date().toISOString(),
-                    source: "v1pr_system",
-                    device: navigator.userAgent
-                };
+            // Ambil data CHOREDATA yang sudah ada
+            let choreData = JSON.parse(localStorage.getItem(CHORE_STORAGE_KEY)) || { departments: [] };
 
-                let choreData = JSON.parse(localStorage.getItem(CHORE_STORAGE_KEY)) || { departments: [] };
+            // Cari index departemen PR
+            const prIndex = choreData.departments.findIndex(d => d.name === "PUBLIC RELATION");
+
+            if (prIndex === -1) {
+                // Buat departemen PR baru
+                choreData.departments.push({
+                    name: "PUBLIC RELATION",
+                    icon: "📡",
+                    color: "#1DA1F2",
+                    person: "VIVI",
+                    totalTasks: 7,
+                    tasks: [prData],
+                    lastUpdated: new Date().toISOString(),
+                    totalCompleted: 1
+                });
+            } else {
+                // Cek apakah tugas sudah pernah dikirim
+                const taskExists = choreData.departments[prIndex].tasks.find(t => t.id === taskId);
                 
-                const prIndex = choreData.departments.findIndex(d => d.name === "PR");
-                
-                if (prIndex === -1) {
-                    choreData.departments.push({
-                        name: "PR",
-                        tasks: [prData],
-                        lastUpdated: new Date().toISOString(),
-                        totalCompleted: 1
-                    });
+                if (!taskExists) {
+                    // Tugas baru, tambahkan
+                    choreData.departments[prIndex].tasks.push(prData);
+                    choreData.departments[prIndex].totalCompleted = 
+                        (choreData.departments[prIndex].totalCompleted || 0) + 1;
                 } else {
-                    const taskExists = choreData.departments[prIndex].tasks.find(t => t.id === taskId);
-                    if (taskExists) {
-                        const taskIndex = choreData.departments[prIndex].tasks.findIndex(t => t.id === taskId);
-                        choreData.departments[prIndex].tasks[taskIndex] = prData;
-                    } else {
-                        choreData.departments[prIndex].tasks.push(prData);
-                        choreData.departments[prIndex].totalCompleted = 
-                            (choreData.departments[prIndex].totalCompleted || 0) + 1;
-                    }
-                    choreData.departments[prIndex].lastUpdated = new Date().toISOString();
+                    // Update tugas yang sudah ada
+                    const taskIndex = choreData.departments[prIndex].tasks.findIndex(t => t.id === taskId);
+                    choreData.departments[prIndex].tasks[taskIndex] = prData;
                 }
                 
-                localStorage.setItem(CHORE_STORAGE_KEY, JSON.stringify(choreData));
-                
-                showToast(`📋 Tugas "${task.name.substring(0, 20)}..." terkirim ke CHOREDATA`);
-            }, 500);
+                choreData.departments[prIndex].lastUpdated = new Date().toISOString();
+            }
+
+            // Simpan ke CHOREDATA
+            localStorage.setItem(CHORE_STORAGE_KEY, JSON.stringify(choreData));
+            
+            // Trigger storage event untuk sinkronasi antar tab/device
+            triggerStorageEvent();
+
+            // Hilangkan loading spinner
+            setTimeout(() => {
+                showLoadingSpinner(taskId, false);
+                showToast(`✅ Tugas "${task.name.substring(0, 25)}..." terkirim ke CHOREDATA`, '#1DA1F2');
+            }, 600);
         }
 
-        // Toast notification
-        function showToast(message) {
+        // --- FUNGSI BANTUAN ---
+        function showLoadingSpinner(taskId, show) {
+            const checkboxes = document.querySelectorAll(`.custom-checkbox[data-id="${taskId}"], .mobile-checkbox[data-id="${taskId}"]`);
+            checkboxes.forEach(cb => {
+                const parent = cb.parentElement;
+                let loading = parent.querySelector('.checkbox-loading');
+                if (show) {
+                    if (!loading) {
+                        loading = document.createElement('div');
+                        loading.className = 'checkbox-loading';
+                        parent.appendChild(loading);
+                    }
+                    loading.style.display = 'block';
+                    cb.style.opacity = '0.5';
+                } else {
+                    if (loading) loading.remove();
+                    cb.style.opacity = '1';
+                }
+            });
+        }
+
+        function showToast(message, bgColor = '#000') {
             const toast = document.getElementById('toast');
             toast.textContent = message;
+            toast.style.backgroundColor = bgColor;
             toast.style.display = 'block';
-            setTimeout(() => {
-                toast.style.display = 'none';
-            }, 2500);
+            setTimeout(() => { toast.style.display = 'none'; }, 3000);
         }
 
-        // ============ RENDER TUGAS ============
-        // Semua fungsi render selalu berdasarkan state 'tasks' terkini
-        
-        function renderAllTasks() {
-            renderDesktopTasks();
-            renderMobileTasks();
+        function triggerStorageEvent() {
+            // Paksa event storage untuk komunikasi antar tab
+            const key = 'chore_trigger_' + Date.now();
+            localStorage.setItem(key, 'update');
+            localStorage.removeItem(key);
         }
 
+        // ============================================
+        // TOGGLE STATUS TUGAS
+        // ============================================
+        function toggleTaskCompletion(taskId, checkboxElement) {
+            const task = tasks.find(t => t.id === taskId);
+            if (!task) return;
+
+            const wasCompleted = task.completed;
+            task.completed = !task.completed;
+
+            // Update UI
+            document.querySelectorAll(`.custom-checkbox[data-id="${taskId}"], .mobile-checkbox[data-id="${taskId}"]`).forEach(cb => {
+                if (task.completed) cb.classList.add('checked');
+                else cb.classList.remove('checked');
+            });
+            document.querySelectorAll(`#desktop-task-${taskId}, #mobile-task-${taskId}`).forEach(cb => {
+                cb.checked = task.completed;
+            });
+
+            // Simpan ke localStorage PR
+            localStorage.setItem(PR_STORAGE_KEY, JSON.stringify(tasks));
+
+            // KIRIM KE CHOREDATA HANYA JIKA DICENTANG (bukan di-uncheck)
+            if (task.completed && !wasCompleted) {
+                sendToChoreData(taskId);
+            } else if (!task.completed) {
+                // Opsional: Hapus dari CHOREDATA? Untuk sekarang biarkan saja.
+                showToast(`🔄 Tugas "${task.name.substring(0, 25)}..." dibatalkan`, '#666');
+                
+                // Bisa ditambahkan fitur hapus dari CHOREDATA jika diperlukan
+                removeFromChoreData(taskId);
+            }
+
+            // Trigger sinkronasi
+            triggerStorageEvent();
+        }
+
+        // Opsional: Hapus tugas dari CHOREDATA jika di-uncheck
+        function removeFromChoreData(taskId) {
+            let choreData = JSON.parse(localStorage.getItem(CHORE_STORAGE_KEY)) || { departments: [] };
+            const prIndex = choreData.departments.findIndex(d => d.name === "PUBLIC RELATION");
+            
+            if (prIndex !== -1) {
+                const taskIndex = choreData.departments[prIndex].tasks.findIndex(t => t.id === taskId);
+                if (taskIndex !== -1) {
+                    choreData.departments[prIndex].tasks.splice(taskIndex, 1);
+                    choreData.departments[prIndex].totalCompleted = 
+                        Math.max(0, (choreData.departments[prIndex].totalCompleted || 1) - 1);
+                    choreData.departments[prIndex].lastUpdated = new Date().toISOString();
+                    localStorage.setItem(CHORE_STORAGE_KEY, JSON.stringify(choreData));
+                }
+            }
+        }
+
+        // ============================================
+        // RENDER TUGAS (DESKTOP & MOBILE)
+        // ============================================
         function renderDesktopTasks() {
             const container = document.getElementById('tasks-desktop-container');
             if (!container) return;
             container.innerHTML = '';
-
             tasks.forEach(task => {
-                const taskRow = document.createElement('div');
-                taskRow.className = 'task-row';
-                taskRow.innerHTML = `
+                const row = document.createElement('div');
+                row.className = 'task-row';
+                row.innerHTML = `
                     <div class="task-name">${escapeHTML(task.name)}</div>
                     <div class="task-desc">${task.description}</div>
                     <div class="task-deadline">${escapeHTML(task.deadline)}</div>
@@ -712,7 +632,7 @@
                         </div>
                     </div>
                 `;
-                container.appendChild(taskRow);
+                container.appendChild(row);
             });
         }
 
@@ -720,11 +640,10 @@
             const container = document.getElementById('tasks-mobile-container');
             if (!container) return;
             container.innerHTML = '';
-
             tasks.forEach(task => {
-                const taskCard = document.createElement('div');
-                taskCard.className = 'mobile-task-card';
-                taskCard.innerHTML = `
+                const card = document.createElement('div');
+                card.className = 'mobile-task-card';
+                card.innerHTML = `
                     <div class="mobile-task-header">
                         <div class="mobile-task-name">${escapeHTML(task.name)}</div>
                         <div class="mobile-task-category">${escapeHTML(task.category)}</div>
@@ -741,11 +660,10 @@
                         </div>
                     </div>
                 `;
-                container.appendChild(taskCard);
+                container.appendChild(card);
             });
         }
 
-        // Simple escape untuk keamanan
         function escapeHTML(text) {
             if (!text) return '';
             return String(text).replace(/[&<>"]/g, function(c) {
@@ -757,62 +675,26 @@
             });
         }
 
-        // ============ TOGGLE STATUS ============
-        // Fungsi inti: mengubah status centang dan MENJAMIN sinkronisasi
-        
-        function toggleTaskCompletion(taskId, checkboxElement) {
-            const task = tasks.find(t => t.id === taskId);
-            if (!task) return;
-            
-            const wasCompleted = task.completed;
-            // Ubah status
-            task.completed = !task.completed;
-            
-            // Update semua elemen visual di halaman INI
-            document.querySelectorAll(`.custom-checkbox[data-id="${taskId}"]`).forEach(cb => {
-                if (task.completed) cb.classList.add('checked');
-                else cb.classList.remove('checked');
-            });
-            
-            document.querySelectorAll(`#desktop-task-${taskId}, #mobile-task-${taskId}`).forEach(cb => {
-                cb.checked = task.completed;
-            });
-            
-            // Simpan ke sistem - INI YANG MEMBUAT SINKRON
-            saveToSystem();
-            
-            // Kirim ke CHOREDATA hanya jika dicentang (bukan di-uncheck)
-            if (task.completed && !wasCompleted) {
-                sendToChoreData(taskId);
-                showToast(`✅ "${task.name.substring(0, 25)}..." selesai & tersimpan`);
-            } else {
-                showToast(`🔄 "${task.name.substring(0, 25)}..." dibatalkan`);
-            }
-        }
-
-        // ============ EVENT LISTENER ============
-        
-        // Setup semua event listener untuk checkbox
+        // ============================================
+        // SETUP EVENT LISTENERS
+        // ============================================
         function setupEventListeners() {
-            // Desktop checkboxes
-            document.querySelectorAll('.custom-checkbox:not(.mobile-checkbox)').forEach(checkbox => {
-                // Hapus listener lama dengan clone & replace (mencegah double listener)
-                const newCheckbox = checkbox.cloneNode(true);
-                checkbox.parentNode.replaceChild(newCheckbox, checkbox);
-                
-                newCheckbox.addEventListener('click', function(e) {
+            // Desktop
+            document.querySelectorAll('.custom-checkbox:not(.mobile-checkbox)').forEach(cb => {
+                const newCb = cb.cloneNode(true);
+                cb.parentNode.replaceChild(newCb, cb);
+                newCb.addEventListener('click', function(e) {
                     e.preventDefault();
                     const taskId = parseInt(this.getAttribute('data-id'));
                     toggleTaskCompletion(taskId, this);
                 });
             });
 
-            // Mobile checkboxes
-            document.querySelectorAll('.mobile-checkbox').forEach(checkbox => {
-                const newCheckbox = checkbox.cloneNode(true);
-                checkbox.parentNode.replaceChild(newCheckbox, checkbox);
-                
-                newCheckbox.addEventListener('click', function(e) {
+            // Mobile
+            document.querySelectorAll('.mobile-checkbox').forEach(cb => {
+                const newCb = cb.cloneNode(true);
+                cb.parentNode.replaceChild(newCb, cb);
+                newCb.addEventListener('click', function(e) {
                     e.preventDefault();
                     const taskId = parseInt(this.getAttribute('data-id'));
                     toggleTaskCompletion(taskId, this);
@@ -820,60 +702,36 @@
             });
         }
 
-        // ============ SINKRONISASI ANTAR DEVICE ============
-        // Kunci utama: event 'storage' akan terpanggil di SEMUA TAB/DEVICE
-        // saat localStorage berubah
-        
+        // ============================================
+        // SINKRONASI ANTAR DEVICE (STORAGE EVENT)
+        // ============================================
         function handleStorageChange(e) {
-            if (e.key === STORAGE_KEY) {
-                // Data berubah di tab/device lain!
-                const newTasks = loadTasks(); // Langsung baca dari localStorage
-                tasks = newTasks; // Update state global
-                
-                // Render ulang TANPA mengirim ulang ke CHOREDATA
-                renderAllTasks();
+            if (e.key === PR_STORAGE_KEY) {
+                // Data PR berubah di tab/device lain
+                tasks = loadTasks();
+                renderDesktopTasks();
+                renderMobileTasks();
                 setupEventListeners();
-                
-                showToast('🔄 Data tersinkron dari device lain');
+                showToast('🔄 Data tersinkron dari device lain', '#4ECDC4');
             }
         }
 
-        // ============ INISIALISASI ============
+        // ============================================
+        // INITIALIZATION
+        // ============================================
         function init() {
-            // Pastikan tasks selalu fresh dari localStorage
             tasks = loadTasks();
-            
-            // Render semua tampilan
-            renderAllTasks();
-            
-            // Setup listener untuk checkbox
+            renderDesktopTasks();
+            renderMobileTasks();
             setupEventListeners();
-            
-            // LISTENER UTAMA: sinkron antar tab/device
             window.addEventListener('storage', handleStorageChange);
             
-            // Backup: Pastikan tidak ada konflik double listener
-            window.removeEventListener('storage', handleStorageChange);
-            window.addEventListener('storage', handleStorageChange);
-            
-            console.log('Sistem PR siap - sinkronasi global aktif');
+            // Beri tahu bahwa halaman PR siap
+            console.log('✅ PR TASK siap, terintegrasi dengan CHOREDATA');
         }
 
-        // Jalankan saat DOM siap
         document.addEventListener('DOMContentLoaded', init);
-        
-        // Jaga-jaga jika halaman di-load via back/forward cache
-        window.addEventListener('pageshow', function() {
-            tasks = loadTasks();
-            renderAllTasks();
-            setupEventListeners();
-        });
-
-        // Cleanup (untuk SPA, tidak terlalu diperlukan untuk halaman statis)
-        window.addEventListener('beforeunload', function() {
-            // Pastikan data tersimpan
-            saveToSystem();
-        });
+        window.addEventListener('pageshow', init);
     </script>
 </body>
 </html>
