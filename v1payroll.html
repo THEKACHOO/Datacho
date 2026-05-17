@@ -1,387 +1,772 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    <title>KACHOO · payroll</title>
-    <!-- pure black/white, no icons, no profil/summary, hanya payroll + bonus -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>The Kachoo - Slip Gaji Resmi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
         }
 
         body {
-            background-color: #ffffff;
-            color: #000000;
-            line-height: 1.5;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px 24px;
+            background: #111;
+            font-family: 'Outfit', sans-serif;
             min-height: 100vh;
             display: flex;
-            flex-direction: column;
-        }
-
-        /* HEADER minimal */
-        header {
-            text-align: center;
-            padding: 24px 0 16px 0;
-            border-bottom: 1.5px solid #000;
-            margin-bottom: 20px;
-        }
-
-        .logo {
-            display: flex;
-            flex-direction: column;
+            justify-content: center;
             align-items: center;
-            gap: 6px;
+            padding: 20px;
         }
 
-        .logo img {
-            height: 56px;
-            width: auto;
-            object-fit: contain;
-            filter: grayscale(100%);
-        }
-
-        .logo-text h1 {
-            font-size: 28px;
-            color: #000;
-            letter-spacing: 1px;
-            font-weight: 600;
-        }
-
-        .logo-text p {
-            color: #333;
-            font-size: 13px;
-            font-weight: 400;
-            text-transform: uppercase;
-            margin-top: 2px;
-        }
-
-        /* payroll title */
-        .payroll-title {
-            font-size: 28px;
-            font-weight: 700;
-            margin: 20px 0 20px 0;
-            border-left: 8px solid #000;
-            padding-left: 20px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .table-wrapper {
-            overflow-x: auto;
-            margin-bottom: 30px;
-            border: 2px solid #000;
-            box-shadow: 8px 8px 0 #000;
-            background: #fff;
-        }
-
-        table {
+        .app-wrapper {
+            max-width: 1000px;
             width: 100%;
-            border-collapse: collapse;
-            font-size: 16px;
-            min-width: 800px;
+            background: #111;
         }
 
-        th {
-            background: #000;
-            color: #fff;
-            font-weight: 600;
-            padding: 18px 12px;
-            text-transform: uppercase;
-            font-size: 15px;
-            letter-spacing: 0.5px;
-            border-right: 1px solid #444;
-        }
-        th:last-child { border-right: none; }
-
-        td {
-            padding: 18px 12px;
-            border: 1px solid #000;
-            background: #fff;
-            color: #000;
-            vertical-align: middle;
+        .auth-section {
+            background: white;
+            padding: 40px 24px;
+            text-align: center;
+            border: 1px solid #ccc;
         }
 
-        .name-cell {
-            font-weight: 700;
+        .logo-area {
+            margin-bottom: 32px;
         }
 
-        .position-cell {
+        .custom-logo {
+            width: 200px;
+            margin: 0 auto;
+            background: black;
+            color: white;
+            padding: 16px 12px;
+            font-weight: 800;
+            font-size: 28px;
+            letter-spacing: 3px;
+            font-family: 'Outfit', sans-serif;
+            text-align: center;
+        }
+
+        .custom-logo span {
+            display: block;
+            font-size: 11px;
             font-weight: 400;
-            color: #222;
+            letter-spacing: 2px;
+            margin-top: 6px;
         }
 
-        .salary-cell, .bonus-cell {
+        .login-form {
+            margin-top: 25px;
+        }
+
+        .input-group {
+            max-width: 320px;
+            margin: 0 auto 20px;
+            text-align: left;
+        }
+
+        .input-group label {
             font-weight: 600;
-            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            display: block;
+            margin-bottom: 6px;
+            color: black;
         }
 
-        .status-cell {
+        .input-group input {
+            width: 100%;
+            padding: 14px 16px;
+            font-family: 'Outfit', monospace;
+            border: 1.5px solid black;
+            background: white;
+            font-size: 16px;
+            outline: none;
+            border-radius: 0px;
+            font-weight: 500;
+            color: black;
+        }
+
+        .btn-auth {
+            background: black;
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            font-family: 'Outfit', sans-serif;
             font-weight: 700;
-            text-transform: uppercase;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+            max-width: 220px;
+            transition: 0.2s;
         }
 
-        .status-paid {
-            background: #000;
-            color: #fff;
-            padding: 6px 14px;
-            display: inline-block;
-            border: 2px solid #000;
-            font-size: 14px;
-            letter-spacing: 0.3px;
+        .btn-auth:hover {
+            background: #2c2c2c;
         }
 
-        .status-pending {
-            background: #fff;
-            color: #000;
-            padding: 6px 14px;
-            display: inline-block;
-            border: 2px solid #000;
-            font-size: 14px;
-            letter-spacing: 0.3px;
-        }
-
-        .slip-cell {
-            text-align: center;
-        }
-
-        .slip-link {
-            display: inline-block;
-            border: 2px solid #000;
-            padding: 8px 16px;
-            background: #fff;
-            color: #000;
-            font-weight: 600;
+        .error-msg {
+            color: #cc0000;
             font-size: 13px;
-            text-decoration: none;
-            text-transform: uppercase;
-            letter-spacing: 0.3px;
-            transition: 0.1s;
-            white-space: nowrap;
+            margin-top: 10px;
+            font-weight: 500;
         }
 
-        .slip-link:hover {
-            background: #000;
-            color: #fff;
+        .salary-dashboard {
+            display: none;
+            background: #111;
         }
 
-        .slip-placeholder {
-            display: inline-block;
-            border: 2px solid #000;
-            padding: 8px 16px;
-            background: #fff;
-            color: #000;
-            font-weight: 600;
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 0.2px;
-            white-space: nowrap;
-        }
-
-        /* notifikasi global kecil */
-        .notification-block {
-            background: #fff;
-            border: 3px solid #000;
+        .dashboard-header {
+            background: white;
             padding: 16px 20px;
-            margin: 20px 0 30px 0;
-            font-weight: 700;
-            text-transform: uppercase;
-            text-align: center;
-            font-size: 18px;
-            box-shadow: 6px 6px 0 #000;
-        }
-
-        /* footer */
-        footer {
-            margin-top: auto;
-            padding-top: 18px;
-            border-top: 1.5px solid #000;
-            color: #333;
-            font-size: 13px;
-        }
-
-        .footer-content {
+            margin-bottom: 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
-            gap: 10px;
+            gap: 12px;
+            border: 1px solid #ddd;
         }
 
-        .system-info {
+        .company-title {
+            font-weight: 800;
+            font-size: 18px;
+            letter-spacing: 1px;
+        }
+
+        .logout-btn {
+            background: white;
+            border: 1px solid black;
+            color: black;
+            padding: 8px 20px;
+            cursor: pointer;
+            font-weight: 600;
+            font-family: 'Outfit';
+            font-size: 14px;
+        }
+
+        .welcome-card {
+            background: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        .welcome-card p {
+            font-size: 16px;
+            font-weight: 500;
+            word-break: break-word;
+        }
+
+        .month-selector-container {
+            background: white;
+            padding: 20px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        .month-selector-container label {
+            font-weight: 700;
+            font-size: 15px;
+            display: block;
+            margin-bottom: 16px;
+        }
+
+        .month-buttons {
             display: flex;
-            align-items: center;
-            gap: 5px;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
         }
 
-        .status-indicator-dot {
-            width: 8px;
-            height: 8px;
-            background-color: #000;
-            border-radius: 50%;
-            animation: pulse 1.8s infinite;
+        .month-btn {
+            background: white;
+            border: 1.5px solid black;
+            padding: 10px 16px;
+            font-family: 'Outfit';
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 13px;
+            min-width: 95px;
         }
 
-        @keyframes pulse {
-            0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; }
+        .month-btn.active {
+            background: black;
+            color: white;
+            border-color: black;
         }
 
-        /* mobile */
-        @media (max-width: 550px) {
-            .container { padding: 16px; }
-            .payroll-title { font-size: 22px; }
-            .notification-block { font-size: 15px; padding: 15px; }
+        .month-btn:hover:not(.locked) {
+            background: black;
+            color: white;
         }
 
-        a, a:visited { color: #000; text-decoration: none; }
-        a:hover { background: #000; color: #fff; }
+        .slip-preview {
+            background: transparent;
+            margin-top: 25px;
+        }
+
+        .payslip-card {
+            background: white;
+            color: black;
+            padding: 24px 20px;
+            border: 1px solid #aaa;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            max-width: 800px;
+            margin: 0 auto;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .company-header {
+            text-align: center;
+            border-bottom: 2px solid black;
+            padding-bottom: 14px;
+            margin-bottom: 20px;
+        }
+
+        .company-name {
+            font-size: 24px;
+            font-weight: 800;
+        }
+
+        .company-address {
+            font-size: 11px;
+            font-weight: 400;
+            color: #2c2c2c;
+            margin-top: 5px;
+        }
+
+        .slip-title {
+            text-align: center;
+            font-size: 18px;
+            font-weight: 700;
+            margin: 8px 0 6px;
+            text-transform: uppercase;
+        }
+
+        .period-badge {
+            text-align: center;
+            background: #f0f0f0;
+            display: inline-block;
+            width: auto;
+            padding: 5px 18px;
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            font-size: 14px;
+            border-bottom: 1px dotted #ddd;
+            padding-bottom: 8px;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .info-label {
+            font-weight: 600;
+        }
+
+        .info-value {
+            font-weight: 500;
+            text-align: right;
+            word-break: break-word;
+        }
+
+        .salary-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 18px 0;
+            font-size: 14px;
+        }
+
+        .salary-table td {
+            padding: 10px 6px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .salary-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .salary-table td:first-child {
+            font-weight: 600;
+            width: 60%;
+        }
+
+        .salary-table td:last-child {
+            text-align: right;
+            font-weight: 600;
+        }
+
+        .total-net {
+            background: #f4f4f4;
+            font-weight: 800;
+            border-top: 2px solid black;
+        }
+
+        .total-net td {
+            padding: 12px 6px;
+        }
+
+        .footer-note {
+            margin-top: 24px;
+            text-align: center;
+            font-size: 9px;
+            font-weight: 400;
+            color: #3b3b3b;
+            border-top: 1px solid #ccc;
+            padding-top: 12px;
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            margin-top: 25px;
+        }
+
+        .btn-tarik {
+            background: black;
+            color: white;
+            padding: 12px 32px;
+            font-weight: 700;
+            font-family: 'Outfit';
+            border: none;
+            cursor: pointer;
+            font-size: 15px;
+            transition: 0.2s;
+        }
+
+        .btn-tarik:hover {
+            background: #2b2b2b;
+        }
+
+        .message-box {
+            text-align: center;
+            background: white;
+            padding: 40px 20px;
+            max-width: 700px;
+            margin: 0 auto;
+            border: 1px solid #ccc;
+        }
+
+        .message-box p {
+            font-size: 17px;
+            font-weight: 500;
+            line-height: 1.4;
+        }
+
+        .subnote {
+            margin-top: 14px;
+            font-size: 13px;
+            color: #555;
+        }
+
+        @media (max-width: 680px) {
+            body { padding: 12px; }
+            .payslip-card { padding: 18px 16px; }
+            .month-btn { padding: 8px 12px; min-width: 80px; font-size: 12px; }
+            .company-name { font-size: 20px; }
+            .salary-table td { padding: 8px 4px; font-size: 12px; }
+            .info-row { font-size: 13px; }
+            .btn-tarik { padding: 10px 24px; font-size: 14px; }
+            .dashboard-header { padding: 12px 16px; }
+            .custom-logo { width: 160px; font-size: 22px; padding: 12px; }
+        }
+
+        @media (max-width: 480px) {
+            .month-btn { min-width: 70px; font-size: 11px; padding: 6px 8px; }
+            .message-box p { font-size: 15px; }
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- header -->
-        <header>
-            <div class="logo">
-                <img src="logo-thekachoo.png" alt="KACHOO" id="logoKachoo" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'56\' height=\'56\' viewBox=\'0 0 100 100\'%3E%3Crect width=\'100\' height=\'100\' fill=\'%23000\'/%3E%3Ctext x=\'50\' y=\'70\' font-family=\'Arial\' font-size=\'50\' fill=\'%23fff\' text-anchor=\'middle\'%3EK%3C/text%3E%3C/svg%3E'">
-                <div class="logo-text">
-                    <h1>KACHOO</h1>
-                    <p>financial system</p>
-                </div>
+<div class="app-wrapper" id="appWrapper">
+    <div id="authPanel" class="auth-section">
+        <div class="logo-area">
+            <div class="custom-logo">
+                THE KACHOO
+                <span>EST. 2026</span>
             </div>
-        </header>
-
-        <main>
-            <!-- HANYA PAYROLL TITLE -->
-            <div class="payroll-title">KACHOO PAYROLL</div>
-            
-            <div class="table-wrapper">
-                <table id="payrollTable">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Position</th>
-                            <th>Salary (USD)</th>
-                            <th>Bonus (USD)</th>
-                            <th>Status</th>
-                            <th>Slip (PNG)</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tableBody">
-                        <!-- injected via js -->
-                    </tbody>
-                </table>
+        </div>
+        <div class="login-form">
+            <div class="input-group">
+                <label>Nama Karyawan</label>
+                <input type="text" id="employeeNameInput" placeholder="Masukkan nama lengkap..." autocomplete="off">
             </div>
-
-            <!-- global notification area -->
-            <div id="globalNotify" class="notification-block">
-                <!-- dinamis -->
-            </div>
-        </main>
-
-        <footer>
-            <div class="footer-content">
-                <div class="copyright">© 2026 KACHOO</div>
-                <div class="system-info">
-                    <span class="status-indicator-dot"></span>
-                    <span id="footerTimestamp">2026</span>
-                </div>
-            </div>
-        </footer>
+            <button id="enterButton" class="btn-auth">MASUK & AKSES GAJI</button>
+            <div id="loginError" class="error-msg"></div>
+            <div style="font-size:12px; margin-top:18px; color:#333;">Fitur Payroll ini dibuat oleh CHOBANK dan sistem Vaultx</div>
+        </div>
     </div>
 
-    <script>
-        (function() {
-            // ---------- DATA KARYAWAN (dengan BONUS) ----------
-            const employees = [
-                { name: 'Gathur D. Kafka', position: 'Chief Executive Officer', salary: 10000, bonus: 1500, pngFile: 'gathur_slip.png' },
-                { name: 'Ningrum A. Kafka', position: 'Chief Finance Officer', salary: 5000, bonus: 1200, pngFile: 'ningrum_slip.png' },
-                { name: 'Ashraffi Yudha', position: 'Head Editor of Kazine Issue', salary: 3000, bonus: 800, pngFile: 'ashraffi_slip.png' },
-                { name: 'Claudia Charmaine', position: 'Creative Designer of Kazine', salary: 2500, bonus: 700, pngFile: 'claudia_slip.png' },
-                { name: 'Vivianne Jamila', position: 'Public Relation of Kazine', salary: 2000, bonus: 600, pngFile: 'vivianne_slip.png' },
-                { name: 'Nona Rengganis', position: 'Color Specialist of Kazine', salary: 2000, bonus: 600, pngFile: 'nona_slip.png' }
-            ];
+    <div id="salaryDashboard" class="salary-dashboard">
+        <div class="dashboard-header">
+            <div class="company-title">THE KACHOO PAYROLL - 2026</div>
+            <button id="logoutDashboardBtn" class="logout-btn">Keluar</button>
+        </div>
+        <div id="welcomeUserArea" class="welcome-card">
+            <p id="welcomeText"></p>
+        </div>
+        <div class="month-selector-container">
+            <label>Pilih Bulan Gaji</label>
+            <div class="month-buttons" id="monthButtonsContainer"></div>
+        </div>
+        <div class="slip-preview" id="slipPreviewArea"></div>
+    </div>
+</div>
 
-            // GITHUB BASE (ganti dengan repo asli Anda)
-            const GITHUB_RAW = 'https://raw.githubusercontent.com/yourusername/kachoo-slip/main/';
+<script>
+    // SEMUA BULAN TAHUN 2026
+    const months2026 = [
+        { name: "Januari 2026", offset: 0, unlockDay: 30, isLaunching: true },
+        { name: "Februari 2026", offset: 1, unlockDay: 30, isLaunching: false },
+        { name: "Maret 2026", offset: 2, unlockDay: 30, isLaunching: false },
+        { name: "April 2026", offset: 3, unlockDay: 30, isLaunching: false },
+        { name: "Mei 2026", offset: 4, unlockDay: 30, isLaunching: false },
+        { name: "Juni 2026", offset: 5, unlockDay: 30, isLaunching: false },
+        { name: "Juli 2026", offset: 6, unlockDay: 30, isLaunching: false },
+        { name: "Agustus 2026", offset: 7, unlockDay: 30, isLaunching: false },
+        { name: "September 2026", offset: 8, unlockDay: 30, isLaunching: false },
+        { name: "Oktober 2026", offset: 9, unlockDay: 30, isLaunching: false },
+        { name: "November 2026", offset: 10, unlockDay: 30, isLaunching: false },
+        { name: "Desember 2026", offset: 11, unlockDay: 30, isLaunching: false }
+    ];
 
-            // LOGIKA TANGGAL (END OF FEB 2026)
-            const today = new Date();
-            // untuk simulasi, bisa ganti dengan:
-            // const today = new Date(2026, 1, 20); // 20 feb (belum gajian)
-            // const today = new Date(2026, 1, 28); // 28 feb (gajian)
-            const endFeb = new Date(2026, 1, 28); // 28 feb 2026
-            endFeb.setHours(23, 59, 59, 999);
-            const isPaid = (today >= endFeb);
+    const employeesData = {
+        "Gathur Delano Kafka": {
+            name: "Gathur Delano Kafka", position: "CEO",
+            startMonth: 1, baseStartSalary: 10000, incentive: 1500, incentiveStartMonth: 1,
+            hasNormalIncrease: true
+        },
+        "Ningrum Anindita Kafka": {
+            name: "Ningrum Anindita Kafka", position: "CFO",
+            startMonth: 2, baseStartSalary: 5000, incentive: 1200, incentiveStartMonth: 2,
+            hasNormalIncrease: true
+        },
+        "Isaac Logan": {
+            name: "Isaac Logan", position: "COO",
+            startMonth: 3, baseStartSalary: 5500, incentive: 1000, incentiveStartMonth: 4,
+            hasNormalIncrease: true
+        },
+        "Geriel Rakhastra": {
+            name: "Geriel Rakhastra", position: "Secretary",
+            startMonth: 3, baseStartSalary: 1500, incentive: 600, incentiveStartMonth: 4,
+            hasNormalIncrease: false, increaseStartMonth: 4
+        },
+        "Ashraffi Yudha": {
+            name: "Ashraffi Yudha", position: "Head Editor",
+            startMonth: 1, baseStartSalary: 3000, incentive: 800, incentiveStartMonth: 1,
+            hasNormalIncrease: true
+        },
+        "Claudia Chaarmaine": {
+            name: "Claudia Chaarmaine", position: "Creative Designer",
+            startMonth: 1, baseStartSalary: 2500, incentive: 700, incentiveStartMonth: 1,
+            hasNormalIncrease: true
+        },
+        "Vivianne Jamila": {
+            name: "Vivianne Jamila", position: "Public Relation",
+            startMonth: 1, baseStartSalary: 2000, incentive: 600, incentiveStartMonth: 1,
+            hasNormalIncrease: true
+        },
+        "Nona Rengganis Kinandari Panchakarma": {
+            name: "Nona Rengganis Kinandari Panchakarma", position: "Color Specialist",
+            startMonth: 1, baseStartSalary: 2000, incentive: 600, incentiveStartMonth: 1,
+            hasNormalIncrease: true
+        },
+        "Lucius Vincent": {
+            name: "Lucius Vincent", position: "Editor Staff",
+            startMonth: 3, baseStartSalary: 1500, incentive: 600, incentiveStartMonth: 4,
+            hasNormalIncrease: false, increaseStartMonth: 4
+        }
+    };
 
-            // render tabel
-            function renderTable() {
-                let html = '';
-                employees.forEach(emp => {
-                    let statusHtml = isPaid 
-                        ? '<span class="status-paid">PAID · FEB 2026</span>'
-                        : '<span class="status-pending">PENDING · PAY 28 FEB</span>';
+    function isMonthUnlocked(monthObj) {
+        if (monthObj.isLaunching) return false;
+        const now = new Date();
+        const currentYear = now.getFullYear();
+        const currentMonth = now.getMonth();
+        const currentDate = now.getDate();
+        
+        const targetYear = 2026;
+        const targetMonth = monthObj.offset;
+        const targetDay = monthObj.unlockDay;
+        
+        if (currentYear > targetYear) return true;
+        if (currentYear < targetYear) return false;
+        if (currentMonth > targetMonth) return true;
+        if (currentMonth === targetMonth && currentDate >= targetDay) return true;
+        return false;
+    }
 
-                    let slipHtml = '';
-                    if (isPaid) {
-                        const pngUrl = GITHUB_RAW + emp.pngFile;
-                        slipHtml = `<a href="${pngUrl}" target="_blank" class="slip-link">VIEW PNG</a>`;
-                    } else {
-                        slipHtml = '<span class="slip-placeholder">UNAVAILABLE</span>';
-                    }
-
-                    html += `<tr>
-                        <td class="name-cell">${emp.name}</td>
-                        <td class="position-cell">${emp.position}</td>
-                        <td class="salary-cell">$${emp.salary.toLocaleString()}</td>
-                        <td class="bonus-cell">$${emp.bonus.toLocaleString()}</td>
-                        <td class="status-cell">${statusHtml}</td>
-                        <td class="slip-cell">${slipHtml}</td>
-                    </tr>`;
-                });
-                document.getElementById('tableBody').innerHTML = html;
+    function getGrossBase(emp, targetMonthOffset) {
+        if (targetMonthOffset < emp.startMonth) return null;
+        
+        if (emp.hasNormalIncrease === false && emp.increaseStartMonth) {
+            if (targetMonthOffset < emp.increaseStartMonth) {
+                return emp.baseStartSalary;
+            } else {
+                const increaseMonths = targetMonthOffset - emp.increaseStartMonth;
+                return emp.baseStartSalary * (1 + (increaseMonths * 0.10));
             }
+        }
+        
+        if (emp.hasNormalIncrease) {
+            const monthsSinceStart = targetMonthOffset - emp.startMonth;
+            return emp.baseStartSalary * (1 + (monthsSinceStart * 0.10));
+        }
+        
+        return emp.baseStartSalary;
+    }
 
-            // notifikasi global
-            function setNotification() {
-                const notify = document.getElementById('globalNotify');
-                if (isPaid) {
-                    notify.innerText = '✓ FEBRUARY 2026 SALARY + BONUS COMPLETE. ALL SLIPS AVAILABLE.';
-                } else {
-                    notify.innerText = '⚠️ SALARY NOT YET DISBURSED. PAYMENT ON 28 FEBRUARY 2026.';
+    function getEarlyBonus(emp, targetMonthOffset, grossBase) {
+        if (emp.hasNormalIncrease === false && emp.increaseStartMonth) {
+            if (targetMonthOffset < emp.increaseStartMonth) {
+                return 0;
+            }
+        }
+        return grossBase * 0.10;
+    }
+
+    function computeSalaryForEmployee(emp, targetMonthOffset) {
+        if (targetMonthOffset < emp.startMonth) return null;
+        
+        const grossBase = getGrossBase(emp, targetMonthOffset);
+        if (grossBase === null) return null;
+        
+        const earlyBonus = getEarlyBonus(emp, targetMonthOffset, grossBase);
+        
+        let incentivePay = 0;
+        if (targetMonthOffset >= emp.incentiveStartMonth) {
+            incentivePay = emp.incentive;
+        }
+        
+        const totalGross = grossBase + earlyBonus + incentivePay;
+        const provident = totalGross * 0.02;
+        const professionalTax = totalGross * 0.05;
+        const netSalary = totalGross - provident - professionalTax;
+        
+        return { grossBase, earlyBonus, incentivePay, totalGross, provident, professionalTax, netSalary };
+    }
+
+    const usd = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2 });
+
+    const authPanel = document.getElementById('authPanel');
+    const dashboardDiv = document.getElementById('salaryDashboard');
+    const employeeNameInput = document.getElementById('employeeNameInput');
+    const enterBtn = document.getElementById('enterButton');
+    const loginErrorSpan = document.getElementById('loginError');
+    const monthButtonsContainer = document.getElementById('monthButtonsContainer');
+    const slipPreviewArea = document.getElementById('slipPreviewArea');
+    const logoutBtn = document.getElementById('logoutDashboardBtn');
+    const welcomeTextSpan = document.getElementById('welcomeText');
+
+    let currentUser = null;
+    let currentSelectedMonthOffset = null;
+
+    function authenticateEmployee(inputName) {
+        const trimmed = inputName.trim().toLowerCase();
+        const foundKey = Object.keys(employeesData).find(key => key.toLowerCase() === trimmed);
+        if (foundKey) {
+            currentUser = employeesData[foundKey];
+            loginErrorSpan.textContent = '';
+            return true;
+        } else {
+            loginErrorSpan.textContent = 'Nama tidak terdaftar.';
+            return false;
+        }
+    }
+
+    // Menentukan bulan terakhir yang slipnya sudah tersedia untuk karyawan ini
+    function getLastAvailableMonthForEmployee() {
+        let lastAvailable = currentUser.startMonth; // minimal bulan mulai bekerja
+        
+        for (let i = months2026.length - 1; i >= 0; i--) {
+            const month = months2026[i];
+            if (month.isLaunching) continue;
+            if (month.offset < currentUser.startMonth) continue;
+            
+            const unlocked = isMonthUnlocked(month);
+            if (unlocked) {
+                lastAvailable = month.offset;
+                break;
+            }
+        }
+        return lastAvailable;
+    }
+
+    function renderMonthButtons() {
+        monthButtonsContainer.innerHTML = '';
+        months2026.forEach((month) => {
+            const btn = document.createElement('button');
+            btn.textContent = month.name;
+            btn.classList.add('month-btn');
+            
+            if (currentSelectedMonthOffset === month.offset) {
+                btn.classList.add('active');
+            }
+            
+            btn.addEventListener('click', () => {
+                currentSelectedMonthOffset = month.offset;
+                renderMonthButtons();
+                renderPayslip();
+            });
+            
+            monthButtonsContainer.appendChild(btn);
+        });
+    }
+
+    function renderPayslip() {
+        if (!currentUser || currentSelectedMonthOffset === null) return;
+        
+        const targetMonth = months2026.find(m => m.offset === currentSelectedMonthOffset);
+        if (!targetMonth) return;
+        
+        if (targetMonth.isLaunching) {
+            slipPreviewArea.innerHTML = `
+                <div class="message-box">
+                    <p>Kachoo Launching</p>
+                    <div class="subnote">The Kachoo resmi beroperasi mulai Februari 2026. Terima kasih!</div>
+                </div>
+            `;
+            return;
+        }
+        
+        const unlocked = isMonthUnlocked(targetMonth);
+        const isEmployed = currentSelectedMonthOffset >= currentUser.startMonth;
+        
+        if (!unlocked) {
+            slipPreviewArea.innerHTML = `
+                <div class="message-box">
+                    <p>Maaf, tarik gaji hanya bisa diambil pada tanggal 30 di bulan yang sama. Silahkan kembali lagi nanti.</p>
+                    <div class="subnote">Slip gaji ${targetMonth.name} baru bisa diakses pada tanggal 30 ${targetMonth.name.split(' ')[0]} 2026.</div>
+                </div>
+            `;
+            return;
+        }
+        
+        if (!isEmployed) {
+            const startMonthName = months2026.find(m => m.offset === currentUser.startMonth)?.name || 'bulan masuk';
+            slipPreviewArea.innerHTML = `
+                <div class="message-box">
+                    <p>Anda mulai bekerja pada ${startMonthName}. Belum menerima gaji untuk periode ${targetMonth.name}.</p>
+                </div>
+            `;
+            return;
+        }
+        
+        const payroll = computeSalaryForEmployee(currentUser, targetMonth.offset);
+        if (!payroll) {
+            slipPreviewArea.innerHTML = `<div class="message-box"><p>Data gaji tidak tersedia untuk bulan ini.</p></div>`;
+            return;
+        }
+        
+        const slipHTML = `
+            <div class="payslip-card" id="payslipToCapture">
+                <div class="company-header">
+                    <div class="company-name">THE KACHOO</div>
+                    <div class="company-address">Jenderal Sudirman Avenue, Lots 61–62, South Jakarta 12930, Indonesia.</div>
+                </div>
+                <div class="slip-title">SLIP GAJI BULANAN</div>
+                <div style="text-align:center;">
+                    <div class="period-badge">${targetMonth.name}</div>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Nama Karyawan</span>
+                    <span class="info-value">${currentUser.name}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Jabatan</span>
+                    <span class="info-value">${currentUser.position}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Gaji Pokok Bulan Ini</span>
+                    <span class="info-value">${usd.format(payroll.grossBase)}</span>
+                </div>
+                <table class="salary-table">
+                    <tr><td>Gaji Pokok</td><td>${usd.format(payroll.grossBase)}</td></tr>
+                    ${payroll.earlyBonus > 0 ? `<tr><td>Bonus Awal Bulan (10% dari gaji pokok)</td><td>${usd.format(payroll.earlyBonus)}</td></tr>` : ''}
+                    ${payroll.incentivePay > 0 ? `<tr><td>Incentive Pay</td><td>${usd.format(payroll.incentivePay)}</td></tr>` : ''}
+                    <tr><td style="border-top:1px solid #aaa;">Total Penghasilan Kotor</td><td style="border-top:1px solid #aaa;">${usd.format(payroll.totalGross)}</td></tr>
+                    <tr><td>Provident Fund (2% dari total kotor)</td><td>${usd.format(payroll.provident)}</td></tr>
+                    <tr><td>Professional Tax (5% dari total kotor)</td><td>${usd.format(payroll.professionalTax)}</td></tr>
+                    <tr class="total-net"><td><strong>GAJI BERSIH (Take Home)</strong></td><td><strong>${usd.format(payroll.netSalary)}</strong></td></tr>
+                </table>
+                <div class="footer-note">For Roleplay Purpose Only made by Kachoo</div>
+            </div>
+            <div class="action-buttons">
+                <button id="tarikGajiBtn" class="btn-tarik">Tarik Gaji (PNG)</button>
+            </div>
+        `;
+        slipPreviewArea.innerHTML = slipHTML;
+        
+        const tarikBtn = document.getElementById('tarikGajiBtn');
+        if (tarikBtn) {
+            tarikBtn.addEventListener('click', async () => {
+                const slipElement = document.getElementById('payslipToCapture');
+                if (!slipElement) return;
+                try {
+                    const canvas = await html2canvas(slipElement, {
+                        scale: 2.5,
+                        backgroundColor: '#ffffff',
+                        logging: false,
+                        useCORS: false
+                    });
+                    const link = document.createElement('a');
+                    link.download = `payslip_${currentUser.name.replace(/\s/g, '_')}_${targetMonth.name.replace(/\s/g, '_')}.png`;
+                    link.href = canvas.toDataURL('image/png');
+                    link.click();
+                } catch(e) {
+                    alert("Gagal generate PNG.");
                 }
-            }
+            });
+        }
+    }
 
-            // footer timestamp
-            function updateFooter() {
-                const now = new Date();
-                const timeStr = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
-                const foot = document.getElementById('footerTimestamp');
-                if (foot) foot.innerText = `feb 2026 · ${timeStr}`;
-            }
+    function initDashboard() {
+        welcomeTextSpan.innerHTML = `Selamat datang, <strong>${currentUser.name}</strong> - ${currentUser.position}`;
+        // BUKA BULAN TERAKHIR YANG SLIPNYA SUDAH TERSEDIA
+        currentSelectedMonthOffset = getLastAvailableMonthForEmployee();
+        renderMonthButtons();
+        renderPayslip();
+    }
 
-            // fallback logo
-            const logo = document.getElementById('logoKachoo');
-            if (logo) {
-                logo.onerror = function() {
-                    this.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='56' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23000'/%3E%3Ctext x='50' y='70' font-family='Arial' font-size='50' fill='%23fff' text-anchor='middle'%3EK%3C/text%3E%3C/svg%3E";
-                };
-            }
+    function showDashboard() {
+        authPanel.style.display = 'none';
+        dashboardDiv.style.display = 'block';
+        initDashboard();
+    }
 
-            // initial render
-            renderTable();
-            setNotification();
-            updateFooter();
-            setInterval(updateFooter, 60000);
-        })();
-    </script>
+    function logout() {
+        currentUser = null;
+        authPanel.style.display = 'block';
+        dashboardDiv.style.display = 'none';
+        employeeNameInput.value = '';
+        loginErrorSpan.textContent = '';
+        slipPreviewArea.innerHTML = '';
+    }
+
+    enterBtn.addEventListener('click', () => {
+        if (authenticateEmployee(employeeNameInput.value)) showDashboard();
+    });
+    employeeNameInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter' && authenticateEmployee(employeeNameInput.value)) showDashboard();
+    });
+    logoutBtn.addEventListener('click', logout);
+
+    authPanel.style.display = 'block';
+    dashboardDiv.style.display = 'none';
+</script>
 </body>
-</html>
+    </html>
