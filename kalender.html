@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Kalender Kachoo - Internasional</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #ffffff;
+            color: #111;
+            font-family: 'Outfit', 'Segoe UI', system-ui, -apple-system, sans-serif;
+            line-height: 1.4;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 1rem 1rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header-modern {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            padding: 0.8rem 0 1rem 0;
+            border-bottom: 3px solid #000;
+            margin-bottom: 1.5rem;
+        }
+
+        .brand-area {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+        }
+
+        .logo-wrapper img {
+            height: 48px;
+            width: auto;
+            object-fit: contain;
+            display: block;
+        }
+
+        .brand-text h1 {
+            font-size: 1.6rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            color: #000;
+            margin: 0;
+            line-height: 1.2;
+        }
+
+        .brand-text span {
+            font-size: 0.7rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #555;
+            border-left: 2px solid #000;
+            padding-left: 0.5rem;
+            margin-top: 0.15rem;
+            display: inline-block;
+        }
+
+        .dashboard-header {
+            margin-bottom: 1.2rem;
+        }
+
+        .dashboard-header h2 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #000;
+            margin-bottom: 0.2rem;
+            letter-spacing: -0.3px;
+        }
+
+        .dashboard-header p {
+            color: #555;
+            font-size: 0.85rem;
+        }
+
+        .calendar-wrapper {
+            background: #fff;
+            border: 2px solid #000;
+            border-radius: 24px;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 6px 0 rgba(0, 0, 0, 0.02);
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.2rem;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+        }
+
+        .month-year {
+            font-size: 1.4rem;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+            color: #000;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 0.6rem;
+        }
+
+        .nav-btn {
+            background: #fff;
+            border: 2px solid #000;
+            padding: 0.4rem 0.9rem;
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: 'Outfit', sans-serif;
+            color: #000;
+        }
+
+        .nav-btn:hover {
+            background: #000;
+            color: #fff;
+        }
+
+        .weekdays {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            text-align: center;
+            font-weight: 700;
+            padding: 0.6rem 0;
+            border-bottom: 2px solid #eaeaea;
+            margin-bottom: 0.6rem;
+            color: #333;
+            font-size: 0.75rem;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+        }
+
+        .calendar-day {
+            background: #fefefe;
+            border: 1px solid #e8e8e8;
+            border-radius: 12px;
+            padding: 0.4rem 0.2rem;
+            min-height: 70px;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.1s ease;
+            cursor: pointer;
+        }
+
+        .calendar-day.empty {
+            background: #fafafa;
+            border-color: #efefef;
+        }
+
+        .calendar-day.other-month {
+            background: #f7f7f7;
+            border-color: #eeeeee;
+        }
+        .calendar-day.other-month .day-number {
+            color: #bbb;
+            font-weight: 400;
+        }
+        .calendar-day.other-month .day-number.has-event {
+            color: #c9a03d;
+        }
+
+        .day-number {
+            font-weight: 700;
+            font-size: 0.85rem;
+            margin-bottom: 0.25rem;
+            padding: 0.1rem 0.4rem;
+            border-radius: 40px;
+            align-self: flex-start;
+            color: #222;
+        }
+
+        .day-number.has-event {
+            color: #e67e22;
+        }
+
+        .day-number.today {
+            background: #000;
+            color: white;
+        }
+        .day-number.today.has-event {
+            background: #000;
+            color: white;
+        }
+
+        .event-popup {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1e1e1e;
+            color: #f5f5f5;
+            padding: 0.9rem 1.2rem;
+            border-radius: 28px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            max-width: 85%;
+            width: auto;
+            z-index: 1000;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            border-left: 5px solid #e67e22;
+            backdrop-filter: blur(8px);
+            background: rgba(0,0,0,0.85);
+            text-align: center;
+            line-height: 1.4;
+            pointer-events: none;
+            transition: opacity 0.2s;
+            font-family: 'Outfit', sans-serif;
+        }
+        .event-popup strong {
+            color: #f39c12;
+        }
+
+        footer {
+            margin-top: 0.8rem;
+            padding-top: 1rem;
+            border-top: 2px solid #000;
+            font-size: 0.7rem;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .copyright {
+            font-weight: 500;
+            color: #444;
+            letter-spacing: 0.2px;
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                padding: 0.8rem 0.8rem;
+            }
+            .calendar-wrapper {
+                padding: 0.8rem;
+            }
+            .calendar-day {
+                min-height: 62px;
+                padding: 0.3rem 0.2rem;
+            }
+            .day-number {
+                font-size: 0.75rem;
+                margin-bottom: 0.2rem;
+                padding: 0.05rem 0.3rem;
+            }
+            .weekdays {
+                font-size: 0.65rem;
+                padding: 0.4rem 0;
+            }
+            .month-year {
+                font-size: 1.2rem;
+            }
+            .nav-btn {
+                padding: 0.3rem 0.7rem;
+                font-size: 0.7rem;
+            }
+            .brand-text h1 {
+                font-size: 1.3rem;
+            }
+            .logo-wrapper img {
+                height: 40px;
+            }
+            .dashboard-header h2 {
+                font-size: 1.3rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .calendar-grid {
+                gap: 3px;
+            }
+            .calendar-day {
+                min-height: 58px;
+                border-radius: 10px;
+            }
+            .day-number {
+                font-size: 0.7rem;
+            }
+            .weekdays span {
+                font-size: 0.6rem;
+            }
+        }
+        @media (max-width: 380px) {
+            .calendar-day {
+                min-height: 54px;
+            }
+            .day-number {
+                font-size: 0.65rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header-modern">
+        <div class="brand-area">
+            <div class="logo-wrapper">
+                <img src="logo-thekachoo.png" alt="KACHOO" id="logoKachoo">
+            </div>
+            <div class="brand-text">
+                <h1>Kalender Kachoo</h1>
+                <span>Hari Besar Internasional</span>
+            </div>
+        </div>
+    </div>
+
+    <main>
+        <div class="dashboard-header">
+            <h2>Kalender Global</h2>
+            <p></p>
+        </div>
+
+        <div class="calendar-wrapper">
+            <div class="calendar-header">
+                <div class="month-year" id="monthYearDisplay">Januari 2026</div>
+                <div class="nav-buttons">
+                    <button class="nav-btn" id="prevMonthBtn">← Sebelum</button>
+                    <button class="nav-btn" id="nextMonthBtn">Berikut →</button>
+                </div>
+            </div>
+            <div class="weekdays">
+                <span>Min</span><span>Sen</span><span>Sel</span><span>Rab</span><span>Kam</span><span>Jum</span><span>Sab</span>
+            </div>
+            <div id="calendarGrid" class="calendar-grid"></div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="copyright">
+                2026 KALENDER KACHOO for Roleplay Purpose Only
+            </div>
+        </div>
+    </footer>
+</div>
+
+<script>
+    // Data Hari Besar Internasional dan Nasional (custom berdasarkan permintaan)
+    const internationalDays = [
+        // Januari
+        { month: 0, day: 1, name: "Tahun Baru Masehi" },
+        { month: 0, day: 27, name: "Hari Peringatan Holocaust" },
+        // Februari
+        { month: 1, day: 4, name: "Hari Kanker Sedunia" },
+        { month: 1, day: 11, name: "Hari Perempuan & Anak Ilmu Pengetahuan" },
+        { month: 1, day: 13, name: "Hari Radio Sedunia" },
+        { month: 1, day: 20, name: "Hari Keadilan Sosial" },
+        { month: 1, day: 21, name: "Hari Bahasa Ibu" },
+        // Maret
+        { month: 2, day: 2, name: "Hari Autisme Sedunia" },
+        { month: 2, day: 4, name: "Hari Ranjau Internasional" },
+        { month: 2, day: 5, name: "Hari Olahraga untuk Perdamaian" },
+        { month: 2, day: 7, name: "Hari Kesehatan Sedunia" },
+        { month: 2, day: 12, name: "Hari Penerbangan Antariksa" },
+        { month: 2, day: 18, name: "Hari Monumen & Situs" },
+        { month: 2, day: 22, name: "Hari Bumi" },
+        { month: 2, day: 23, name: "Hari Buku & Hak Cipta" },
+        { month: 2, day: 25, name: "Hari Malaria Sedunia" },
+        { month: 2, day: 26, name: "Hari Kekayaan Intelektual" },
+        { month: 2, day: 28, name: "Hari K3 Sedunia" },
+        // April
+        { month: 3, day: 1, name: "Hari Buruh" },
+        { month: 3, day: 3, name: "Hari Kebebasan Pers" },
+        { month: 3, day: 5, name: "Hari Palang Merah" },
+        { month: 3, day: 9, name: "Hari Keluarga" },
+        { month: 3, day: 10, name: "Hari Telekomunikasi" },
+        { month: 3, day: 12, name: "Hari Keanekaragaman Hayati" },
+        { month: 3, day: 21, name: "Hari Kartini" },
+        { month: 3, day: 22, name: "Hari Bumi (peringatan)" },
+        { month: 3, day: 29, name: "Hari Penjaga Perdamaian PBB" },
+        { month: 3, day: 30, name: "Hari Tanpa Tembakau" },
+        // Mei
+        { month: 4, day: 1, name: "Hari Anak Sedunia" },
+        { month: 4, day: 4, name: "Hari Lingkungan Hidup" },
+        { month: 4, day: 5, name: "Hari Laut Sedunia" },
+        { month: 4, day: 8, name: "Hari Anti Pekerja Anak" },
+        { month: 4, day: 12, name: "Hari Donor Darah" },
+        { month: 4, day: 15, name: "Hari Pengungsi Sedunia" },
+        { month: 4, day: 17, name: "Hari Desertifikasi" },
+        { month: 4, day: 20, name: "Hari Koperasi" },
+        { month: 4, day: 21, name: "Hari Yoga" },
+        { month: 4, day: 23, name: "Hari Kelautan & Perikanan" },
+        { month: 4, day: 26, name: "Hari Anti Narkoba" },
+        // Juni (Idul Adha diperkirakan jatuh di bulan Juni 2026, contoh 17 Juni 2026)
+        { month: 5, day: 17, name: "Hari Idul Adha" },
+        { month: 5, day: 1, name: "Hari Kependudukan" },
+        { month: 5, day: 4, name: "Hari Asteroid" },
+        { month: 5, day: 6, name: "Hari UMKM" },
+        { month: 5, day: 11, name: "Hari Populasi" },
+        { month: 5, day: 15, name: "Hari Keterampilan Pemuda" },
+        { month: 5, day: 17, name: "Hari Keadilan Internasional" },
+        { month: 5, day: 18, name: "Hari Nelson Mandela" },
+        { month: 5, day: 20, name: "Hari Catur Sedunia" },
+        { month: 5, day: 25, name: "Hari Pencegahan Tenggelam" },
+        { month: 5, day: 28, name: "Hari Hepatitis" },
+        { month: 5, day: 30, name: "Hari Persahabatan" },
+        // Juli
+        { month: 6, day: 1, name: "Hari Pedesaan" },
+        { month: 6, day: 9, name: "Hari Masyarakat Adat" },
+        { month: 6, day: 12, name: "Hari Pemuda" },
+        { month: 6, day: 19, name: "Hari Kemanusiaan" },
+        { month: 6, day: 23, name: "Hari Penghapusan Perbudakan" },
+        { month: 6, day: 30, name: "Hari Anti Perdagangan Orang Sedunia" },
+        // Agustus
+        { month: 7, day: 17, name: "Hari Kemerdekaan Indonesia" },
+        { month: 7, day: 23, name: "Peringatan Perdagangan serta Penghapusan Perbudakan" },
+        { month: 7, day: 5, name: "Hari Amal" },
+        { month: 7, day: 8, name: "Hari Literasi" },
+        { month: 7, day: 15, name: "Hari Demokrasi" },
+        { month: 7, day: 16, name: "Hari Perlindungan Ozon" },
+        { month: 7, day: 21, name: "Hari Perdamaian" },
+        { month: 7, day: 26, name: "Hari Maritim" },
+        { month: 7, day: 27, name: "Hari Pariwisata" },
+        { month: 7, day: 28, name: "Hari Akses Informasi" },
+        // September 
+        { month: 8, day: 29, name: "Hari Kopi Sedunia" },
+        { month: 8, day: 29, name: "Hari Hak Informasi Internasional" },
+        { month: 8, day: 1, name: "Hari Vegetarian" },
+        { month: 8, day: 2, name: "Hari Tanpa Kekerasan" },
+        { month: 8, day: 4, name: "Hari Hewan" },
+        { month: 8, day: 5, name: "Hari Guru" },
+        { month: 8, day: 9, name: "Hari Pos" },
+        { month: 8, day: 10, name: "Hari Kesehatan Mental" },
+        { month: 8, day: 13, name: "Hari Pengurangan Bencana" },
+        { month: 8, day: 15, name: "Hari Perempuan Pedesaan" },
+        { month: 8, day: 16, name: "Hari Pangan" },
+        { month: 8, day: 17, name: "Hari Penghapusan Kemiskinan" },
+        { month: 8, day: 24, name: "Hari PBB" },
+        { month: 8, day: 27, name: "Hari Statistik" },
+        // Oktober
+        { month: 9, day: 1, name: "Hari Masyarakat Lansia Internasional" },
+        { month: 9, day: 27, name: "Hari Warisan Budaya Audio-visual Sedunia" },
+        { month: 9, day: 31, name: "Halloween" },
+        { month: 9, day: 9, name: "Hari Sains untuk Perdamaian" },
+        { month: 9, day: 10, name: "Hari Toleransi" },
+        { month: 9, day: 14, name: "Hari Diabetes" },
+        { month: 9, day: 16, name: "Hari Filsafat" },
+        { month: 9, day: 17, name: "Hari Anak" },
+        { month: 9, day: 19, name: "Hari Toilet" },
+        { month: 9, day: 20, name: "Hari Industrialisasi Afrika" },
+        { month: 9, day: 21, name: "Hari Televisi" },
+        { month: 9, day: 25, name: "Hari Anti Kekerasan pada Perempuan" },
+        { month: 9, day: 29, name: "Hari Solidaritas Rakyat Palestina" },
+        // November
+        { month: 10, day: 10, name: "Hari Pahlawan Nasional" },
+        { month: 10, day: 1, name: "Hari AIDS" },
+        { month: 10, day: 2, name: "Hari Penghapusan Perbudakan" },
+        { month: 10, day: 3, name: "Hari Disabilitas" },
+        { month: 10, day: 5, name: "Hari Sukarelawan" },
+        { month: 10, day: 7, name: "Hari Penerbangan Sipil" },
+        { month: 10, day: 9, name: "Hari Anti Korupsi" },
+        { month: 10, day: 11, name: "Hari Gunung" },
+        { month: 10, day: 18, name: "Hari Migran" },
+        { month: 10, day: 20, name: "Hari Persatuan Arab" },
+        { month: 10, day: 25, name: "Hari Guru Nasional" },
+        // Desember
+        { month: 11, day: 25, name: "Hari Natal" },
+        { month: 11, day: 2, name: "Hari Batik Nasional" },
+        { month: 11, day: 28, name: "Hari Sumpah Pemuda" }
+    ];
+
+    let currentDate = new Date();
+    if (currentDate.getFullYear() !== 2026) {
+        currentDate = new Date(2026, currentDate.getMonth(), 1);
+    }
+
+    const monthNames = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+
+    function getEventsForDate(year, month, day) {
+        return internationalDays.filter(ev => ev.month === month && ev.day === day);
+    }
+
+    let activePopup = null;
+    function showEventPopup(day, month, year, events) {
+        if (activePopup) {
+            activePopup.remove();
+            activePopup = null;
+        }
+        if (!events || events.length === 0) return;
+        const dateStr = `${day} ${monthNames[month]} ${year}`;
+        const eventNames = events.map(e => e.name).join(" · ");
+        const popup = document.createElement("div");
+        popup.className = "event-popup";
+        popup.innerHTML = `<strong>${dateStr}</strong><br>${eventNames}`;
+        document.body.appendChild(popup);
+        activePopup = popup;
+        setTimeout(() => {
+            if (activePopup) {
+                activePopup.remove();
+                activePopup = null;
+            }
+        }, 3500);
+    }
+
+    function renderCalendar() {
+        const year = currentDate.getFullYear();
+        const month = currentDate.getMonth();
+        
+        const firstDayOfMonth = new Date(year, month, 1);
+        let startWeekday = firstDayOfMonth.getDay(); 
+        const daysInMonth = new Date(year, month + 1, 0).getDate();
+        const prevMonthDays = new Date(year, month, 0).getDate();
+        
+        const monthYearDisplay = document.getElementById("monthYearDisplay");
+        monthYearDisplay.innerText = `${monthNames[month]} ${year}`;
+        
+        const gridContainer = document.getElementById("calendarGrid");
+        gridContainer.innerHTML = "";
+        
+        const totalCells = 42;
+        const todayDateObj = new Date();
+        const isCurrentYearMonthToday = (todayDateObj.getFullYear() === year && todayDateObj.getMonth() === month);
+        
+        for (let i = 0; i < totalCells; i++) {
+            let cellDay = null;
+            let cellMonth = month;
+            let cellYear = year;
+            let isCurrentMonthCell = true;
+            
+            if (i < startWeekday) {
+                const prevDate = prevMonthDays - (startWeekday - i) + 1;
+                cellDay = prevDate;
+                cellMonth = month - 1;
+                if (cellMonth < 0) {
+                    cellMonth = 11;
+                    cellYear = year - 1;
+                }
+                isCurrentMonthCell = false;
+            } else if (i >= startWeekday + daysInMonth) {
+                const nextDate = i - (startWeekday + daysInMonth) + 1;
+                cellDay = nextDate;
+                cellMonth = month + 1;
+                if (cellMonth > 11) {
+                    cellMonth = 0;
+                    cellYear = year + 1;
+                }
+                isCurrentMonthCell = false;
+            } else {
+                cellDay = i - startWeekday + 1;
+                cellMonth = month;
+                cellYear = year;
+                isCurrentMonthCell = true;
+            }
+            
+            const dayDiv = document.createElement("div");
+            dayDiv.className = "calendar-day";
+            if (!isCurrentMonthCell) {
+                dayDiv.classList.add("other-month");
+            }
+            
+            const dayNumberSpan = document.createElement("div");
+            dayNumberSpan.className = "day-number";
+            dayNumberSpan.innerText = cellDay;
+            
+            const events = getEventsForDate(cellYear, cellMonth, cellDay);
+            const hasEvent = events.length > 0;
+            if (hasEvent) {
+                dayNumberSpan.classList.add("has-event");
+            }
+            
+            if (isCurrentMonthCell && isCurrentYearMonthToday && cellDay === todayDateObj.getDate()) {
+                dayNumberSpan.classList.add("today");
+                if (hasEvent) dayNumberSpan.classList.add("has-event");
+            }
+            
+            dayDiv.appendChild(dayNumberSpan);
+            
+            dayDiv.addEventListener("click", (function(d, m, y, evs) {
+                return function() {
+                    if (evs.length > 0) {
+                        showEventPopup(d, m, y, evs);
+                    } else {
+                        if (activePopup) activePopup.remove();
+                        const noEventPopup = document.createElement("div");
+                        noEventPopup.className = "event-popup";
+                        noEventPopup.innerHTML = `<strong>${d} ${monthNames[m]} ${y}</strong><br>Tidak ada peringatan`;
+                        document.body.appendChild(noEventPopup);
+                        activePopup = noEventPopup;
+                        setTimeout(() => {
+                            if (activePopup) activePopup.remove();
+                            if (activePopup === noEventPopup) activePopup = null;
+                        }, 1800);
+                    }
+                };
+            })(cellDay, cellMonth, cellYear, events));
+            
+            gridContainer.appendChild(dayDiv);
+        }
+    }
+    
+    function prevMonth() {
+        currentDate.setMonth(currentDate.getMonth() - 1);
+        renderCalendar();
+        if (activePopup) { activePopup.remove(); activePopup = null; }
+    }
+    
+    function nextMonth() {
+        currentDate.setMonth(currentDate.getMonth() + 1);
+        renderCalendar();
+        if (activePopup) { activePopup.remove(); activePopup = null; }
+    }
+    
+    document.getElementById("prevMonthBtn").addEventListener("click", prevMonth);
+    document.getElementById("nextMonthBtn").addEventListener("click", nextMonth);
+    
+    const mainLogo = document.getElementById('logoKachoo');
+    if (mainLogo) {
+        mainLogo.onerror = function() {
+            this.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23000'/%3E%3Ctext x='50' y='68' font-family='Arial' font-size='48' fill='%23fff' text-anchor='middle'%3EK%3C/text%3E%3C/svg%3E";
+        };
+    }
+    
+    renderCalendar();
+</script>
+</body>
+</html>
