@@ -31,7 +31,7 @@
             flex-direction: column;
         }
 
-        /* Header modern - hitam putih, tanpa emot */
+        /* Header modern - tanpa badge */
         .header-modern {
             display: flex;
             align-items: center;
@@ -46,45 +46,36 @@
         .brand-area {
             display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: 1.2rem;
             flex-wrap: wrap;
         }
 
         .logo-wrapper img {
-            height: 60px;
+            height: 70px;
             width: auto;
             object-fit: contain;
             display: block;
         }
 
         .brand-text h1 {
-            font-size: 2rem;
+            font-size: 2.4rem;
             font-weight: 800;
             letter-spacing: -0.5px;
             color: #000;
             margin: 0;
+            line-height: 1.2;
         }
 
         .brand-text span {
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             font-weight: 500;
             text-transform: uppercase;
             letter-spacing: 1px;
             color: #444;
             border-left: 3px solid #000;
-            padding-left: 0.6rem;
-            margin-top: 0.2rem;
+            padding-left: 0.7rem;
+            margin-top: 0.3rem;
             display: inline-block;
-        }
-
-        .header-badge {
-            background: #f2f2f2;
-            padding: 0.5rem 1rem;
-            border-radius: 40px;
-            font-size: 0.8rem;
-            font-weight: 500;
-            border: 1px solid #e0e0e0;
-            color: #222;
         }
 
         .dashboard-header {
@@ -400,7 +391,7 @@
             font-size: 1rem;
         }
 
-        /* RESPONSIVE - HANYA BAGIAN HEADER YANG DIUBAH (logo rapat dengan teks) */
+        /* RESPONSIVE - logo & tulisan lebih besar & pas */
         @media (max-width: 768px) {
             .container {
                 padding: 1rem 1.25rem;
@@ -408,25 +399,24 @@
             .header-modern {
                 flex-direction: column;
                 align-items: flex-start;
-                gap: 0.5rem;  /* jarak antar baris header diperkecil */
+                gap: 0.5rem;
             }
             .brand-area {
                 width: 100%;
-                gap: 0.25rem;   /* !!! Kunci: menghilangkan jarak besar antara logo dan teks */
+                gap: 0.5rem;
                 flex-wrap: nowrap;
                 justify-content: flex-start;
             }
             .logo-wrapper img {
-                height: 45px;    /* sedikit mengecil agar proporsional */
-                margin-right: 0; /* pastikan tidak ada margin tambahan */
+                height: 55px;
             }
             .brand-text h1 {
-                font-size: 1.7rem;
+                font-size: 2rem;
                 line-height: 1.2;
             }
             .brand-text span {
-                font-size: 0.7rem;
-                padding-left: 0.4rem;
+                font-size: 0.75rem;
+                padding-left: 0.5rem;
             }
             .dashboard-header h2 {
                 font-size: 1.7rem;
@@ -444,28 +434,31 @@
         }
 
         @media (max-width: 550px) {
+            .brand-area {
+                gap: 0.4rem;
+            }
+            .logo-wrapper img {
+                height: 48px;
+            }
+            .brand-text h1 {
+                font-size: 1.7rem;
+            }
+            .brand-text span {
+                font-size: 0.7rem;
+                padding-left: 0.4rem;
+            }
             .department-card {
                 border-radius: 24px;
             }
             .modal-card {
                 padding: 1.5rem;
             }
-            /* pastikan di layar sangat kecil logo tetap rapat */
-            .brand-area {
-                gap: 0.2rem;
-            }
-            .logo-wrapper img {
-                height: 40px;
-            }
-            .brand-text h1 {
-                font-size: 1.5rem;
-            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Header modern -->
+        <!-- Header modern - tanpa badge -->
         <div class="header-modern">
             <div class="brand-area">
                 <div class="logo-wrapper">
@@ -476,9 +469,7 @@
                     <span>database system</span>
                 </div>
             </div>
-            <div class="header-badge">
-                <i class="fas fa-database"></i> v2.0 · secure
-            </div>
+            <!-- BADGE SUDAH DIHAPUS -->
         </div>
 
         <main>
@@ -641,9 +632,9 @@
                 { username: "GATHUR", password: "gath61", redirect: "v1execho.html", allowedDept: "core" },
                 { username: "NINGRUM", password: "masukdulu123", redirect: "v1execho2.html", allowedDept: "core" },
                 // KAZINE
-                { username: "VIVI", password: "risolmayodimsumhalal", redirect: "v1prcho.html", allowedDept: "kazine" },
+                { username: "VIVI", password: "masukdulu123", redirect: "v1prcho.html", allowedDept: "kazine" },
                 { username: "RAFI", password: "masukdulu123", redirect: "v1zine1.html", allowedDept: "kazine" },
-                { username: "CLAUDIA", password: "ccharmaine", redirect: "v1zine2.html", allowedDept: "kazine" },
+                { username: "CLAUDIA", password: "masukdulu123", redirect: "v1zine2.html", allowedDept: "kazine" },
                 { username: "NONA", password: "masukdulu123", redirect: "v1CSZine.html", allowedDept: "kazine" }
             ];
 
@@ -828,4 +819,4 @@
         })();
     </script>
 </body>
-</html>
+    </html>
