@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>KAZINE · Media & Publication Team</title>
+    <title>KAZINE</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
@@ -51,16 +51,6 @@
             height: 58px;
             width: auto;
             object-fit: contain;
-        }
-
-        .dept-badge {
-            background: #000;
-            color: white;
-            padding: 6px 16px;
-            border-radius: 40px;
-            font-weight: 600;
-            font-size: 0.8rem;
-            letter-spacing: 0.5px;
         }
 
         .back-link {
@@ -140,21 +130,6 @@
             margin-bottom: 1.5rem;
         }
 
-        .dept-info {
-            background: #f5f5f5;
-            padding: 0.8rem 1.2rem;
-            border-radius: 60px;
-            display: inline-block;
-            margin-bottom: 1.5rem;
-            font-size: 0.85rem;
-            font-weight: 500;
-        }
-
-        .dept-info i {
-            margin-right: 8px;
-            color: #000;
-        }
-
         .action-buttons {
             display: flex;
             flex-wrap: wrap;
@@ -175,13 +150,14 @@
             font-family: 'Outfit', sans-serif;
             display: inline-flex;
             align-items: center;
+            justify-content: center;
             gap: 10px;
             text-decoration: none;
             border: 2px solid #000;
         }
 
         .btn-exec i {
-            font-size: 1.1rem;
+            display: none;
         }
 
         .btn-exec:hover {
@@ -242,10 +218,6 @@
                 padding-top: 0.7rem;
                 display: inline-block;
             }
-            .dept-info {
-                display: inline-block;
-                margin-bottom: 1rem;
-            }
             .action-buttons {
                 justify-content: center;
             }
@@ -283,9 +255,8 @@
         <div class="header-kazine">
             <div class="logo-only">
                 <img src="logo-thekachoo.png" alt="KACHOO" id="kazineLogo">
-                <span class="dept-badge"><i class="fas fa-newspaper"></i> KAZINE</span>
             </div>
-            <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Database</a>
+            <a href="index.html" class="back-link">← Back to Database</a>
         </div>
 
         <main>
@@ -296,9 +267,6 @@
                 <div class="exec-details">
                     <div class="exec-name" id="execNameDisplay">Loading...</div>
                     <div class="exec-title" id="execTitleDisplay">——</div>
-                    <div class="dept-info" id="deptInfo">
-                        <i class="fas fa-users"></i> KAZINE · Media & Publication
-                    </div>
                     <div class="action-buttons" id="actionButtonsContainer"></div>
                 </div>
             </div>
@@ -307,24 +275,21 @@
         <footer>
             <div class="footer-note">
                 <div class="copyright">
-                    <i class="far fa-copyright"></i> <span>2026 KACHOO · KAZINE Dashboard</span>
+                    © 2026 KACHOO · KAZINE Dashboard
                 </div>
-                <div><i class="fas fa-magazine"></i> Media Division</div>
+                <div>Departement</div>
             </div>
         </footer>
     </div>
 
     <script>
         (function() {
-            // ======================= DATA PROFIL TIM KAZINE =======================
-            // Sesuai dengan credential di index.html:
-            // VIVI, RAFI, CLAUDIA, NONA, VINCENT
-            
             var kazineProfileMap = {
                 "VIVI": {
                     fullName: "Vivianne Jamila",
                     title: "Public Relation",
                     photo: "profil_vivi.png",
+                    officeLink: "https://maps.google.com/?q=Kachoo+Office+Building",
                     taskjobLink: "https://docs.google.com/forms/d/e/kazine-pr-task",
                     arsipLink: "https://drive.google.com/drive/folders/kazine-arsip-pr"
                 },
@@ -332,6 +297,7 @@
                     fullName: "Ashraffi Yudha",
                     title: "Head Editor",
                     photo: "profil_rafi.png",
+                    officeLink: "https://maps.google.com/?q=Kachoo+Office+Building",
                     taskjobLink: "https://docs.google.com/spreadsheets/d/kazine-editor-task",
                     arsipLink: "https://drive.google.com/drive/folders/kazine-arsip-editor"
                 },
@@ -339,6 +305,7 @@
                     fullName: "Claudia Charmaine",
                     title: "Creative Designer",
                     photo: "profil_claudia.png",
+                    officeLink: "https://maps.google.com/?q=Kachoo+Office+Building",
                     taskjobLink: "https://docs.google.com/forms/d/kazine-designer-task",
                     arsipLink: "https://drive.google.com/drive/folders/kazine-arsip-designer"
                 },
@@ -346,6 +313,7 @@
                     fullName: "Nona Rengganis Kinandari Panchakarma",
                     title: "Color Specialist",
                     photo: "profil_nona.png",
+                    officeLink: "https://maps.google.com/?q=Kachoo+Office+Building",
                     taskjobLink: "https://docs.google.com/spreadsheets/d/kazine-color-task",
                     arsipLink: "https://drive.google.com/drive/folders/kazine-arsip-color"
                 },
@@ -353,23 +321,22 @@
                     fullName: "Lucius Vincent",
                     title: "Editor Staff",
                     photo: "profil_vincent.png",
+                    officeLink: "https://maps.google.com/?q=Kachoo+Office+Building",
                     taskjobLink: "https://docs.google.com/forms/d/kazine-editorstaff-task",
                     arsipLink: "https://drive.google.com/drive/folders/kazine-arsip-staff"
                 }
             };
 
-            // Default fallback
             var defaultProfile = {
                 fullName: "KAZINE Team Member",
                 title: "Media & Publication",
                 photo: "profil_default.png",
+                officeLink: "#",
                 taskjobLink: "#",
                 arsipLink: "#"
             };
 
-            // Fungsi mendapatkan username dari berbagai sumber
             function getKazineUsername() {
-                // 1. Cek sessionStorage (dari index.html)
                 var storedUser = sessionStorage.getItem('kachoo_kazine_user');
                 if (storedUser) {
                     var upperUser = storedUser.trim().toUpperCase();
@@ -378,7 +345,6 @@
                     }
                 }
                 
-                // 2. Cek sessionStorage umum (untuk kompatibilitas dengan CORE)
                 var storedGeneral = sessionStorage.getItem('kachoo_exec_user');
                 if (storedGeneral) {
                     var upperGeneral = storedGeneral.trim().toUpperCase();
@@ -387,7 +353,6 @@
                     }
                 }
 
-                // 3. Cek URL parameter ?user=
                 var urlParams = new URLSearchParams(window.location.search);
                 var userParam = urlParams.get('user');
                 if (userParam) {
@@ -397,7 +362,6 @@
                     }
                 }
 
-                // 4. Cek localStorage
                 var localUser = localStorage.getItem('kachoo_kazine_current');
                 if (localUser && kazineProfileMap[localUser.toUpperCase()]) {
                     return localUser.toUpperCase();
@@ -406,25 +370,22 @@
                 return null;
             }
 
-            // Render profil berdasarkan username
             function renderProfile(usernameKey) {
                 if (!usernameKey || !kazineProfileMap[usernameKey]) {
                     document.getElementById('execNameDisplay').innerHTML = 'Session Error';
                     document.getElementById('execTitleDisplay').innerHTML = 'Please login from KAZINE department';
                     var container = document.getElementById('actionButtonsContainer');
                     if (container) {
-                        container.innerHTML = '<a href="index.html" class="btn-exec" style="background:#000;color:#fff;"><i class="fas fa-arrow-left"></i> Back to KAZINE Login</a>';
+                        container.innerHTML = '<a href="index.html" class="btn-exec">Back to KAZINE Login</a>';
                     }
                     return;
                 }
 
                 var profile = kazineProfileMap[usernameKey];
                 
-                // Update nama & jabatan
                 document.getElementById('execNameDisplay').innerText = profile.fullName;
                 document.getElementById('execTitleDisplay').innerText = profile.title;
                 
-                // Update foto
                 var profileImg = document.getElementById('profileImage');
                 profileImg.src = profile.photo;
                 profileImg.alt = 'Foto ' + profile.fullName;
@@ -432,35 +393,37 @@
                     this.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='394' viewBox='0 0 1045 1030'%3E%3Crect width='1045' height='1030' fill='%23f0f0f0'/%3E%3Ctext x='50%25' y='50%25' font-family='Outfit' font-size='40' fill='%23999' text-anchor='middle' dy='.3em'%3E📸%3C/text%3E%3C/svg%3E";
                 };
 
-                // Buat 3 tombol
                 var container = document.getElementById('actionButtonsContainer');
                 container.innerHTML = '';
 
-                // Tombol 1: Payroll
+                var officeBtn = document.createElement('a');
+                officeBtn.href = profile.officeLink;
+                officeBtn.className = 'btn-exec';
+                officeBtn.textContent = 'Kachoo Office Building';
+                officeBtn.target = '_blank';
+                container.appendChild(officeBtn);
+
                 var payrollBtn = document.createElement('a');
                 payrollBtn.href = 'v1payroll.html';
                 payrollBtn.className = 'btn-exec';
-                payrollBtn.innerHTML = '<i class="fas fa-coins"></i> Payroll';
+                payrollBtn.textContent = 'Payroll';
                 container.appendChild(payrollBtn);
 
-                // Tombol 2: Taskjob (link khusus KAZINE)
                 var taskBtn = document.createElement('a');
                 taskBtn.href = profile.taskjobLink;
                 taskBtn.className = 'btn-exec btn-outline-dark';
-                taskBtn.innerHTML = '<i class="fas fa-tasks"></i> Taskjob';
+                taskBtn.textContent = 'Taskjob';
                 taskBtn.target = '_blank';
                 container.appendChild(taskBtn);
 
-                // Tombol 3: Arsip (link khusus KAZINE masing-masing)
                 var arsipBtn = document.createElement('a');
                 arsipBtn.href = profile.arsipLink;
                 arsipBtn.className = 'btn-exec btn-outline-dark';
-                arsipBtn.innerHTML = '<i class="fas fa-archive"></i> Arsip';
+                arsipBtn.textContent = 'Archieve';
                 arsipBtn.target = '_blank';
                 container.appendChild(arsipBtn);
             }
 
-            // Logo fallback
             function handleLogoFallback() {
                 var logoKazine = document.getElementById('kazineLogo');
                 if (logoKazine) {
@@ -470,19 +433,17 @@
                 }
             }
 
-            // INIT
             function init() {
                 var username = getKazineUsername();
                 
                 if (username) {
                     renderProfile(username);
-                    console.log('Welcome to KAZINE: ' + kazineProfileMap[username].fullName + ' (' + username + ')');
                 } else {
                     document.getElementById('execNameDisplay').innerHTML = 'Login Required';
                     document.getElementById('execTitleDisplay').innerHTML = 'Please login from KAZINE department';
                     var container = document.getElementById('actionButtonsContainer');
                     if (container) {
-                        container.innerHTML = '<a href="index.html" class="btn-exec" style="background:#000;"><i class="fas fa-sign-in-alt"></i> Login to KAZINE</a>';
+                        container.innerHTML = '<a href="index.html" class="btn-exec">Login to KAZINE</a>';
                     }
                 }
                 
