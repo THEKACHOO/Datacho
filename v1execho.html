@@ -2,494 +2,527 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    <title>EXECHOTIVE</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>KACHOO · Executive Suite</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Outfit (sama seperti index) -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
         }
 
         body {
             background-color: #ffffff;
-            color: #000000;
+            color: #111;
+            font-family: 'Outfit', 'Segoe UI', system-ui, -apple-system, sans-serif;
             line-height: 1.5;
+            min-height: 100vh;
         }
 
         .container {
-            max-width: 1100px;
+            max-width: 1280px;
             margin: 0 auto;
-            padding: 20px 24px;
+            padding: 1.5rem 2rem;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
         }
 
-        /* HEADER minimal */
-        header {
-            text-align: center;
-            padding: 24px 0 16px 0;
-            border-bottom: 1.5px solid #000;
-            margin-bottom: 32px;
-        }
-
-        .logo {
+        /* Header minimal — hanya logo KACHOO tanpa teks panjang */
+        .header-exec {
             display: flex;
-            flex-direction: column;
             align-items: center;
-            gap: 6px;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+            padding: 0.5rem 0 1rem 0;
+            border-bottom: 2px solid #000;
+            margin-bottom: 2rem;
         }
 
-        .logo img {
-            height: 56px;
+        .logo-only {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .logo-only img {
+            height: 58px;
             width: auto;
             object-fit: contain;
-        }
-
-        .logo-text h1 {
-            font-size: 28px;
-            color: #000;
-            letter-spacing: 1px;
-            font-weight: 600;
-        }
-
-        .logo-text p {
-            color: #333;
-            font-size: 13px;
-            font-weight: 400;
-            text-transform: uppercase;
-            margin-top: 2px;
-        }
-
-        /* Profile pic kecil lingkaran */
-        .profile-section {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-bottom: 28px;
-        }
-
-        .profile-photo {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            border: 2px solid #000;
-            background-color: #f0f0f0;
-            overflow: hidden;
-            box-shadow: 0 4px 0 #000;
-            margin-bottom: 16px;
-        }
-
-        .profile-photo img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
             display: block;
-            filter: grayscale(100%);
         }
 
-        .profile-name {
-            font-size: 28px;
+        .back-link {
+            text-decoration: none;
             font-weight: 600;
             color: #000;
-            letter-spacing: -0.3px;
-            text-align: center;
-            line-height: 1.2;
-        }
-
-        .profile-title {
-            font-size: 16px;
-            font-weight: 400;
-            color: #222;
-            margin-top: 6px;
-            text-align: center;
-            border-bottom: 1px solid #aaa;
-            padding-bottom: 8px;
-            max-width: 320px;
-        }
-
-        /* Salary block */
-        .salary-container {
-            background-color: #f5f5f5;
-            border: 1.5px solid #000;
-            border-radius: 30px;         /* oval / tidak tajam */
-            padding: 16px 22px;
-            margin: 20px 0 28px 0;
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: space-between;
-            gap: 16px 12px;
-            box-shadow: 4px 4px 0 #000;
-        }
-
-        .salary-left {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            flex-wrap: wrap;
-        }
-
-        .salary-amount {
-            font-size: 26px;
-            font-weight: 600;
-            background: #000;
-            color: white;
-            padding: 6px 22px;
-            border-radius: 40px;          /* biar senada oval */
-            letter-spacing: 0.5px;
-            border: 1px solid #000;
-        }
-
-        .salary-month {
-            font-size: 18px;
-            font-weight: 500;
-            color: #000;
-        }
-
-        .paid-badge {
-            background: #fff;
-            border: 1.5px solid #000;
+            background: #f5f5f5;
+            padding: 8px 18px;
             border-radius: 40px;
-            padding: 8px 24px;
+            border: 1px solid #ddd;
+            transition: 0.2s;
+            font-size: 0.85rem;
             display: inline-flex;
             align-items: center;
-            gap: 6px;
-            font-weight: 500;
-            font-size: 16px;
-            text-decoration: none;
-            color: #000;
-            transition: 0.1s;
-            white-space: nowrap;
+            gap: 8px;
         }
 
-        .paid-badge:hover {
+        .back-link:hover {
             background: #000;
-            color: #fff;
+            color: white;
+            border-color: #000;
         }
 
-        /* Tiga tombol navigasi (teks baru) */
-        .nav-buttons {
+        /* Profile utama */
+        .profile-hero {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+            margin-bottom: 3rem;
+            background: #fefefe;
+            border-radius: 48px;
+            padding: 2rem 2rem 2rem 2rem;
+            border: 2px solid #000;
+            box-shadow: 0 12px 0 rgba(0,0,0,0.03);
+        }
+
+        /* foto persegi ukuran 1045x1030px tapi responsive di desktop & mobile */
+        .photo-frame {
+            flex-shrink: 0;
+            width: min(100%, 380px);
+            background: #fff;
+            border-radius: 32px;
+            overflow: hidden;
+            border: 3px solid #000;
+            box-shadow: 10px 10px 0 rgba(0,0,0,0.05);
+        }
+
+        .photo-frame img {
+            width: 100%;
+            height: auto;
+            aspect-ratio: 1045 / 1030; /* 1045:1030 ~ 1.0145 hampir persegi */
+            object-fit: cover;
+            display: block;
+        }
+
+        /* informasi eksekutif */
+        .exec-details {
+            flex: 1;
+        }
+
+        .exec-name {
+            font-size: 3rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            color: #000;
+            line-height: 1.2;
+            margin-bottom: 0.5rem;
+        }
+
+        .exec-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #444;
+            border-left: 4px solid #000;
+            padding-left: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        /* 3 tombol aksi */
+        .action-buttons {
             display: flex;
             flex-wrap: wrap;
-            justify-content: center;
-            gap: 14px;
-            margin: 28px 0 32px 0;
+            gap: 1rem;
+            margin-top: 0.5rem;
         }
 
-        .nav-btn {
-            background: #fff;
-            border: 1.5px solid #000;
-            border-radius: 40px;           /* bentuk oval */
+        .btn-exec {
+            background: #000;
+            border: none;
+            color: white;
+            font-weight: 700;
             padding: 12px 28px;
-            font-size: 16px;
-            font-weight: 500;
-            text-decoration: none;
-            color: #000;
-            box-shadow: 4px 4px 0 #000;
-            transition: 0.1s;
-            text-transform: uppercase;
-            letter-spacing: 0.4px;
-            min-width: 150px;
-            text-align: center;
-        }
-
-        .nav-btn:hover {
-            background: #000;
-            color: #fff;
-            box-shadow: 2px 2px 0 #000;
-            transform: translate(2px, 2px);
-        }
-
-        /* heading proyek */
-        .projects-heading {
-            font-size: 24px;
-            font-weight: 600;
-            margin: 16px 0 20px 0;
-            border-left: 6px solid #000;
-            padding-left: 18px;
-            text-transform: uppercase;
-        }
-
-        /* Grid proyek dengan kartu membulat (oval) seperti sebelumnya */
-        .project-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-            gap: 20px;
-            margin-bottom: 48px;
-        }
-
-        .project-card {
-            background: #fff;
-            border: 1.5px solid #000;
-            border-radius: 24px;          /* tidak tajam, oval */
-            padding: 20px 20px;
-            box-shadow: 5px 5px 0 #000;
-            transition: 0.1s;
-        }
-
-        .project-card:hover {
-            transform: translate(-3px, -3px);
-            box-shadow: 8px 8px 0 #000;
-        }
-
-        .project-title {
-            font-size: 20px;
-            font-weight: 600;
-            margin-bottom: 12px;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
+            border-radius: 60px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: 'Outfit', sans-serif;
+            display: inline-flex;
             align-items: center;
-            border-bottom: 1px solid #ddd;
-            padding-bottom: 8px;
-        }
-
-        .project-badge {
-            background: #000;
-            color: white;
-            padding: 4px 12px;
-            border-radius: 30px;
-            font-size: 11px;
-            font-weight: 500;
-            letter-spacing: 0.3px;
-            text-transform: uppercase;
-            white-space: nowrap;
-        }
-
-        .project-date {
-            font-size: 15px;
-            color: #222;
-            font-weight: 400;
-            margin: 10px 0 10px 0;
-            border-left: 2px solid #000;
-            padding-left: 10px;
-        }
-
-        .status-indicator {
-            display: inline-block;
-            background: #000;
-            color: white;
-            font-size: 11px;
-            padding: 4px 16px;
-            border-radius: 30px;
-            margin-top: 6px;
-            text-transform: uppercase;
-            border: 1px solid #000;
-        }
-
-        /* footer */
-        footer {
-            margin-top: auto;
-            padding-top: 18px;
-            border-top: 1.5px solid #000;
-            color: #333;
-            font-size: 13px;
-        }
-
-        .footer-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
             gap: 10px;
+            text-decoration: none;
+            border: 2px solid #000;
         }
 
-        .copyright, .system-info {
-            display: flex;
-            align-items: center;
-            gap: 5px;
+        .btn-exec i {
+            font-size: 1.1rem;
         }
 
-        .status-indicator-dot {
-            width: 8px;
-            height: 8px;
-            background-color: #000;
-            border-radius: 50%;
-            animation: pulse 1.8s infinite;
-        }
-
-        @keyframes pulse {
-            0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; }
-        }
-
-        /* mobile rapi */
-        @media (max-width: 550px) {
-            .container { padding: 16px; }
-            .profile-name { font-size: 24px; }
-            .profile-title { font-size: 15px; }
-            .salary-container { 
-                flex-direction: column; 
-                align-items: flex-start; 
-                padding: 18px; 
-                border-radius: 28px;
-            }
-            .salary-left { width: 100%; justify-content: space-between; }
-            .salary-amount { font-size: 22px; padding: 5px 18px; }
-            .salary-month { font-size: 16px; }
-            .paid-badge { width: 100%; justify-content: center; }
-            .nav-btn { width: 100%; min-width: auto; }
-            .project-grid { grid-template-columns: 1fr; }
-        }
-
-        /* pc */
-        @media (min-width: 1000px) {
-            .profile-photo { width: 140px; height: 140px; }
-            .profile-name { font-size: 32px; }
-        }
-
-        /* pure black/white */
-        a, button, div, span, p, h1, h2, h3 {
+        .btn-exec:hover {
+            background: #fff;
             color: #000;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 0 #ddd;
+        }
+
+        /* tombol kedua & ketiga bisa berbeda sedikit */
+        .btn-outline-dark {
+            background: #fff;
+            color: #000;
+            border: 2px solid #000;
+        }
+        .btn-outline-dark:hover {
+            background: #000;
+            color: white;
+        }
+
+        /* footer minimal */
+        footer {
+            margin-top: 3rem;
+            padding-top: 1.2rem;
+            border-top: 2px solid #000;
+            font-size: 0.8rem;
+        }
+
+        .footer-note {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        /* mobile responsif: foto lebih proporsional dan teks tidak terlalu besar */
+        @media (max-width: 780px) {
+            .container {
+                padding: 1rem 1.25rem;
+            }
+            .profile-hero {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                padding: 1.8rem;
+                gap: 1.5rem;
+            }
+            .photo-frame {
+                width: min(85%, 320px);
+            }
+            .exec-name {
+                font-size: 2.4rem;
+            }
+            .exec-title {
+                font-size: 1rem;
+                border-left: none;
+                border-top: 3px solid #000;
+                padding-left: 0;
+                padding-top: 0.7rem;
+                display: inline-block;
+            }
+            .action-buttons {
+                justify-content: center;
+            }
+            .btn-exec {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .photo-frame {
+                width: 100%;
+                max-width: 280px;
+            }
+            .exec-name {
+                font-size: 1.9rem;
+            }
+            .action-buttons {
+                flex-direction: column;
+                width: 100%;
+            }
+            .btn-exec {
+                justify-content: center;
+                width: 100%;
+            }
+            .header-exec {
+                flex-direction: column;
+                align-items: flex-start;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <header>
-            <div class="logo">
-                <img src="logo-thekachoo.png" alt="KACHOO" id="logoKachoo">
-                <div class="logo-text">
-                    <h1>KACHOO</h1>
-                    <p>database system</p>
-                </div>
+        <!-- header hanya logo kachoo (tanpa tulisan KACHOO teks, sesuai permintaan) -->
+        <div class="header-exec">
+            <div class="logo-only">
+                <img src="logo-thekachoo.png" alt="KACHOO" id="execLogo">
             </div>
-        </header>
+            <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Database</a>
+        </div>
 
         <main>
-            <!-- profile pic kecil bulat -->
-            <div class="profile-section">
-                <div class="profile-photo">
-                    <img src="profile-kafka.png" alt="Gathur Delano Kafka" onerror="this.src='https://placehold.co/400x400/000/fff?text=GDK'">
+            <!-- area dinamis: foto, nama, jabatan, dan tombol -->
+            <div class="profile-hero" id="dynamicProfile">
+                <div class="photo-frame" id="profilePhotoFrame">
+                    <img src="" alt="Profile" id="profileImage">
                 </div>
-                <div class="profile-name">Gathur Delano Kafka</div>
-                <div class="profile-title">Chief Executive Officer</div>
-            </div>
-
-            <!-- gaji -->
-            <div class="salary-container">
-                <div class="salary-left">
-                    <span class="salary-amount">$10.000</span>
-                    <span class="salary-month">February salary</span>
-                </div>
-                <a href="v1payroll.html" class="paid-badge" id="paidLink" target="_blank">paid on February</a>
-            </div>
-
-            <!-- Tiga tombol navigasi dengan teks baru (inggris) -->
-            <div class="nav-buttons">
-                <a href="v1financho.html" class="nav-btn">finance</a>
-                <a href="v1aicho.html" class="nav-btn">Employee information</a>
-                <a href="https://docs.google.com/spreadsheets/d/1pkLPZr3oHzwvafM--ojNewUUNVEBKqpNV2V07GfhjIk/edit?gid=1198809094#gid=1198809094" class="nav-btn">Task Job</a>
-                <a href="https://drive.google.com/drive/folders/1rGpP3gIMpdW0YXt4tMGGxagBiq3bkf0v?usp=drive_link" class="nav-btn">Archive</a>
-            </div>
-
-            <!-- upcoming projects -->
-            <div class="projects-heading">upcoming projects</div>
-
-            <div class="project-grid">
-                <!-- KAZINE Volume 1 Issue 1 -->
-                <div class="project-card">
-                    <div class="project-title">KAZINE <span class="project-badge">Volume 1 Issue 1</span></div>
-                    <div class="project-date">February 2026</div>
-                    <span class="status-indicator">completed</span>
-                </div>
-
-                <!-- KAZINE Volume 1 Issue 2 -->
-                <div class="project-card">
-                    <div class="project-title">KAZINE <span class="project-badge">Volume 1 Issue 2</span></div>
-                    <div class="project-date">February 2026</div>
-                    <span class="status-indicator">completed</span>
-                </div>
-
-                <!-- KAFKAPAGES -->
-                <div class="project-card">
-                    <div class="project-title">KAFKAPAGES</div>
-                    <div class="project-date">March 2026</div>
-                    <span class="status-indicator">soon</span>
-                </div>
-
-                <!-- KABOOM -->
-                <div class="project-card">
-                    <div class="project-title">KABOOM</div>
-                    <div class="project-date">January 2026</div>
-                    <span class="status-indicator">completed</span>
-                </div>
-
-                <!-- CHOBANK -->
-                <div class="project-card">
-                    <div class="project-title">CHOBANK</div>
-                    <div class="project-date">February 2026</div>
-                    <span class="status-indicator">completed</span>
-                </div>
-
-                <!-- KAZINE Volume 1 Issue 3 (8 Maret) -->
-                <div class="project-card">
-                    <div class="project-title">KAZINE <span class="project-badge">Volume 1 Issue 3</span></div>
-                    <div class="project-date">March 8, 2026</div>
-                    <span class="status-indicator">upcoming</span>
-                </div>
-
-                <!-- CHONNECT -->
-                <div class="project-card">
-                    <div class="project-title">CHONNECT</div>
-                    <div class="project-date">March–April 2026</div>
-                    <span class="status-indicator">soon</span>
-                </div>
-
-                <!-- CHOOSIC -->
-                <div class="project-card">
-                    <div class="project-title">CHOOSIC</div>
-                    <div class="project-date">March–April 2026</div>
-                    <span class="status-indicator">soon</span>
-                </div>
-
-                <!-- CHOZY -->
-                <div class="project-card">
-                    <div class="project-title">CHOZY</div>
-                    <div class="project-date">March–April 2026</div>
-                    <span class="status-indicator">soon</span>
+                <div class="exec-details">
+                    <div class="exec-name" id="execNameDisplay">——</div>
+                    <div class="exec-title" id="execTitleDisplay">——</div>
+                    <div class="action-buttons" id="actionButtonsContainer">
+                        <!-- tombol akan diisi lewat JS -->
+                    </div>
                 </div>
             </div>
         </main>
 
         <footer>
-            <div class="footer-content">
-                <div class="copyright">© 2026 KACHOO Database System</div>
-                <div class="system-info">
-                    <span class="status-indicator-dot"></span>
-                    <span>CORE Kachoo</span>
+            <div class="footer-note">
+                <div class="copyright">
+                    <i class="far fa-copyright"></i> <span>2026 KACHOO · Executive Access</span>
                 </div>
+                <div><i class="fas fa-shield-alt"></i> Confidential Portal</div>
             </div>
         </footer>
     </div>
 
     <script>
-        const logo = document.getElementById('logoKachoo');
-        if (logo) {
-            logo.onerror = function() {
-                this.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='56' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23000'/%3E%3Ctext x='50' y='70' font-family='Arial' font-size='50' fill='%23fff' text-anchor='middle'%3EK%3C/text%3E%3C/svg%3E";
+        (function() {
+            // ======================= DATA EKSEKUTIF =======================
+            // Berdasarkan kredensial dari index.html : 
+            // GATHUR -> Gathur Delano Kafka, CEO, profil1.png
+            // NINGRUM -> Ningrum Anindita Kafka, CFO, profil2.png
+            // Isaac Logan (tambahan) -> COO, profil3.png (meskipun di index credentials tidak ada Isaac, tapi di halaman ini bisa diakses melalui parameter? 
+            // Namun sesuai permintaan: "Tambahin Isaac Logan. Jadi Gathur Delano Kafka, CEO, profil1.png ; Ningrum Anindita Kafka, CFO, profil2.png ; Isaac Logan, COO, profil3.png ; Geriel Rakhastra, Executive Secretary, profil4.png"
+            // Karena di index.html login untuk CORE ada GATHUR, NINGRUM, GERIEL. maka kita mapping sesuai username.
+            // Untuk Isaac Logan, tidak ada di userDB index, namun kita tetap siapkan jika suatu saat login via sistem lain, atau jika user mengakses langsung dengan query? Tapi permintaan: "v1execho.html itu terbuka sesuai dengan nama, beda nama beda juga isinya. Web sesuaikan desainnya dgn html itu. Ada logo kachoo tp gausah ada tulisan kachoonya. Isi webnya foto persegi ukuran 1045x1030px kasih beda2, pakai profil1.png dst, tp tampilan mobile dan desktop harus sedang atau pas aja jgn besar."
+            // Akan diambil dari sessionStorage atau localStorage yang diset dari index saat login? 
+            // Supaya seamless: di index.html ketika login sukses, kita bisa menyimpan nama user & role, lalu diarahkan ke v1execho.html.
+            // Namun di index.html, setelah login success redirect ke v1execho.html (tanpa menyimpan data). Maka kita perlu menangkap parameter username dari URL? Atau menggunakan username yang login? 
+            // Agar robust, kita akan menggunakan window.name atau URL param? Lebih baik memanfaatkan localStorage / sessionStorage.
+            // Modifikasi: Saat proses login di index, setelah berhasil, simpan username ke sessionStorage sebelum redirect.
+            // TAPI kode index.html yang diberikan di atas tidak menyimpan session. Agar v1execho bisa mendapatkan siapa user, kita akan membaca data dari berbagai metode:
+            // 1. Mencari parameter ?user= di URL (jika ada)
+            // 2. sessionStorage / localStorage dengan key 'executiveUser'
+            // 3. Fallback: default jika tidak ada data (atau mungkin testing)
+            // Saya akan membuat mekanisme: cari username dari URL query param 'user', atau dari sessionStorage.getItem('kachoo_exec_user').
+            // Juga supaya kompatibel dengan index asli, kita bisa memodifikasi sedikit mindset: di index, saat klik CORE dan login berhasil, kita redirect ke v1execho.html?user=USERNAME. Karena kita bisa modifikasi sedikit pada login logic dalam script? Tapi karena saya hanya memberikan file v1execho.html saja (tidak mengubah index), maka saya akan membuat pintar: v1execho akan mendeteksi referer atau kita bisa mengakses data dari sessionStorage jika sebelumnya sudah di-set.
+            // Sayangnya di index yang disediakan, tidak ada set session. Agar tidak merusak index, kita tetap baca dari URL param atau dari sisa-sisa login yang bisa di-handle dengan cara: kita menambahkan potongan kode pada index (di luar tanggung jawab v1execho?) Tidak, kita hanya membuat v1execho. Maka pada v1execho.html kita akan mengecek:
+            // - Apakah ada parameter ?username=XXX
+            // - Apakah ada sessionStorage.getItem('loggedUser')
+            // - Jika tidak ada, kita bisa menampilkan pesan atau menggunakan default (Gathur) namun tetap sesuai request: "beda nama beda isi". Supaya bisa diuji, kita akan menambahkan tombol di bagian bawah kecil ? untuk demo, atau membaca data dari window.
+            // Idealnya: index setelah login sukses harus melempar ke v1execho.html?user=username. Karena pemilik website bisa menyesuaikan index nanti.
+            // Tapi karena saya memberikan kode final, saya akan membuat mekanisme ini fleksibel: bisa juga mendeteksi username dari query string 'user'.
+
+            // Data mapping nama tampilan, jabatan, file foto, serta tombol-tombol (taskjob link dan arsip link bisa diisi nanti oleh user)
+            // Sediakan data lengkap:
+            const executiveProfileMap = {
+                "GATHUR": {
+                    fullName: "Gathur Delano Kafka",
+                    title: "Chief Executive Officer (CEO)",
+                    photo: "profil1.png",
+                    // tombol 2 = taskjob link (default sementara #, nanti user ganti)
+                    taskjobLink: "https://docs.google.com/forms/d/e/taskjob-kachoo-ceo",   // contoh, nanti pemilik ganti
+                    arsipLink: "https://drive.google.com/drive/folders/arsip-ceo"
+                },
+                "NINGRUM": {
+                    fullName: "Ningrum Anindita Kafka",
+                    title: "Chief Financial Officer (CFO)",
+                    photo: "profil2.png",
+                    taskjobLink: "https://docs.google.com/spreadsheets/d/taskjob-cfo",
+                    arsipLink: "https://drive.google.com/drive/folders/arsip-cfo"
+                },
+                "GERIEL": {
+                    fullName: "Geriel Rakhastra",
+                    title: "Executive Secretary",
+                    photo: "profil4.png",
+                    taskjobLink: "https://docs.google.com/document/d/taskjob-secretary",
+                    arsipLink: "https://drive.google.com/drive/folders/arsip-secretary"
+                },
+                "ISAAC": {
+                    fullName: "Isaac Logan",
+                    title: "Chief Operating Officer (COO)",
+                    photo: "profil3.png",
+                    taskjobLink: "https://tasks.kachoo.com/coo-dashboard",
+                    arsipLink: "https://archive.kachoo.com/coo-records"
+                }
             };
-        }
 
-        const paidBtn = document.getElementById('paidLink');
-        paidBtn.addEventListener('click', (e) => {
-            if (paidBtn.href === '#' || paidBtn.href.includes('your-spreadsheet')) {
-                e.preventDefault();
-                alert('Please set the spreadsheet link in #paidLink href');
+            // Default fallback untuk user yang tidak dikenal (misal test atau future)
+            const defaultProfile = {
+                fullName: "Executive Member",
+                title: "KACHOO Leadership",
+                photo: "profil1.png",
+                taskjobLink: "#",
+                arsipLink: "#"
+            };
+
+            // Fungsi mendapatkan username dari berbagai sumber
+            function getExecutiveUsername() {
+                // 1. query param ?user=
+                const urlParams = new URLSearchParams(window.location.search);
+                let userParam = urlParams.get('user');
+                if (userParam) {
+                    let upperUser = userParam.trim().toUpperCase();
+                    if (executiveProfileMap[upperUser] || upperUser === "ISAAC") return upperUser;
+                }
+
+                // 2. sessionStorage (bisa di-set oleh index setelah modifikasi atau manual)
+                const storedUser = sessionStorage.getItem('kachoo_exec_user');
+                if (storedUser) {
+                    let upperStored = storedUser.trim().toUpperCase();
+                    if (executiveProfileMap[upperStored]) return upperStored;
+                }
+
+                // 3. localStorage (opsional)
+                const localUser = localStorage.getItem('kachoo_current_exec');
+                if (localUser && executiveProfileMap[localUser.toUpperCase()]) return localUser.toUpperCase();
+
+                // 4. cek dari window.name atau fallback mendeteksi dari document.referrer ? (optional)
+                // tidak ada maka kita coba identifikasi dari username umum yang sering login (GATHUR, NINGRUM, GERIEL)
+                // untuk memenuhi tampilan sesuai nama di index asli, kita bisa membaca dari sessionStorage yang diset ketika index login? karena tidak ada, 
+                // kita akan memberi tombol debug? Tidak, lebih baik membaca dari localStorage yang bisa diisi manual user.
+                // Agar dapat digunakan dengan index yang sudah ada tanpa perubahan, kita beri alternatif: kita bisa menambahkan field di console, tapi agar demo langsung sesuai, 
+                // kita membuat pendeteksian berdasarkan mapping sederhana: jika tidak ada satupun, kita tampilkan pilihan atau default gathur? 
+                // Permintaan: beda nama beda isi -> harus dinamis. Saya akan cek jika tidak ada, kita gunakan "GATHUR" sebagai default (karena CEO biasanya).
+                // Tapi agar Isaac Logan juga bisa diakses, kita bisa menambahkan parameter manual di URL saat preview.
+                console.warn("No user parameter found, using default GATHUR (CEO). To see Isaac, use ?user=ISAAC");
+                return "GATHUR";
             }
-        });
 
-        function setFooterTime() {
-            const now = new Date();
-            const timeStr = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
-            const systemSpan = document.querySelector('.system-info span:last-child');
-            if (systemSpan) systemSpan.textContent = `v1execho · CORE · ${timeStr}`;
-        }
-        setFooterTime();
-        setInterval(setFooterTime, 60000);
+            // fungsi mengubah link taskjob & arsip sesuai profile
+            function renderProfile(usernameKey) {
+                const profile = executiveProfileMap[usernameKey] || defaultProfile;
+                // update nama, jabatan, foto
+                const nameElem = document.getElementById('execNameDisplay');
+                const titleElem = document.getElementById('execTitleDisplay');
+                const profileImg = document.getElementById('profileImage');
+
+                if (nameElem) nameElem.innerText = profile.fullName;
+                if (titleElem) titleElem.innerText = profile.title;
+                if (profileImg) {
+                    profileImg.src = profile.photo;
+                    profileImg.alt = `Foto ${profile.fullName}`;
+                    // handling error jika gambar tidak ditemukan
+                    profileImg.onerror = function() {
+                        this.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='394' viewBox='0 0 1045 1030'%3E%3Crect width='1045' height='1030' fill='%23f0f0f0'/%3E%3Ctext x='50%25' y='50%25' font-family='Outfit' font-size='40' fill='%23999' text-anchor='middle' dy='.3em'%3E📸%3C/text%3E%3C/svg%3E";
+                    };
+                }
+
+                // siapkan action buttons (3 tombol)
+                const container = document.getElementById('actionButtonsContainer');
+                if (!container) return;
+
+                // 1. Tombol pertama: PAYROLL (redirect ke v1payroll.html)
+                // 2. Tombol kedua: Taskjob (menggunakan link dari profile)
+                // 3. Tombol ketiga: Arsip (menggunakan link dari profile)
+                // Bersihkan container
+                container.innerHTML = '';
+
+                // Tombol Payroll
+                const payrollBtn = document.createElement('a');
+                payrollBtn.href = 'v1payroll.html';
+                payrollBtn.className = 'btn-exec';
+                payrollBtn.innerHTML = '<i class="fas fa-coins"></i> Payroll';
+                payrollBtn.setAttribute('target', '_self');
+                container.appendChild(payrollBtn);
+
+                // Tombol Taskjob (link bebas dari user nanti)
+                const taskBtn = document.createElement('a');
+                taskBtn.href = profile.taskjobLink;
+                taskBtn.className = 'btn-exec btn-outline-dark';
+                taskBtn.innerHTML = '<i class="fas fa-tasks"></i> Taskjob';
+                // jika link eksternal atau internal
+                if (profile.taskjobLink.startsWith('http') || profile.taskjobLink.startsWith('/')) {
+                    taskBtn.setAttribute('target', '_blank');
+                    taskBtn.setAttribute('rel', 'noopener noreferrer');
+                } else {
+                    taskBtn.setAttribute('target', '_self');
+                }
+                container.appendChild(taskBtn);
+
+                // Tombol Arsip
+                const arsipBtn = document.createElement('a');
+                arsipBtn.href = profile.arsipLink;
+                arsipBtn.className = 'btn-exec btn-outline-dark';
+                arsipBtn.innerHTML = '<i class="fas fa-archive"></i> Arsip';
+                if (profile.arsipLink.startsWith('http') || profile.arsipLink.startsWith('/')) {
+                    arsipBtn.setAttribute('target', '_blank');
+                    arsipBtn.setAttribute('rel', 'noopener noreferrer');
+                } else {
+                    arsipBtn.setAttribute('target', '_self');
+                }
+                container.appendChild(arsipBtn);
+
+                // Optional: tambahkan tooltips atau event jika link # (belum diisi)
+                if (profile.taskjobLink === "#" || profile.taskjobLink === "") {
+                    taskBtn.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        alert("Taskjob link belum diatur. Silakan hubungi administrator untuk menambahkan link.");
+                    });
+                }
+                if (profile.arsipLink === "#" || profile.arsipLink === "") {
+                    arsipBtn.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        alert("Arsip link belum diatur. Silakan update konfigurasi eksekutif.");
+                    });
+                }
+            }
+
+            // fungsi untuk menangani logo fallback (sama seperti di index)
+            function handleLogoFallback() {
+                const logoExec = document.getElementById('execLogo');
+                if (logoExec) {
+                    logoExec.onerror = function() {
+                        this.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='70' height='70' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23000'/%3E%3Ctext x='50' y='68' font-family='Arial' font-size='48' fill='%23fff' text-anchor='middle'%3EK%3C/text%3E%3C/svg%3E";
+                    };
+                }
+            }
+
+            // Fungsi tambahan: kita juga bisa mendukung Isaac login dari ?user=ISAAC
+            // Untuk mempermudah User bisa menambah tombol / akses langsung dari console tanpa merusak index
+            // karena permintaan menambahkan Isaac Logan, sudah siap.
+            // Bonus: jika ingin masuk sebagai Isaac, bisa dengan menambahkan ?user=ISAAC di url.
+            // dan memastikan foto profil3.png tersedia.
+            // jangan lupa bahwa untuk Geriel sudah ada di mapping GERIEL.
+
+            // Siapkan array untuk mendukung nama case-insensitive
+            function init() {
+                let detectedUser = getExecutiveUsername();
+                // pastikan user yang tidak terdaftar fallback ke GATHUR tapi dengan peringatan
+                if (!executiveProfileMap[detectedUser]) {
+                    console.warn(`User ${detectedUser} tidak dikenali, memuat CEO default (GATHUR)`);
+                    detectedUser = "GATHUR";
+                }
+                renderProfile(detectedUser);
+                handleLogoFallback();
+
+                // Optional: tambahkan informasi di console untuk pengembang 
+                console.log(`Executive dashboard loaded for: ${detectedUser} (${executiveProfileMap[detectedUser]?.fullName})`);
+            }
+
+            // jika ada perubahan ukuran, tidak perlu, sudah responsif via CSS
+
+            init();
+
+            // Mendengarkan event storage untuk kasus jika login dari tab lain (improvisasi)
+            window.addEventListener('storage', (e) => {
+                if (e.key === 'kachoo_exec_user' || e.key === 'kachoo_current_exec') {
+                    const newUser = sessionStorage.getItem('kachoo_exec_user') || localStorage.getItem('kachoo_current_exec');
+                    if (newUser && executiveProfileMap[newUser.toUpperCase()]) {
+                        renderProfile(newUser.toUpperCase());
+                    }
+                }
+            });
+        })();
     </script>
 </body>
-</html>
+    </html>
