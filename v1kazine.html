@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>KAZINE · Media & Publication Team</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #ffffff;
+            color: #111;
+            font-family: 'Outfit', 'Segoe UI', system-ui, sans-serif;
+            line-height: 1.5;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 1.5rem 2rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header-kazine {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+            padding: 0.5rem 0 1rem 0;
+            border-bottom: 2px solid #000;
+            margin-bottom: 2rem;
+        }
+
+        .logo-only {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .logo-only img {
+            height: 58px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .dept-badge {
+            background: #000;
+            color: white;
+            padding: 6px 16px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            letter-spacing: 0.5px;
+        }
+
+        .back-link {
+            text-decoration: none;
+            font-weight: 600;
+            color: #000;
+            background: #f5f5f5;
+            padding: 8px 18px;
+            border-radius: 40px;
+            border: 1px solid #ddd;
+            transition: 0.2s;
+            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .back-link:hover {
+            background: #000;
+            color: white;
+            border-color: #000;
+        }
+
+        .profile-hero {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+            margin-bottom: 3rem;
+            background: #fefefe;
+            border-radius: 48px;
+            padding: 2rem;
+            border: 2px solid #000;
+            box-shadow: 0 12px 0 rgba(0,0,0,0.03);
+        }
+
+        .photo-frame {
+            flex-shrink: 0;
+            width: min(100%, 380px);
+            background: #fff;
+            border-radius: 32px;
+            overflow: hidden;
+            border: 3px solid #000;
+            box-shadow: 10px 10px 0 rgba(0,0,0,0.05);
+        }
+
+        .photo-frame img {
+            width: 100%;
+            height: auto;
+            aspect-ratio: 1045 / 1030;
+            object-fit: cover;
+            display: block;
+        }
+
+        .exec-details {
+            flex: 1;
+        }
+
+        .exec-name {
+            font-size: 2.5rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            color: #000;
+            line-height: 1.2;
+            margin-bottom: 0.5rem;
+        }
+
+        .exec-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #444;
+            border-left: 4px solid #000;
+            padding-left: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .dept-info {
+            background: #f5f5f5;
+            padding: 0.8rem 1.2rem;
+            border-radius: 60px;
+            display: inline-block;
+            margin-bottom: 1.5rem;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .dept-info i {
+            margin-right: 8px;
+            color: #000;
+        }
+
+        .action-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .btn-exec {
+            background: #000;
+            border: none;
+            color: white;
+            font-weight: 700;
+            padding: 12px 28px;
+            border-radius: 60px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: 'Outfit', sans-serif;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            border: 2px solid #000;
+        }
+
+        .btn-exec i {
+            font-size: 1.1rem;
+        }
+
+        .btn-exec:hover {
+            background: #fff;
+            color: #000;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 0 #ddd;
+        }
+
+        .btn-outline-dark {
+            background: #fff;
+            color: #000;
+            border: 2px solid #000;
+        }
+
+        .btn-outline-dark:hover {
+            background: #000;
+            color: white;
+        }
+
+        footer {
+            margin-top: 3rem;
+            padding-top: 1.2rem;
+            border-top: 2px solid #000;
+            font-size: 0.8rem;
+        }
+
+        .footer-note {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        @media (max-width: 780px) {
+            .container {
+                padding: 1rem 1.25rem;
+            }
+            .profile-hero {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                padding: 1.8rem;
+                gap: 1.5rem;
+            }
+            .photo-frame {
+                width: min(85%, 320px);
+            }
+            .exec-name {
+                font-size: 2rem;
+            }
+            .exec-title {
+                font-size: 0.95rem;
+                border-left: none;
+                border-top: 3px solid #000;
+                padding-left: 0;
+                padding-top: 0.7rem;
+                display: inline-block;
+            }
+            .dept-info {
+                display: inline-block;
+                margin-bottom: 1rem;
+            }
+            .action-buttons {
+                justify-content: center;
+            }
+            .btn-exec {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .photo-frame {
+                width: 100%;
+                max-width: 280px;
+            }
+            .exec-name {
+                font-size: 1.7rem;
+            }
+            .action-buttons {
+                flex-direction: column;
+                width: 100%;
+            }
+            .btn-exec {
+                justify-content: center;
+                width: 100%;
+            }
+            .header-kazine {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header-kazine">
+            <div class="logo-only">
+                <img src="logo-thekachoo.png" alt="KACHOO" id="kazineLogo">
+                <span class="dept-badge"><i class="fas fa-newspaper"></i> KAZINE</span>
+            </div>
+            <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Database</a>
+        </div>
+
+        <main>
+            <div class="profile-hero" id="dynamicProfile">
+                <div class="photo-frame" id="profilePhotoFrame">
+                    <img src="" alt="Profile" id="profileImage">
+                </div>
+                <div class="exec-details">
+                    <div class="exec-name" id="execNameDisplay">Loading...</div>
+                    <div class="exec-title" id="execTitleDisplay">——</div>
+                    <div class="dept-info" id="deptInfo">
+                        <i class="fas fa-users"></i> KAZINE · Media & Publication
+                    </div>
+                    <div class="action-buttons" id="actionButtonsContainer"></div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <div class="footer-note">
+                <div class="copyright">
+                    <i class="far fa-copyright"></i> <span>2026 KACHOO · KAZINE Dashboard</span>
+                </div>
+                <div><i class="fas fa-magazine"></i> Media Division</div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        (function() {
+            // ======================= DATA PROFIL TIM KAZINE =======================
+            // Sesuai dengan credential di index.html:
+            // VIVI, RAFI, CLAUDIA, NONA, VINCENT
+            
+            var kazineProfileMap = {
+                "VIVI": {
+                    fullName: "Vivianne Jamila",
+                    title: "Public Relation",
+                    photo: "profil_vivi.png",
+                    taskjobLink: "https://docs.google.com/forms/d/e/kazine-pr-task",
+                    arsipLink: "https://drive.google.com/drive/folders/kazine-arsip-pr"
+                },
+                "RAFI": {
+                    fullName: "Ashraffi Yudha",
+                    title: "Head Editor",
+                    photo: "profil_rafi.png",
+                    taskjobLink: "https://docs.google.com/spreadsheets/d/kazine-editor-task",
+                    arsipLink: "https://drive.google.com/drive/folders/kazine-arsip-editor"
+                },
+                "CLAUDIA": {
+                    fullName: "Claudia Charmaine",
+                    title: "Creative Designer",
+                    photo: "profil_claudia.png",
+                    taskjobLink: "https://docs.google.com/forms/d/kazine-designer-task",
+                    arsipLink: "https://drive.google.com/drive/folders/kazine-arsip-designer"
+                },
+                "NONA": {
+                    fullName: "Nona Rengganis Kinandari Panchakarma",
+                    title: "Color Specialist",
+                    photo: "profil_nona.png",
+                    taskjobLink: "https://docs.google.com/spreadsheets/d/kazine-color-task",
+                    arsipLink: "https://drive.google.com/drive/folders/kazine-arsip-color"
+                },
+                "VINCENT": {
+                    fullName: "Lucius Vincent",
+                    title: "Editor Staff",
+                    photo: "profil_vincent.png",
+                    taskjobLink: "https://docs.google.com/forms/d/kazine-editorstaff-task",
+                    arsipLink: "https://drive.google.com/drive/folders/kazine-arsip-staff"
+                }
+            };
+
+            // Default fallback
+            var defaultProfile = {
+                fullName: "KAZINE Team Member",
+                title: "Media & Publication",
+                photo: "profil_default.png",
+                taskjobLink: "#",
+                arsipLink: "#"
+            };
+
+            // Fungsi mendapatkan username dari berbagai sumber
+            function getKazineUsername() {
+                // 1. Cek sessionStorage (dari index.html)
+                var storedUser = sessionStorage.getItem('kachoo_kazine_user');
+                if (storedUser) {
+                    var upperUser = storedUser.trim().toUpperCase();
+                    if (kazineProfileMap[upperUser]) {
+                        return upperUser;
+                    }
+                }
+                
+                // 2. Cek sessionStorage umum (untuk kompatibilitas dengan CORE)
+                var storedGeneral = sessionStorage.getItem('kachoo_exec_user');
+                if (storedGeneral) {
+                    var upperGeneral = storedGeneral.trim().toUpperCase();
+                    if (kazineProfileMap[upperGeneral]) {
+                        return upperGeneral;
+                    }
+                }
+
+                // 3. Cek URL parameter ?user=
+                var urlParams = new URLSearchParams(window.location.search);
+                var userParam = urlParams.get('user');
+                if (userParam) {
+                    var upperUser = userParam.trim().toUpperCase();
+                    if (kazineProfileMap[upperUser]) {
+                        return upperUser;
+                    }
+                }
+
+                // 4. Cek localStorage
+                var localUser = localStorage.getItem('kachoo_kazine_current');
+                if (localUser && kazineProfileMap[localUser.toUpperCase()]) {
+                    return localUser.toUpperCase();
+                }
+
+                return null;
+            }
+
+            // Render profil berdasarkan username
+            function renderProfile(usernameKey) {
+                if (!usernameKey || !kazineProfileMap[usernameKey]) {
+                    document.getElementById('execNameDisplay').innerHTML = 'Session Error';
+                    document.getElementById('execTitleDisplay').innerHTML = 'Please login from KAZINE department';
+                    var container = document.getElementById('actionButtonsContainer');
+                    if (container) {
+                        container.innerHTML = '<a href="index.html" class="btn-exec" style="background:#000;color:#fff;"><i class="fas fa-arrow-left"></i> Back to KAZINE Login</a>';
+                    }
+                    return;
+                }
+
+                var profile = kazineProfileMap[usernameKey];
+                
+                // Update nama & jabatan
+                document.getElementById('execNameDisplay').innerText = profile.fullName;
+                document.getElementById('execTitleDisplay').innerText = profile.title;
+                
+                // Update foto
+                var profileImg = document.getElementById('profileImage');
+                profileImg.src = profile.photo;
+                profileImg.alt = 'Foto ' + profile.fullName;
+                profileImg.onerror = function() {
+                    this.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='394' viewBox='0 0 1045 1030'%3E%3Crect width='1045' height='1030' fill='%23f0f0f0'/%3E%3Ctext x='50%25' y='50%25' font-family='Outfit' font-size='40' fill='%23999' text-anchor='middle' dy='.3em'%3E📸%3C/text%3E%3C/svg%3E";
+                };
+
+                // Buat 3 tombol
+                var container = document.getElementById('actionButtonsContainer');
+                container.innerHTML = '';
+
+                // Tombol 1: Payroll
+                var payrollBtn = document.createElement('a');
+                payrollBtn.href = 'v1payroll.html';
+                payrollBtn.className = 'btn-exec';
+                payrollBtn.innerHTML = '<i class="fas fa-coins"></i> Payroll';
+                container.appendChild(payrollBtn);
+
+                // Tombol 2: Taskjob (link khusus KAZINE)
+                var taskBtn = document.createElement('a');
+                taskBtn.href = profile.taskjobLink;
+                taskBtn.className = 'btn-exec btn-outline-dark';
+                taskBtn.innerHTML = '<i class="fas fa-tasks"></i> Taskjob';
+                taskBtn.target = '_blank';
+                container.appendChild(taskBtn);
+
+                // Tombol 3: Arsip (link khusus KAZINE masing-masing)
+                var arsipBtn = document.createElement('a');
+                arsipBtn.href = profile.arsipLink;
+                arsipBtn.className = 'btn-exec btn-outline-dark';
+                arsipBtn.innerHTML = '<i class="fas fa-archive"></i> Arsip';
+                arsipBtn.target = '_blank';
+                container.appendChild(arsipBtn);
+            }
+
+            // Logo fallback
+            function handleLogoFallback() {
+                var logoKazine = document.getElementById('kazineLogo');
+                if (logoKazine) {
+                    logoKazine.onerror = function() {
+                        this.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='70' height='70' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23000'/%3E%3Ctext x='50' y='68' font-family='Arial' font-size='48' fill='%23fff' text-anchor='middle'%3EK%3C/text%3E%3C/svg%3E";
+                    };
+                }
+            }
+
+            // INIT
+            function init() {
+                var username = getKazineUsername();
+                
+                if (username) {
+                    renderProfile(username);
+                    console.log('Welcome to KAZINE: ' + kazineProfileMap[username].fullName + ' (' + username + ')');
+                } else {
+                    document.getElementById('execNameDisplay').innerHTML = 'Login Required';
+                    document.getElementById('execTitleDisplay').innerHTML = 'Please login from KAZINE department';
+                    var container = document.getElementById('actionButtonsContainer');
+                    if (container) {
+                        container.innerHTML = '<a href="index.html" class="btn-exec" style="background:#000;"><i class="fas fa-sign-in-alt"></i> Login to KAZINE</a>';
+                    }
+                }
+                
+                handleLogoFallback();
+            }
+
+            init();
+        })();
+    </script>
+</body>
+</html>
