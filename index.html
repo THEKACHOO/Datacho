@@ -632,6 +632,7 @@
                 { username: "GATHUR", password: "gath61", redirect: "v1execho.html", allowedDept: "core" },
                 { username: "NINGRUM", password: "noening23", redirect: "v1execho.html", allowedDept: "core" },
                 { username: "GERIEL", password: "masukdulu123", redirect: "v1execho.html", allowedDept: "core" },
+                { username: "LOGAN", password: "masukdulu123", redirect: "v1execho.html", allowedDept: "core" },
                 // KAZINE
                 { username: "VIVI", password: "risolmayodimsumhalal", redirect: "v1kazine.html", allowedDept: "kazine" },
                 { username: "RAFI", password: "masukdulu123", redirect: "v1kazine.html", allowedDept: "kazine" },
@@ -709,14 +710,18 @@
                     return;
                 }
 
-                // success
-                errorDiv.style.display = 'none';
-                loginBtn.disabled = true;
-                loginBtn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Redirecting...';
-                setTimeout(() => {
-                    window.location.href = found.redirect;
-                }, 450);
-            }
+    // SUCCESS - simpan username yang login ke sessionStorage
+    errorDiv.style.display = 'none';
+    loginBtn.disabled = true;
+    loginBtn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Redirecting...';
+    
+    // TAMBAHKAN BARIS INI (tanpa komentar yang merusak)
+    sessionStorage.setItem('kachoo_exec_user', found.username);
+    
+    setTimeout(() => {
+        window.location.href = found.redirect;
+    }, 450);
+}
 
             const coreCard = document.querySelector('.department-card[data-dept="core"]');
             const kazineCard = document.querySelector('.department-card[data-dept="kazine"]');
