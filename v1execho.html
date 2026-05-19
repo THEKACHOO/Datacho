@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>KACHOO · Executive Suite</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts: Outfit (sama seperti index) -->
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         * {
@@ -17,7 +16,7 @@
         body {
             background-color: #ffffff;
             color: #111;
-            font-family: 'Outfit', 'Segoe UI', system-ui, -apple-system, sans-serif;
+            font-family: 'Outfit', 'Segoe UI', system-ui, sans-serif;
             line-height: 1.5;
             min-height: 100vh;
         }
@@ -31,7 +30,6 @@
             flex-direction: column;
         }
 
-        /* Header minimal — hanya logo KACHOO tanpa teks panjang */
         .header-exec {
             display: flex;
             align-items: center;
@@ -53,7 +51,6 @@
             height: 58px;
             width: auto;
             object-fit: contain;
-            display: block;
         }
 
         .back-link {
@@ -77,7 +74,6 @@
             border-color: #000;
         }
 
-        /* Profile utama */
         .profile-hero {
             display: flex;
             flex-direction: row;
@@ -87,12 +83,11 @@
             margin-bottom: 3rem;
             background: #fefefe;
             border-radius: 48px;
-            padding: 2rem 2rem 2rem 2rem;
+            padding: 2rem;
             border: 2px solid #000;
             box-shadow: 0 12px 0 rgba(0,0,0,0.03);
         }
 
-        /* foto persegi ukuran 1045x1030px tapi responsive di desktop & mobile */
         .photo-frame {
             flex-shrink: 0;
             width: min(100%, 380px);
@@ -106,12 +101,11 @@
         .photo-frame img {
             width: 100%;
             height: auto;
-            aspect-ratio: 1045 / 1030; /* 1045:1030 ~ 1.0145 hampir persegi */
+            aspect-ratio: 1045 / 1030;
             object-fit: cover;
             display: block;
         }
 
-        /* informasi eksekutif */
         .exec-details {
             flex: 1;
         }
@@ -136,7 +130,6 @@
             margin-bottom: 2rem;
         }
 
-        /* 3 tombol aksi */
         .action-buttons {
             display: flex;
             flex-wrap: wrap;
@@ -173,18 +166,17 @@
             box-shadow: 0 6px 0 #ddd;
         }
 
-        /* tombol kedua & ketiga bisa berbeda sedikit */
         .btn-outline-dark {
             background: #fff;
             color: #000;
             border: 2px solid #000;
         }
+
         .btn-outline-dark:hover {
             background: #000;
             color: white;
         }
 
-        /* footer minimal */
         footer {
             margin-top: 3rem;
             padding-top: 1.2rem;
@@ -200,7 +192,6 @@
             gap: 1rem;
         }
 
-        /* mobile responsif: foto lebih proporsional dan teks tidak terlalu besar */
         @media (max-width: 780px) {
             .container {
                 padding: 1rem 1.25rem;
@@ -260,7 +251,6 @@
 </head>
 <body>
     <div class="container">
-        <!-- header hanya logo kachoo (tanpa tulisan KACHOO teks, sesuai permintaan) -->
         <div class="header-exec">
             <div class="logo-only">
                 <img src="logo-thekachoo.png" alt="KACHOO" id="execLogo">
@@ -269,17 +259,14 @@
         </div>
 
         <main>
-            <!-- area dinamis: foto, nama, jabatan, dan tombol -->
             <div class="profile-hero" id="dynamicProfile">
                 <div class="photo-frame" id="profilePhotoFrame">
                     <img src="" alt="Profile" id="profileImage">
                 </div>
                 <div class="exec-details">
-                    <div class="exec-name" id="execNameDisplay">——</div>
+                    <div class="exec-name" id="execNameDisplay">Loading...</div>
                     <div class="exec-title" id="execTitleDisplay">——</div>
-                    <div class="action-buttons" id="actionButtonsContainer">
-                        <!-- tombol akan diisi lewat JS -->
-                    </div>
+                    <div class="action-buttons" id="actionButtonsContainer"></div>
                 </div>
             </div>
         </main>
@@ -296,41 +283,13 @@
 
     <script>
         (function() {
-            // ======================= DATA EKSEKUTIF =======================
-            // Berdasarkan kredensial dari index.html : 
-            // GATHUR -> Gathur Delano Kafka, CEO, profil1.png
-            // NINGRUM -> Ningrum Anindita Kafka, CFO, profil2.png
-            // Isaac Logan (tambahan) -> COO, profil3.png (meskipun di index credentials tidak ada Isaac, tapi di halaman ini bisa diakses melalui parameter? 
-            // Namun sesuai permintaan: "Tambahin Isaac Logan. Jadi Gathur Delano Kafka, CEO, profil1.png ; Ningrum Anindita Kafka, CFO, profil2.png ; Isaac Logan, COO, profil3.png ; Geriel Rakhastra, Executive Secretary, profil4.png"
-            // Karena di index.html login untuk CORE ada GATHUR, NINGRUM, GERIEL. maka kita mapping sesuai username.
-            // Untuk Isaac Logan, tidak ada di userDB index, namun kita tetap siapkan jika suatu saat login via sistem lain, atau jika user mengakses langsung dengan query? Tapi permintaan: "v1execho.html itu terbuka sesuai dengan nama, beda nama beda juga isinya. Web sesuaikan desainnya dgn html itu. Ada logo kachoo tp gausah ada tulisan kachoonya. Isi webnya foto persegi ukuran 1045x1030px kasih beda2, pakai profil1.png dst, tp tampilan mobile dan desktop harus sedang atau pas aja jgn besar."
-            // Akan diambil dari sessionStorage atau localStorage yang diset dari index saat login? 
-            // Supaya seamless: di index.html ketika login sukses, kita bisa menyimpan nama user & role, lalu diarahkan ke v1execho.html.
-            // Namun di index.html, setelah login success redirect ke v1execho.html (tanpa menyimpan data). Maka kita perlu menangkap parameter username dari URL? Atau menggunakan username yang login? 
-            // Agar robust, kita akan menggunakan window.name atau URL param? Lebih baik memanfaatkan localStorage / sessionStorage.
-            // Modifikasi: Saat proses login di index, setelah berhasil, simpan username ke sessionStorage sebelum redirect.
-            // TAPI kode index.html yang diberikan di atas tidak menyimpan session. Agar v1execho bisa mendapatkan siapa user, kita akan membaca data dari berbagai metode:
-            // 1. Mencari parameter ?user= di URL (jika ada)
-            // 2. sessionStorage / localStorage dengan key 'executiveUser'
-            // 3. Fallback: default jika tidak ada data (atau mungkin testing)
-            // Saya akan membuat mekanisme: cari username dari URL query param 'user', atau dari sessionStorage.getItem('kachoo_exec_user').
-            // Juga supaya kompatibel dengan index asli, kita bisa memodifikasi sedikit mindset: di index, saat klik CORE dan login berhasil, kita redirect ke v1execho.html?user=USERNAME. Karena kita bisa modifikasi sedikit pada login logic dalam script? Tapi karena saya hanya memberikan file v1execho.html saja (tidak mengubah index), maka saya akan membuat pintar: v1execho akan mendeteksi referer atau kita bisa mengakses data dari sessionStorage jika sebelumnya sudah di-set.
-            // Sayangnya di index yang disediakan, tidak ada set session. Agar tidak merusak index, kita tetap baca dari URL param atau dari sisa-sisa login yang bisa di-handle dengan cara: kita menambahkan potongan kode pada index (di luar tanggung jawab v1execho?) Tidak, kita hanya membuat v1execho. Maka pada v1execho.html kita akan mengecek:
-            // - Apakah ada parameter ?username=XXX
-            // - Apakah ada sessionStorage.getItem('loggedUser')
-            // - Jika tidak ada, kita bisa menampilkan pesan atau menggunakan default (Gathur) namun tetap sesuai request: "beda nama beda isi". Supaya bisa diuji, kita akan menambahkan tombol di bagian bawah kecil ? untuk demo, atau membaca data dari window.
-            // Idealnya: index setelah login sukses harus melempar ke v1execho.html?user=username. Karena pemilik website bisa menyesuaikan index nanti.
-            // Tapi karena saya memberikan kode final, saya akan membuat mekanisme ini fleksibel: bisa juga mendeteksi username dari query string 'user'.
-
-            // Data mapping nama tampilan, jabatan, file foto, serta tombol-tombol (taskjob link dan arsip link bisa diisi nanti oleh user)
-            // Sediakan data lengkap:
+            // ======================= DATA PROFIL EKSEKUTIF =======================
             const executiveProfileMap = {
                 "GATHUR": {
                     fullName: "Gathur Delano Kafka",
                     title: "Chief Executive Officer (CEO)",
                     photo: "profil1.png",
-                    // tombol 2 = taskjob link (default sementara #, nanti user ganti)
-                    taskjobLink: "https://docs.google.com/forms/d/e/taskjob-kachoo-ceo",   // contoh, nanti pemilik ganti
+                    taskjobLink: "https://docs.google.com/forms/d/e/taskjob-ceo",
                     arsipLink: "https://drive.google.com/drive/folders/arsip-ceo"
                 },
                 "NINGRUM": {
@@ -356,7 +315,7 @@
                 }
             };
 
-            // Default fallback untuk user yang tidak dikenal (misal test atau future)
+            // Default fallback
             const defaultProfile = {
                 fullName: "Executive Member",
                 title: "KACHOO Leadership",
@@ -365,119 +324,101 @@
                 arsipLink: "#"
             };
 
-            // Fungsi mendapatkan username dari berbagai sumber
+            // 🎯 Fungsi mendapatkan username dari berbagai sumber
             function getExecutiveUsername() {
-                // 1. query param ?user=
+                // 1. Cek sessionStorage (dari index.html yang sudah dimodifikasi)
+                let storedUser = sessionStorage.getItem('kachoo_exec_user');
+                if (storedUser) {
+                    let upperUser = storedUser.trim().toUpperCase();
+                    if (executiveProfileMap[upperUser]) {
+                        console.log("✅ User found in sessionStorage:", upperUser);
+                        return upperUser;
+                    }
+                }
+
+                // 2. Cek URL parameter ?user=
                 const urlParams = new URLSearchParams(window.location.search);
                 let userParam = urlParams.get('user');
                 if (userParam) {
                     let upperUser = userParam.trim().toUpperCase();
-                    if (executiveProfileMap[upperUser] || upperUser === "ISAAC") return upperUser;
+                    if (executiveProfileMap[upperUser]) {
+                        console.log("✅ User found in URL param:", upperUser);
+                        return upperUser;
+                    }
                 }
 
-                // 2. sessionStorage (bisa di-set oleh index setelah modifikasi atau manual)
-                const storedUser = sessionStorage.getItem('kachoo_exec_user');
-                if (storedUser) {
-                    let upperStored = storedUser.trim().toUpperCase();
-                    if (executiveProfileMap[upperStored]) return upperStored;
+                // 3. Cek localStorage
+                let localUser = localStorage.getItem('kachoo_current_exec');
+                if (localUser && executiveProfileMap[localUser.toUpperCase()]) {
+                    console.log("✅ User found in localStorage:", localUser.toUpperCase());
+                    return localUser.toUpperCase();
                 }
 
-                // 3. localStorage (opsional)
-                const localUser = localStorage.getItem('kachoo_current_exec');
-                if (localUser && executiveProfileMap[localUser.toUpperCase()]) return localUser.toUpperCase();
-
-                // 4. cek dari window.name atau fallback mendeteksi dari document.referrer ? (optional)
-                // tidak ada maka kita coba identifikasi dari username umum yang sering login (GATHUR, NINGRUM, GERIEL)
-                // untuk memenuhi tampilan sesuai nama di index asli, kita bisa membaca dari sessionStorage yang diset ketika index login? karena tidak ada, 
-                // kita akan memberi tombol debug? Tidak, lebih baik membaca dari localStorage yang bisa diisi manual user.
-                // Agar dapat digunakan dengan index yang sudah ada tanpa perubahan, kita beri alternatif: kita bisa menambahkan field di console, tapi agar demo langsung sesuai, 
-                // kita membuat pendeteksian berdasarkan mapping sederhana: jika tidak ada satupun, kita tampilkan pilihan atau default gathur? 
-                // Permintaan: beda nama beda isi -> harus dinamis. Saya akan cek jika tidak ada, kita gunakan "GATHUR" sebagai default (karena CEO biasanya).
-                // Tapi agar Isaac Logan juga bisa diakses, kita bisa menambahkan parameter manual di URL saat preview.
-                console.warn("No user parameter found, using default GATHUR (CEO). To see Isaac, use ?user=ISAAC");
-                return "GATHUR";
+                // 4. Fallback: Tampilkan pilihan manual (untuk testing)
+                console.warn("⚠️ No user found. Showing manual selection.");
+                return null;
             }
 
-            // fungsi mengubah link taskjob & arsip sesuai profile
+            // 🎯 Render profil berdasarkan username
             function renderProfile(usernameKey) {
-                const profile = executiveProfileMap[usernameKey] || defaultProfile;
-                // update nama, jabatan, foto
-                const nameElem = document.getElementById('execNameDisplay');
-                const titleElem = document.getElementById('execTitleDisplay');
-                const profileImg = document.getElementById('profileImage');
-
-                if (nameElem) nameElem.innerText = profile.fullName;
-                if (titleElem) titleElem.innerText = profile.title;
-                if (profileImg) {
-                    profileImg.src = profile.photo;
-                    profileImg.alt = `Foto ${profile.fullName}`;
-                    // handling error jika gambar tidak ditemukan
-                    profileImg.onerror = function() {
-                        this.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='394' viewBox='0 0 1045 1030'%3E%3Crect width='1045' height='1030' fill='%23f0f0f0'/%3E%3Ctext x='50%25' y='50%25' font-family='Outfit' font-size='40' fill='%23999' text-anchor='middle' dy='.3em'%3E📸%3C/text%3E%3C/svg%3E";
-                    };
+                if (!usernameKey || !executiveProfileMap[usernameKey]) {
+                    // Tampilkan pesan error dan pilihan manual
+                    document.getElementById('execNameDisplay').innerHTML = '⚠️ Session Error';
+                    document.getElementById('execTitleDisplay').innerHTML = 'Please login from main page';
+                    const container = document.getElementById('actionButtonsContainer');
+                    if (container) {
+                        container.innerHTML = `
+                            <a href="index.html" class="btn-exec" style="background:#000;color:#fff;">
+                                <i class="fas fa-arrow-left"></i> Back to Login
+                            </a>
+                        `;
+                    }
+                    return;
                 }
 
-                // siapkan action buttons (3 tombol)
-                const container = document.getElementById('actionButtonsContainer');
-                if (!container) return;
+                const profile = executiveProfileMap[usernameKey];
+                
+                // Update nama & jabatan
+                document.getElementById('execNameDisplay').innerText = profile.fullName;
+                document.getElementById('execTitleDisplay').innerText = profile.title;
+                
+                // Update foto
+                const profileImg = document.getElementById('profileImage');
+                profileImg.src = profile.photo;
+                profileImg.alt = `Foto ${profile.fullName}`;
+                profileImg.onerror = function() {
+                    this.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='394' viewBox='0 0 1045 1030'%3E%3Crect width='1045' height='1030' fill='%23f0f0f0'/%3E%3Ctext x='50%25' y='50%25' font-family='Outfit' font-size='40' fill='%23999' text-anchor='middle' dy='.3em'%3E📸%3C/text%3E%3C/svg%3E";
+                };
 
-                // 1. Tombol pertama: PAYROLL (redirect ke v1payroll.html)
-                // 2. Tombol kedua: Taskjob (menggunakan link dari profile)
-                // 3. Tombol ketiga: Arsip (menggunakan link dari profile)
-                // Bersihkan container
+                // Buat 3 tombol
+                const container = document.getElementById('actionButtonsContainer');
                 container.innerHTML = '';
 
-                // Tombol Payroll
+                // Tombol 1: Payroll
                 const payrollBtn = document.createElement('a');
                 payrollBtn.href = 'v1payroll.html';
                 payrollBtn.className = 'btn-exec';
                 payrollBtn.innerHTML = '<i class="fas fa-coins"></i> Payroll';
-                payrollBtn.setAttribute('target', '_self');
                 container.appendChild(payrollBtn);
 
-                // Tombol Taskjob (link bebas dari user nanti)
+                // Tombol 2: Taskjob
                 const taskBtn = document.createElement('a');
                 taskBtn.href = profile.taskjobLink;
                 taskBtn.className = 'btn-exec btn-outline-dark';
                 taskBtn.innerHTML = '<i class="fas fa-tasks"></i> Taskjob';
-                // jika link eksternal atau internal
-                if (profile.taskjobLink.startsWith('http') || profile.taskjobLink.startsWith('/')) {
-                    taskBtn.setAttribute('target', '_blank');
-                    taskBtn.setAttribute('rel', 'noopener noreferrer');
-                } else {
-                    taskBtn.setAttribute('target', '_self');
-                }
+                taskBtn.target = '_blank';
                 container.appendChild(taskBtn);
 
-                // Tombol Arsip
+                // Tombol 3: Arsip
                 const arsipBtn = document.createElement('a');
                 arsipBtn.href = profile.arsipLink;
                 arsipBtn.className = 'btn-exec btn-outline-dark';
                 arsipBtn.innerHTML = '<i class="fas fa-archive"></i> Arsip';
-                if (profile.arsipLink.startsWith('http') || profile.arsipLink.startsWith('/')) {
-                    arsipBtn.setAttribute('target', '_blank');
-                    arsipBtn.setAttribute('rel', 'noopener noreferrer');
-                } else {
-                    arsipBtn.setAttribute('target', '_self');
-                }
+                arsipBtn.target = '_blank';
                 container.appendChild(arsipBtn);
-
-                // Optional: tambahkan tooltips atau event jika link # (belum diisi)
-                if (profile.taskjobLink === "#" || profile.taskjobLink === "") {
-                    taskBtn.addEventListener('click', (e) => {
-                        e.preventDefault();
-                        alert("Taskjob link belum diatur. Silakan hubungi administrator untuk menambahkan link.");
-                    });
-                }
-                if (profile.arsipLink === "#" || profile.arsipLink === "") {
-                    arsipBtn.addEventListener('click', (e) => {
-                        e.preventDefault();
-                        alert("Arsip link belum diatur. Silakan update konfigurasi eksekutif.");
-                    });
-                }
             }
 
-            // fungsi untuk menangani logo fallback (sama seperti di index)
+            // Logo fallback
             function handleLogoFallback() {
                 const logoExec = document.getElementById('execLogo');
                 if (logoExec) {
@@ -487,42 +428,33 @@
                 }
             }
 
-            // Fungsi tambahan: kita juga bisa mendukung Isaac login dari ?user=ISAAC
-            // Untuk mempermudah User bisa menambah tombol / akses langsung dari console tanpa merusak index
-            // karena permintaan menambahkan Isaac Logan, sudah siap.
-            // Bonus: jika ingin masuk sebagai Isaac, bisa dengan menambahkan ?user=ISAAC di url.
-            // dan memastikan foto profil3.png tersedia.
-            // jangan lupa bahwa untuk Geriel sudah ada di mapping GERIEL.
-
-            // Siapkan array untuk mendukung nama case-insensitive
+            // 🚀 INIT
             function init() {
-                let detectedUser = getExecutiveUsername();
-                // pastikan user yang tidak terdaftar fallback ke GATHUR tapi dengan peringatan
-                if (!executiveProfileMap[detectedUser]) {
-                    console.warn(`User ${detectedUser} tidak dikenali, memuat CEO default (GATHUR)`);
-                    detectedUser = "GATHUR";
-                }
-                renderProfile(detectedUser);
-                handleLogoFallback();
-
-                // Optional: tambahkan informasi di console untuk pengembang 
-                console.log(`Executive dashboard loaded for: ${detectedUser} (${executiveProfileMap[detectedUser]?.fullName})`);
-            }
-
-            // jika ada perubahan ukuran, tidak perlu, sudah responsif via CSS
-
-            init();
-
-            // Mendengarkan event storage untuk kasus jika login dari tab lain (improvisasi)
-            window.addEventListener('storage', (e) => {
-                if (e.key === 'kachoo_exec_user' || e.key === 'kachoo_current_exec') {
-                    const newUser = sessionStorage.getItem('kachoo_exec_user') || localStorage.getItem('kachoo_current_exec');
-                    if (newUser && executiveProfileMap[newUser.toUpperCase()]) {
-                        renderProfile(newUser.toUpperCase());
+                let username = getExecutiveUsername();
+                
+                if (username) {
+                    renderProfile(username);
+                    // Tampilkan welcome message di console
+                    console.log(`👋 Welcome ${executiveProfileMap[username].fullName} (${username})`);
+                } else {
+                    // Tidak ada user = tampilkan pesan dan tombol kembali
+                    document.getElementById('execNameDisplay').innerHTML = '🔐 Login Required';
+                    document.getElementById('execTitleDisplay').innerHTML = 'Session tidak ditemukan';
+                    const container = document.getElementById('actionButtonsContainer');
+                    if (container) {
+                        container.innerHTML = `
+                            <a href="index.html" class="btn-exec" style="background:#000;">
+                                <i class="fas fa-sign-in-alt"></i> Login ke Database
+                            </a>
+                        `;
                     }
                 }
-            });
+                
+                handleLogoFallback();
+            }
+
+            init();
         })();
     </script>
 </body>
-    </html>
+</html>
