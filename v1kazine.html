@@ -289,41 +289,36 @@
                     fullName: "Vivianne Jamila",
                     title: "Public Relation",
                     photo: "profil_vivi.png",
-                    officeLink: "https://maps.google.com/?q=Kachoo+Office+Building",
-                    taskjobLink: "https://docs.google.com/forms/d/e/kazine-pr-task",
-                    arsipLink: "https://drive.google.com/drive/folders/kazine-arsip-pr"
+                    taskjobLink: "Workspace-relations.html",
+                    arsipLink: "https://drive.google.com/drive/folders/1jt0yY4bU2oEQ8Lt16ubNeD-a7-ioaxrE"
                 },
                 "RAFI": {
                     fullName: "Ashraffi Yudha",
                     title: "Head Editor",
                     photo: "profil_rafi.png",
-                    officeLink: "https://maps.google.com/?q=Kachoo+Office+Building",
-                    taskjobLink: "https://docs.google.com/spreadsheets/d/kazine-editor-task",
-                    arsipLink: "https://drive.google.com/drive/folders/kazine-arsip-editor"
+                    taskjobLink: "Workspace-visual.html",
+                    arsipLink: "https://drive.google.com/drive/folders/1FCjJuYAFA5ivdoQzrM2_uzYjDxZ2u9cX"
                 },
                 "CLAUDIA": {
                     fullName: "Claudia Charmaine",
                     title: "Creative Designer",
                     photo: "profil_claudia.png",
-                    officeLink: "https://maps.google.com/?q=Kachoo+Office+Building",
-                    taskjobLink: "https://docs.google.com/forms/d/kazine-designer-task",
-                    arsipLink: "https://drive.google.com/drive/folders/kazine-arsip-designer"
+                    taskjobLink: "Workspace-visual.html",
+                    arsipLink: "https://drive.google.com/drive/folders/1FCjJuYAFA5ivdoQzrM2_uzYjDxZ2u9cX"
                 },
                 "NONA": {
                     fullName: "Nona Rengganis Kinandari Panchakarma",
                     title: "Color Specialist",
                     photo: "profil_nona.png",
-                    officeLink: "https://maps.google.com/?q=Kachoo+Office+Building",
-                    taskjobLink: "https://docs.google.com/spreadsheets/d/kazine-color-task",
-                    arsipLink: "https://drive.google.com/drive/folders/kazine-arsip-color"
+                    taskjobLink: "Workspace-color.html",
+                    arsipLink: "https://drive.google.com/drive/folders/1X01ikVHMABoyGCKhFb47AgM1ipKT1Dh0"
                 },
                 "VINCENT": {
                     fullName: "Lucius Vincent",
                     title: "Editor Staff",
                     photo: "profil_vincent.png",
-                    officeLink: "https://maps.google.com/?q=Kachoo+Office+Building",
-                    taskjobLink: "https://docs.google.com/forms/d/kazine-editorstaff-task",
-                    arsipLink: "https://drive.google.com/drive/folders/kazine-arsip-staff"
+                    taskjobLink: "Workspace-visual.html",
+                    arsipLink: "https://drive.google.com/drive/folders/1FCjJuYAFA5ivdoQzrM2_uzYjDxZ2u9cX"
                 }
             };
 
@@ -331,7 +326,6 @@
                 fullName: "KAZINE Team Member",
                 title: "Media & Publication",
                 photo: "profil_default.png",
-                officeLink: "#",
                 taskjobLink: "#",
                 arsipLink: "#"
             };
@@ -396,19 +390,14 @@
                 var container = document.getElementById('actionButtonsContainer');
                 container.innerHTML = '';
 
-                var officeBtn = document.createElement('a');
-                officeBtn.href = profile.officeLink;
-                officeBtn.className = 'btn-exec';
-                officeBtn.textContent = 'Kachoo Office Building';
-                officeBtn.target = '_blank';
-                container.appendChild(officeBtn);
-
+                // Tombol Payroll (sama desain dengan tombol lain)
                 var payrollBtn = document.createElement('a');
                 payrollBtn.href = 'v1payroll.html';
                 payrollBtn.className = 'btn-exec';
                 payrollBtn.textContent = 'Payroll';
                 container.appendChild(payrollBtn);
 
+                // Tombol Taskjob
                 var taskBtn = document.createElement('a');
                 taskBtn.href = profile.taskjobLink;
                 taskBtn.className = 'btn-exec btn-outline-dark';
@@ -416,6 +405,7 @@
                 taskBtn.target = '_blank';
                 container.appendChild(taskBtn);
 
+                // Tombol Archive
                 var arsipBtn = document.createElement('a');
                 arsipBtn.href = profile.arsipLink;
                 arsipBtn.className = 'btn-exec btn-outline-dark';
@@ -454,4 +444,4 @@
         })();
     </script>
 </body>
-</html>
+                        </html>
