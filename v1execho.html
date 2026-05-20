@@ -290,21 +290,27 @@
                     title: "Chief Executive Officer (CEO)",
                     photo: "profil1.png",
                     taskjobLink: "https://docs.google.com/forms/d/e/taskjob-ceo",
-                    arsipLink: "https://drive.google.com/drive/folders/arsip-ceo"
+                    arsipLink: "https://drive.google.com/drive/folders/arsip-ceo",
+                    // Tambahan tombol khusus Gathur: Employees Data -> KaryawanKachoo.html
+                    employeeDataLink: "KaryawanKachoo.html"
                 },
                 "NINGRUM": {
                     fullName: "Ningrum Anindita Kafka",
                     title: "Chief Financial Officer (CFO)",
                     photo: "profil2.png",
                     taskjobLink: "https://docs.google.com/spreadsheets/d/taskjob-cfo",
-                    arsipLink: "https://drive.google.com/drive/folders/arsip-cfo"
+                    arsipLink: "https://drive.google.com/drive/folders/arsip-cfo",
+                    // Tambahan tombol khusus Ningrum: Chobank -> Chobank.html
+                    chobankLink: "Chobank.html"
                 },
                 "GERIEL": {
                     fullName: "Geriel Rakhastra",
                     title: "Executive Secretary",
                     photo: "profil4.png",
                     taskjobLink: "https://docs.google.com/document/d/taskjob-secretary",
-                    arsipLink: "https://drive.google.com/drive/folders/arsip-secretary"
+                    arsipLink: "https://drive.google.com/drive/folders/arsip-secretary",
+                    // Tambahan tombol khusus Geriel: Employee Data -> KaryawanKachoo.html
+                    employeeDataLink: "KaryawanKachoo.html"
                 },
                 "ISAAC": {
                     fullName: "Isaac Logan",
@@ -312,6 +318,7 @@
                     photo: "profil3.png",
                     taskjobLink: "https://tasks.kachoo.com/coo-dashboard",
                     arsipLink: "https://archive.kachoo.com/coo-records"
+                    // Isaac tidak mendapat tombol tambahan
                 }
             };
 
@@ -390,18 +397,18 @@
                     this.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='394' viewBox='0 0 1045 1030'%3E%3Crect width='1045' height='1030' fill='%23f0f0f0'/%3E%3Ctext x='50%25' y='50%25' font-family='Outfit' font-size='40' fill='%23999' text-anchor='middle' dy='.3em'%3E📸%3C/text%3E%3C/svg%3E";
                 };
 
-                // Buat 3 tombol
+                // Buat container tombol
                 const container = document.getElementById('actionButtonsContainer');
                 container.innerHTML = '';
 
-                // Tombol 1: Payroll
+                // Tombol 1: Payroll (sama untuk semua)
                 const payrollBtn = document.createElement('a');
                 payrollBtn.href = 'v1payroll.html';
                 payrollBtn.className = 'btn-exec';
                 payrollBtn.innerHTML = '<i class="fas fa-coins"></i> Payroll';
                 container.appendChild(payrollBtn);
 
-                // Tombol 2: Taskjob
+                // Tombol 2: Taskjob (sama untuk semua)
                 const taskBtn = document.createElement('a');
                 taskBtn.href = profile.taskjobLink;
                 taskBtn.className = 'btn-exec btn-outline-dark';
@@ -409,13 +416,44 @@
                 taskBtn.target = '_blank';
                 container.appendChild(taskBtn);
 
-                // Tombol 3: Arsip
+                // Tombol 3: Arsip (sama untuk semua)
                 const arsipBtn = document.createElement('a');
                 arsipBtn.href = profile.arsipLink;
                 arsipBtn.className = 'btn-exec btn-outline-dark';
                 arsipBtn.innerHTML = '<i class="fas fa-archive"></i> Arsip';
                 arsipBtn.target = '_blank';
                 container.appendChild(arsipBtn);
+
+                // ========== TAMBAHAN TOMBOL KHUSUS (sesuai permintaan) ==========
+                // Khusus Gathur: tambah tombol Employees Data -> KaryawanKachoo.html
+                if (usernameKey === "GATHUR" && profile.employeeDataLink) {
+                    const empDataBtn = document.createElement('a');
+                    empDataBtn.href = profile.employeeDataLink;
+                    empDataBtn.className = 'btn-exec btn-outline-dark';
+                    empDataBtn.innerHTML = '<i class="fas fa-users"></i> Employees Data';
+                    empDataBtn.target = '_blank'; // biar terbuka di tab baru, konsisten dengan tombol lain
+                    container.appendChild(empDataBtn);
+                }
+
+                // Khusus Geriel: tambah tombol Employee Data -> KaryawanKachoo.html
+                if (usernameKey === "GERIEL" && profile.employeeDataLink) {
+                    const empDataBtn = document.createElement('a');
+                    empDataBtn.href = profile.employeeDataLink;
+                    empDataBtn.className = 'btn-exec btn-outline-dark';
+                    empDataBtn.innerHTML = '<i class="fas fa-user-tie"></i> Employee Data';
+                    empDataBtn.target = '_blank';
+                    container.appendChild(empDataBtn);
+                }
+
+                // Khusus Ningrum: tambah tombol Chobank -> Chobank.html
+                if (usernameKey === "NINGRUM" && profile.chobankLink) {
+                    const chobankBtn = document.createElement('a');
+                    chobankBtn.href = profile.chobankLink;
+                    chobankBtn.className = 'btn-exec btn-outline-dark';
+                    chobankBtn.innerHTML = '<i class="fas fa-university"></i> Chobank';
+                    chobankBtn.target = '_blank';
+                    container.appendChild(chobankBtn);
+                }
             }
 
             // Logo fallback
@@ -434,7 +472,6 @@
                 
                 if (username) {
                     renderProfile(username);
-                    // Tampilkan welcome message di console
                     console.log(`👋 Welcome ${executiveProfileMap[username].fullName} (${username})`);
                 } else {
                     // Tidak ada user = tampilkan pesan dan tombol kembali
@@ -457,4 +494,4 @@
         })();
     </script>
 </body>
-</html>
+    </html>
