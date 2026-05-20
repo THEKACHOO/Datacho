@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>KACHOO · Employees Database</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #ffffff;
+            color: #111;
+            font-family: 'Outfit', 'Segoe UI', system-ui, sans-serif;
+            line-height: 1.5;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 1.5rem 2rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* HEADER dengan gaya seperti contoh + tambahan kalimat */
+        .header-kazine {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+            padding: 0.5rem 0 1rem 0;
+            border-bottom: 2px solid #000;
+            margin-bottom: 2rem;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            flex-wrap: wrap;
+        }
+
+        .logo-only {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .logo-only img {
+            height: 58px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .header-title {
+            font-weight: 600;
+            font-size: 0.9rem;
+            letter-spacing: 0.3px;
+            color: #2c2c2c;
+            border-left: 2px solid #aaa;
+            padding-left: 1rem;
+        }
+
+        .header-title span {
+            font-weight: 800;
+            color: #000;
+        }
+
+        /* 9 foto grid - rapi */
+        .employees-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.8rem;
+            margin: 2rem 0 2rem 0;
+        }
+
+        .employee-card {
+            cursor: pointer;
+            transition: all 0.25s ease;
+            background: #ffffff;
+            border: 1.5px solid #eaeef2;
+            border-radius: 24px;
+            overflow: hidden;
+            text-align: center;
+            padding-bottom: 1rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+        }
+
+        .employee-card:hover {
+            transform: translateY(-5px);
+            border-color: #000000;
+            box-shadow: 0 12px 20px rgba(0,0,0,0.05);
+        }
+
+        .card-img {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            background: #f8f8f8;
+            display: block;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .employee-card h4 {
+            font-weight: 700;
+            font-size: 1rem;
+            margin-top: 0.9rem;
+            color: #000;
+        }
+
+        .employee-card p {
+            font-size: 0.75rem;
+            color: #4a4a4a;
+            font-weight: 500;
+            margin-top: 0.2rem;
+            padding: 0 0.5rem;
+        }
+
+        /* TOMBOL FORM KARYAWAN BARU */
+        .form-new-employee {
+            margin: 1rem 0 2rem 0;
+            text-align: right;
+        }
+
+        .btn-new {
+            background-color: #ffffff;
+            border: 2px solid #000000;
+            padding: 12px 32px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            font-family: 'Outfit', sans-serif;
+            cursor: pointer;
+            transition: 0.2s;
+            border-radius: 60px;
+            color: #000;
+        }
+
+        .btn-new:hover {
+            background-color: #000000;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* MODAL POPUP DETAIL KARYAWAN - FOTO KOTAK (sesuai grid) */
+        .modal-detail {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-detail-content {
+            background: #ffffff;
+            border: 2px solid #000000;
+            max-width: 500px;
+            width: 90%;
+            border-radius: 32px;
+            padding: 2rem 2rem;
+            position: relative;
+            box-shadow: 0 20px 30px rgba(0,0,0,0.2);
+        }
+
+        .close-detail {
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            font-size: 2rem;
+            cursor: pointer;
+            font-weight: 300;
+            color: #000;
+            line-height: 1;
+        }
+
+        .close-detail:hover {
+            opacity: 0.5;
+        }
+
+        .detail-inner {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        .detail-photo-wrap {
+            display: flex;
+            justify-content: center;
+        }
+
+        /* foto KOTAK seperti grid */
+        .detail-photo {
+            width: 140px;
+            height: 140px;
+            border: 3px solid #000;
+            background: #f5f5f5;
+            overflow: hidden;
+            border-radius: 20px;
+        }
+
+        .detail-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .detail-info h2 {
+            font-size: 1.6rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.2rem;
+            text-align: center;
+        }
+
+        .detail-nick {
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: #3a3a3a;
+            text-align: center;
+            border-bottom: 1px solid #e0e0e0;
+            padding-bottom: 0.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .detail-meta {
+            margin-top: 0.3rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.7rem;
+        }
+
+        .meta-row {
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            border-bottom: 1px dashed #eee;
+            padding-bottom: 0.3rem;
+        }
+
+        .meta-row span {
+            font-weight: 400;
+            color: #2d2d2d;
+            text-align: right;
+            max-width: 60%;
+            word-break: break-word;
+        }
+
+        /* username clickable X */
+        .username-click {
+            font-weight: 700;
+            color: #000;
+            text-decoration: none;
+            border-bottom: 1.5px solid #000;
+            transition: 0.1s;
+            cursor: pointer;
+        }
+        .username-click:hover {
+            background: #000;
+            color: white;
+            border-bottom-color: #000;
+            padding: 0 0.2rem;
+        }
+
+        .meta-row a {
+            text-decoration: none;
+        }
+
+        /* MODAL FORM TAMBAH KARYAWAN (dengan placeholder sesuai aturan) */
+        .modal-form {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            justify-content: center;
+            align-items: center;
+            z-index: 1001;
+        }
+
+        .modal-form-content {
+            background: #ffffff;
+            border: 2px solid #000000;
+            max-width: 540px;
+            width: 90%;
+            border-radius: 32px;
+            padding: 2rem 1.8rem;
+            position: relative;
+        }
+
+        .modal-form-content h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.2rem;
+            border-left: 5px solid #000;
+            padding-left: 1rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            display: block;
+            margin-bottom: 0.35rem;
+            font-size: 0.8rem;
+            letter-spacing: 0.3px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1.5px solid #cfcfcf;
+            border-radius: 24px;
+            font-family: 'Outfit', monospace;
+            font-size: 0.9rem;
+            background: #fff;
+            transition: 0.2s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #000;
+        }
+
+        .form-hint {
+            font-size: 0.7rem;
+            color: #666;
+            margin-top: 0.2rem;
+        }
+
+        .modal-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+            margin-top: 1.8rem;
+        }
+
+        .modal-buttons button {
+            background: white;
+            border: 1.5px solid #000;
+            padding: 8px 22px;
+            font-weight: 600;
+            border-radius: 40px;
+            cursor: pointer;
+            font-family: 'Outfit', sans-serif;
+            transition: 0.1s;
+        }
+
+        .modal-buttons button:first-child {
+            background: #000;
+            color: white;
+        }
+
+        .modal-buttons button:first-child:hover {
+            background: #333;
+        }
+
+        .close-form-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            font-size: 1.8rem;
+            cursor: pointer;
+            font-weight: 300;
+        }
+
+        /* FOOTER sesuai permintaan */
+        footer {
+            border-top: 2px solid #000;
+            padding-top: 1.5rem;
+            margin-top: 2rem;
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: #1f1f1f;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+        }
+
+        .footer-left {
+            font-weight: 500;
+        }
+
+        .footer-right a {
+            color: #000;
+            text-decoration: none;
+            font-weight: 600;
+            border-bottom: 1px solid #000;
+            margin: 0 0.2rem;
+        }
+
+        .footer-right a:hover {
+            background: #000;
+            color: white;
+            border-bottom: none;
+            padding: 0 0.2rem;
+        }
+
+        @media (max-width: 680px) {
+            .container {
+                padding: 1rem 1.2rem;
+            }
+            .employees-grid {
+                gap: 1rem;
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+            .modal-detail-content {
+                padding: 1.5rem;
+            }
+            .detail-info h2 {
+                font-size: 1.3rem;
+            }
+            .meta-row {
+                font-size: 0.8rem;
+                flex-direction: column;
+                gap: 0.2rem;
+            }
+            .meta-row span {
+                text-align: left;
+                max-width: 100%;
+            }
+            .logo-area {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .header-title {
+                border-left: none;
+                padding-left: 0;
+                border-top: 1px solid #ddd;
+                padding-top: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- HEADER: logo + kalimat Employees Database (tanpa tombol database) -->
+    <div class="header-kazine">
+        <div class="logo-area">
+            <div class="logo-only">
+                <img src="logo-thekachoo.png" alt="KACHOO" id="kazineLogo">
+            </div>
+            <div class="header-title">
+                <span>Employees Database</span> · data resmi karyawan
+            </div>
+        </div>
+    </div>
+
+    <!-- 9 foto GRID dinamis -->
+    <div class="employees-grid" id="employeeGrid"></div>
+
+    <!-- Tombol Form Karyawan Baru -->
+    <div class="form-new-employee">
+        <button class="btn-new" id="openFormNewBtn">+ FORM KARYAWAN BARU</button>
+    </div>
+
+    <footer>
+        <div class="footer-left">© 2026 KACHOO — internal database</div>
+        <div class="footer-right">
+            Untuk update data, silahkan menghubungi 
+            <a href="https://x.com/thekachoo" target="_blank">@thekachoo</a> atau 
+            <a href="https://x.com/haikachoo" target="_blank">@haikachoo</a>
+        </div>
+    </footer>
+</div>
+
+<!-- MODAL POPUP DETAIL KARYAWAN (kotak foto + username bisa klik X) -->
+<div id="detailModal" class="modal-detail">
+    <div class="modal-detail-content">
+        <span class="close-detail" id="closeDetailModal">&times;</span>
+        <div class="detail-inner">
+            <div class="detail-photo-wrap">
+                <div class="detail-photo">
+                    <img id="modalDetailImg" src="" alt="profile">
+                </div>
+            </div>
+            <div class="detail-info">
+                <h2 id="modalFullName">-</h2>
+                <div class="detail-nick" id="modalNick">-</div>
+                <div class="detail-meta">
+                    <div class="meta-row">Jabatan <span id="modalJabatan">-</span></div>
+                    <div class="meta-row">Faceclaim <span id="modalFaceclaim">-</span></div>
+                    <div class="meta-row">Tahun Lahir <span id="modalLahir">-</span></div>
+                    <div class="meta-row" id="usernameRow">Username <span id="modalUsernameSpan"></span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL FORM TAMBAH KARYAWAN (sesuai aturan: maksimal 5 kata / panggilan 1 kata) -->
+<div id="newEmployeeModal" class="modal-form">
+    <div class="modal-form-content">
+        <span class="close-form-modal" id="closeFormModalBtn">&times;</span>
+        <h3>Tambah Karyawan Baru</h3>
+        <form id="newEmployeeForm">
+            <div class="form-group">
+                <label>Nama Lengkap :</label>
+                <input type="text" id="newFullName" placeholder="Maksimal 5 kata, selebihnya disingkat" required>
+                <div class="form-hint">*maksimal 5 kata</div>
+            </div>
+            <div class="form-group">
+                <label>Nama Panggilan :</label>
+                <input type="text" id="newNick" placeholder="Maksimal 1 Kata">
+                <div class="form-hint">*hanya satu kata</div>
+            </div>
+            <div class="form-group">
+                <label>Jabatan :</label>
+                <input type="text" id="newJabatan" placeholder="contoh: Senior Designer">
+            </div>
+            <div class="form-group">
+                <label>Faceclaim :</label>
+                <input type="text" id="newFaceclaim" placeholder="nama seleb / -">
+            </div>
+            <div class="form-group">
+                <label>Tahun Lahir :</label>
+                <input type="text" id="newTahunLahir" placeholder="1995">
+            </div>
+            <div class="form-group">
+                <label>Username X :</label>
+                <input type="text" id="newUsername" placeholder="@username">
+            </div>
+            <div class="form-group">
+                <label>Foto (nama file .png) :</label>
+                <input type="text" id="newFoto" placeholder="profil-baru.png" value="profil-default.png">
+                <div class="form-hint">*nama file gambar (pastikan file tersedia)</div>
+            </div>
+            <div class="modal-buttons">
+                <button type="submit">Simpan ke Database</button>
+                <button type="button" id="cancelNewBtn">Batal</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    // ---------- DATA KARYAWAN AWAL (9 ORANG sesuai permintaan) ----------
+    let employeesDatabase = [
+        { id: 1, img: "profil1.png", fullName: "Gathur Delano Kafka", nickname: "Kafka", jabatan: "CEO (Chief Executive Director)", faceclaim: "Park Chanyeol", tahunLahir: "1992", username: "@gaxlak", usernameUrl: "https://x.com/gaxlak" },
+        { id: 2, img: "profil2.png", fullName: "Ningrum Anindita Kafka", nickname: "Ningrum", jabatan: "Chief Finance Officer (CFO)", faceclaim: "Son Wendy", tahunLahir: "1993", username: "@tuaipuji", usernameUrl: "https://x.com/tuaipuji" },
+        { id: 3, img: "profil3.png", fullName: "Isaac Logan", nickname: "Logan", jabatan: "COO ( Chief Operational Officer )", faceclaim: "Byeon Wooseok", tahunLahir: "1996", username: "@ofthelogan", usernameUrl: "https://x.com/ofthelogan" },
+        { id: 4, img: "profil4.png", fullName: "Geriel Rakhastra", nickname: "Geriel", jabatan: "Secretary (Executive Assistant)", faceclaim: "-", tahunLahir: "2004", username: "@sekrenite", usernameUrl: "https://x.com/sekrenite" },
+        { id: 5, img: "profil-rafi.png", fullName: "Ashraffi Yudha", nickname: "Rafi", jabatan: "Head Editor", faceclaim: "Choi Hyunwook", tahunLahir: "2002", username: "@hyunqwook", usernameUrl: "https://x.com/hyunqwook" },
+        { id: 6, img: "profil-claudia.png", fullName: "Claudia Charmaine", nickname: "Claudia", jabatan: "Creative Designer", faceclaim: "-", tahunLahir: "1984", username: "@peinevoilee", usernameUrl: "https://x.com/peinevoilee" },
+        { id: 7, img: "profil-vivi.png", fullName: "Vivianne Jamila Radipati", nickname: "Vivi", jabatan: "Public Relations", faceclaim: "-", tahunLahir: "1997", username: "@chaarmente", usernameUrl: "https://x.com/chaarmente" },
+        { id: 8, img: "profil-nona.png", fullName: "Nona Rengganis Kinandari Panchakarma", nickname: "Nona", jabatan: "Color Specialist / Makeup Artist", faceclaim: "Karina Aespa", tahunLahir: "2002", username: "@arbitlara", usernameUrl: "https://x.com/arbitlara" },
+        { id: 9, img: "profil-vincent.png", fullName: "Lucius Vincent", nickname: "Vincent", jabatan: "Editor Staff", faceclaim: "Christian Yu", tahunLahir: "-", username: "@integralous", usernameUrl: "https://x.com/integralous" }
+    ];
+    let nextId = 10;
+
+    // Render grid (9 foto + tambahan nanti)
+    function renderGrid() {
+        const gridContainer = document.getElementById('employeeGrid');
+        gridContainer.innerHTML = '';
+        employeesDatabase.forEach(emp => {
+            const card = document.createElement('div');
+            card.className = 'employee-card';
+            card.setAttribute('data-id', emp.id);
+            card.innerHTML = `
+                <img class="card-img" src="${emp.img}" alt="${emp.fullName}" loading="lazy">
+                <h4>${emp.nickname || emp.fullName.split(' ')[0]}</h4>
+                <p>${emp.jabatan.length > 28 ? emp.jabatan.substring(0, 25)+'…' : emp.jabatan}</p>
+            `;
+            const imgElement = card.querySelector('.card-img');
+            imgElement.onerror = function() {
+                this.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23eeeeee'/%3E%3Ctext x='50' y='55' font-family='Outfit' font-size='12' fill='%23999' text-anchor='middle'%3Eno-img%3C/text%3E%3C/svg%3E";
+            };
+            card.addEventListener('click', (e) => {
+                e.stopPropagation();
+                showDetailModal(emp.id);
+            });
+            gridContainer.appendChild(card);
+        });
+    }
+
+    // Menampilkan popup detail dengan username clickable langsung ke X
+    function showDetailModal(empId) {
+        const employee = employeesDatabase.find(e => e.id === empId);
+        if (!employee) return;
+        document.getElementById('modalDetailImg').src = employee.img;
+        document.getElementById('modalFullName').innerText = employee.fullName || '-';
+        document.getElementById('modalNick').innerText = employee.nickname || '-';
+        document.getElementById('modalJabatan').innerText = employee.jabatan || '-';
+        document.getElementById('modalFaceclaim').innerText = employee.faceclaim || '-';
+        document.getElementById('modalLahir').innerText = employee.tahunLahir || '-';
+        
+        // username clickable (bisa langsung ke X)
+        const usernameSpanContainer = document.getElementById('modalUsernameSpan');
+        if (employee.username && employee.username !== '-') {
+            const cleanUser = employee.username.startsWith('@') ? employee.username.substring(1) : employee.username;
+            const xUrl = `https://x.com/${cleanUser}`;
+            const linkElem = document.createElement('a');
+            linkElem.href = xUrl;
+            linkElem.target = "_blank";
+            linkElem.className = "username-click";
+            linkElem.innerText = employee.username;
+            usernameSpanContainer.innerHTML = '';
+            usernameSpanContainer.appendChild(linkElem);
+        } else {
+            usernameSpanContainer.innerText = employee.username || '-';
+        }
+        
+        // fallback gambar
+        const detailImg = document.getElementById('modalDetailImg');
+        detailImg.onerror = function() {
+            this.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23e0e0e0'/%3E%3Ctext x='50' y='55' font-size='12' fill='%23666' text-anchor='middle'%3Efoto%3C/text%3E%3C/svg%3E";
+        };
+        const modal = document.getElementById('detailModal');
+        modal.style.display = 'flex';
+    }
+
+    // Validasi nama panjang maks 5 kata, panggilan 1 kata
+    function validateNameRules(fullName, nickname) {
+        const nameWords = fullName.trim().split(/\s+/).filter(w => w.length > 0);
+        if (nameWords.length > 5) {
+            alert("Nama Lengkap maksimal 5 kata. Silakan disingkat.");
+            return false;
+        }
+        if (nickname && nickname.trim().split(/\s+/).length > 1) {
+            alert("Nama Panggilan maksimal 1 kata.");
+            return false;
+        }
+        return true;
+    }
+
+    // Menambah karyawan baru
+    function addNewEmployee(formData) {
+        const newId = nextId++;
+        const newEmployee = {
+            id: newId,
+            img: formData.fotoFile || "profil-default.png",
+            fullName: formData.fullName,
+            nickname: formData.nickname || "-",
+            jabatan: formData.jabatan || "-",
+            faceclaim: formData.faceclaim || "-",
+            tahunLahir: formData.tahunLahir || "-",
+            username: formData.username || "-",
+            usernameUrl: formData.username ? (formData.username.startsWith('@') ? `https://x.com/${formData.username.substring(1)}` : `https://x.com/${formData.username}`) : "#"
+        };
+        employeesDatabase.push(newEmployee);
+        renderGrid();
+    }
+
+    // ---- Event modal detail close ----
+    const detailModal = document.getElementById('detailModal');
+    const closeDetail = document.getElementById('closeDetailModal');
+    closeDetail.onclick = () => { detailModal.style.display = 'none'; };
+    window.onclick = (e) => {
+        if (e.target === detailModal) detailModal.style.display = 'none';
+        if (e.target === newEmployeeModal) newEmployeeModal.style.display = 'none';
+    };
+
+    // ---- Modal Form Karyawan Baru ----
+    const newEmployeeModal = document.getElementById('newEmployeeModal');
+    const openFormBtn = document.getElementById('openFormNewBtn');
+    const closeFormModal = document.getElementById('closeFormModalBtn');
+    const cancelNewBtn = document.getElementById('cancelNewBtn');
+    const newForm = document.getElementById('newEmployeeForm');
+
+    openFormBtn.addEventListener('click', () => {
+        newEmployeeModal.style.display = 'flex';
+    });
+    function closeNewModal() {
+        newEmployeeModal.style.display = 'none';
+        newForm.reset();
+        document.getElementById('newFoto').value = "profil-default.png";
+    }
+    closeFormModal.addEventListener('click', closeNewModal);
+    cancelNewBtn.addEventListener('click', closeNewModal);
+
+    newForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const fullName = document.getElementById('newFullName').value.trim();
+        const nickname = document.getElementById('newNick').value.trim();
+        if (!fullName) {
+            alert("Nama Lengkap wajib diisi.");
+            return;
+        }
+        if (!validateNameRules(fullName, nickname)) return;
+        
+        const newData = {
+            fullName: fullName,
+            nickname: nickname || "-",
+            jabatan: document.getElementById('newJabatan').value.trim() || "-",
+            faceclaim: document.getElementById('newFaceclaim').value.trim() || "-",
+            tahunLahir: document.getElementById('newTahunLahir').value.trim() || "-",
+            username: document.getElementById('newUsername').value.trim() || "-",
+            fotoFile: document.getElementById('newFoto').value.trim() || "profil-default.png"
+        };
+        addNewEmployee(newData);
+        closeNewModal();
+        alert(`Karyawan ${fullName} berhasil ditambahkan ke database.`);
+    });
+
+    // Logo fallback
+    const logoImg = document.getElementById('kazineLogo');
+    if (logoImg) {
+        logoImg.onerror = function() {
+            this.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='70' height='70' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23000'/%3E%3Ctext x='50' y='68' font-family='Arial' font-size='48' fill='%23fff' text-anchor='middle'%3EK%3C/text%3E%3C/svg%3E";
+        };
+    }
+
+    renderGrid();
+</script>
+</body>
+</html>
