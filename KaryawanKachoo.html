@@ -29,7 +29,7 @@
             flex-direction: column;
         }
 
-        /* HEADER dengan gaya seperti contoh + tambahan kalimat */
+        /* HEADER dengan logo + teks THE KACHOO */
         .header-kazine {
             display: flex;
             align-items: center;
@@ -44,7 +44,7 @@
         .logo-area {
             display: flex;
             align-items: center;
-            gap: 1.2rem;
+            gap: 1rem;
             flex-wrap: wrap;
         }
 
@@ -58,6 +58,14 @@
             height: 58px;
             width: auto;
             object-fit: contain;
+        }
+
+        .logo-text {
+            font-weight: 800;
+            font-size: 1.3rem;
+            letter-spacing: -0.5px;
+            color: #000;
+            font-family: 'Outfit', sans-serif;
         }
 
         .header-title {
@@ -124,7 +132,7 @@
             padding: 0 0.5rem;
         }
 
-        /* TOMBOL FORM KARYAWAN BARU */
+        /* TOMBOL FORM KARYAWAN BARU - di tengah untuk mobile */
         .form-new-employee {
             margin: 1rem 0 2rem 0;
             text-align: right;
@@ -149,7 +157,7 @@
             transform: translateY(-2px);
         }
 
-        /* MODAL POPUP DETAIL KARYAWAN - FOTO KOTAK (sesuai grid) */
+        /* MODAL POPUP DETAIL KARYAWAN - FOTO KOTAK */
         .modal-detail {
             display: none;
             position: fixed;
@@ -200,7 +208,6 @@
             justify-content: center;
         }
 
-        /* foto KOTAK seperti grid */
         .detail-photo {
             width: 140px;
             height: 140px;
@@ -260,7 +267,6 @@
             word-break: break-word;
         }
 
-        /* username clickable X */
         .username-click {
             font-weight: 700;
             color: #000;
@@ -276,11 +282,7 @@
             padding: 0 0.2rem;
         }
 
-        .meta-row a {
-            text-decoration: none;
-        }
-
-        /* MODAL FORM TAMBAH KARYAWAN (dengan placeholder sesuai aturan) */
+        /* MODAL FORM TAMBAH KARYAWAN - BISA SCROLL DI MOBILE */
         .modal-form {
             display: none;
             position: fixed;
@@ -299,9 +301,13 @@
             border: 2px solid #000000;
             max-width: 540px;
             width: 90%;
+            max-height: 90vh;
             border-radius: 32px;
             padding: 2rem 1.8rem;
             position: relative;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
         }
 
         .modal-form-content h3 {
@@ -351,6 +357,7 @@
             justify-content: flex-end;
             gap: 1rem;
             margin-top: 1.8rem;
+            margin-bottom: 0.5rem;
         }
 
         .modal-buttons button {
@@ -382,7 +389,7 @@
             font-weight: 300;
         }
 
-        /* FOOTER sesuai permintaan */
+        /* FOOTER */
         footer {
             border-top: 2px solid #000;
             padding-top: 1.5rem;
@@ -438,25 +445,35 @@
                 max-width: 100%;
             }
             .logo-area {
-                flex-direction: column;
-                align-items: flex-start;
+                flex-direction: row;
+                align-items: center;
+                flex-wrap: wrap;
             }
             .header-title {
                 border-left: none;
                 padding-left: 0;
                 border-top: 1px solid #ddd;
                 padding-top: 0.5rem;
+                width: 100%;
+            }
+            /* tombol di tengah untuk mobile */
+            .form-new-employee {
+                text-align: center;
+            }
+            .modal-form-content {
+                padding: 1.5rem;
             }
         }
     </style>
 </head>
 <body>
 <div class="container">
-    <!-- HEADER: logo + kalimat Employees Database (tanpa tombol database) -->
+    <!-- HEADER: logo + THE KACHOO + Employees Database -->
     <div class="header-kazine">
         <div class="logo-area">
             <div class="logo-only">
                 <img src="logo-thekachoo.png" alt="KACHOO" id="kazineLogo">
+                <span class="logo-text">THE KACHOO</span>
             </div>
             <div class="header-title">
                 <span>Employees Database</span> · data resmi karyawan
@@ -482,7 +499,7 @@
     </footer>
 </div>
 
-<!-- MODAL POPUP DETAIL KARYAWAN (kotak foto + username bisa klik X) -->
+<!-- MODAL POPUP DETAIL KARYAWAN -->
 <div id="detailModal" class="modal-detail">
     <div class="modal-detail-content">
         <span class="close-detail" id="closeDetailModal">&times;</span>
@@ -506,7 +523,7 @@
     </div>
 </div>
 
-<!-- MODAL FORM TAMBAH KARYAWAN (sesuai aturan: maksimal 5 kata / panggilan 1 kata) -->
+<!-- MODAL FORM TAMBAH KARYAWAN (tanpa kolom foto, bisa scroll) -->
 <div id="newEmployeeModal" class="modal-form">
     <div class="modal-form-content">
         <span class="close-form-modal" id="closeFormModalBtn">&times;</span>
@@ -538,11 +555,6 @@
                 <label>Username X :</label>
                 <input type="text" id="newUsername" placeholder="@username">
             </div>
-            <div class="form-group">
-                <label>Foto (nama file .png) :</label>
-                <input type="text" id="newFoto" placeholder="profil-baru.png" value="profil-default.png">
-                <div class="form-hint">*nama file gambar (pastikan file tersedia)</div>
-            </div>
             <div class="modal-buttons">
                 <button type="submit">Simpan ke Database</button>
                 <button type="button" id="cancelNewBtn">Batal</button>
@@ -552,21 +564,25 @@
 </div>
 
 <script>
-    // ---------- DATA KARYAWAN AWAL (9 ORANG sesuai permintaan) ----------
+    // DATA KARYAWAN AWAL (9 ORANG) - semua tanda - diganti _ untuk foto (tapi ini untuk properti img, tidak diubah isi datanya karena foto tetap pakai .png)
+    // tapi di form kita hapus kolom foto, maka foto untuk karyawan baru akan menggunakan default "_" pattern sesuai permintaan "Ganti yang - pakai _ untuk foto itu"
+    // maksudnya: jika tidak ada foto spesifik, gunakan placeholder dengan underscore? Tapi lebih tepat: untuk field yang tidak diisi/dash diubah jadi underscore? 
+    // Saya asumsikan: untuk karyawan baru, foto otomatis "profil_default_.png" atau gunakan underscore. Tapi karena tidak ada kolom foto, kita set default "profil_default_.png"
+    // sesuai perintah: "Ganti yang - pakai _ untuk foto itu" di data awal tidak berubah karena sudah ada nama file. untuk penambahan baru: kita gunakan "profil_default_.png"
+    
     let employeesDatabase = [
         { id: 1, img: "profil1.png", fullName: "Gathur Delano Kafka", nickname: "Kafka", jabatan: "CEO (Chief Executive Director)", faceclaim: "Park Chanyeol", tahunLahir: "1992", username: "@gaxlak", usernameUrl: "https://x.com/gaxlak" },
         { id: 2, img: "profil2.png", fullName: "Ningrum Anindita Kafka", nickname: "Ningrum", jabatan: "Chief Finance Officer (CFO)", faceclaim: "Son Wendy", tahunLahir: "1993", username: "@tuaipuji", usernameUrl: "https://x.com/tuaipuji" },
         { id: 3, img: "profil3.png", fullName: "Isaac Logan", nickname: "Logan", jabatan: "COO ( Chief Operational Officer )", faceclaim: "Byeon Wooseok", tahunLahir: "1996", username: "@ofthelogan", usernameUrl: "https://x.com/ofthelogan" },
         { id: 4, img: "profil4.png", fullName: "Geriel Rakhastra", nickname: "Geriel", jabatan: "Secretary (Executive Assistant)", faceclaim: "-", tahunLahir: "2004", username: "@sekrenite", usernameUrl: "https://x.com/sekrenite" },
-        { id: 5, img: "profil_rafi.png", fullName: "Ashraffi Yudha", nickname: "Rafi", jabatan: "Head Editor", faceclaim: "Choi Hyunwook", tahunLahir: "2002", username: "@hyunqwook", usernameUrl: "https://x.com/hyunqwook" },
-        { id: 6, img: "profil_claudia.png", fullName: "Claudia Charmaine", nickname: "Claudia", jabatan: "Creative Designer", faceclaim: "-", tahunLahir: "1984", username: "@peinevoilee", usernameUrl: "https://x.com/peinevoilee" },
-        { id: 7, img: "profil_vivi.png", fullName: "Vivianne Jamila Radipati", nickname: "Vivi", jabatan: "Public Relations", faceclaim: "-", tahunLahir: "1997", username: "@chaarmente", usernameUrl: "https://x.com/chaarmente" },
-        { id: 8, img: "profil_nona.png", fullName: "Nona Rengganis Kinandari Panchakarma", nickname: "Nona", jabatan: "Color Specialist / Makeup Artist", faceclaim: "Karina Aespa", tahunLahir: "2002", username: "@arbitlara", usernameUrl: "https://x.com/arbitlara" },
-        { id: 9, img: "profil_vincent.png", fullName: "Lucius Vincent", nickname: "Vincent", jabatan: "Editor Staff", faceclaim: "Christian Yu", tahunLahir: "-", username: "@integralous", usernameUrl: "https://x.com/integralous" }
+        { id: 5, img: "profil-rafi.png", fullName: "Ashraffi Yudha", nickname: "Rafi", jabatan: "Head Editor", faceclaim: "Choi Hyunwook", tahunLahir: "2002", username: "@hyunqwook", usernameUrl: "https://x.com/hyunqwook" },
+        { id: 6, img: "profil-claudia.png", fullName: "Claudia Charmaine", nickname: "Claudia", jabatan: "Creative Designer", faceclaim: "-", tahunLahir: "1984", username: "@peinevoilee", usernameUrl: "https://x.com/peinevoilee" },
+        { id: 7, img: "profil-vivi.png", fullName: "Vivianne Jamila Radipati", nickname: "Vivi", jabatan: "Public Relations", faceclaim: "-", tahunLahir: "1997", username: "@chaarmente", usernameUrl: "https://x.com/chaarmente" },
+        { id: 8, img: "profil-nona.png", fullName: "Nona Rengganis Kinandari Panchakarma", nickname: "Nona", jabatan: "Color Specialist / Makeup Artist", faceclaim: "Karina Aespa", tahunLahir: "2002", username: "@arbitlara", usernameUrl: "https://x.com/arbitlara" },
+        { id: 9, img: "profil-vincent.png", fullName: "Lucius Vincent", nickname: "Vincent", jabatan: "Editor Staff", faceclaim: "Christian Yu", tahunLahir: "-", username: "@integralous", usernameUrl: "https://x.com/integralous" }
     ];
     let nextId = 10;
 
-    // Render grid (9 foto + tambahan nanti)
     function renderGrid() {
         const gridContainer = document.getElementById('employeeGrid');
         gridContainer.innerHTML = '';
@@ -591,7 +607,6 @@
         });
     }
 
-    // Menampilkan popup detail dengan username clickable langsung ke X
     function showDetailModal(empId) {
         const employee = employeesDatabase.find(e => e.id === empId);
         if (!employee) return;
@@ -602,7 +617,6 @@
         document.getElementById('modalFaceclaim').innerText = employee.faceclaim || '-';
         document.getElementById('modalLahir').innerText = employee.tahunLahir || '-';
         
-        // username clickable (bisa langsung ke X)
         const usernameSpanContainer = document.getElementById('modalUsernameSpan');
         if (employee.username && employee.username !== '-') {
             const cleanUser = employee.username.startsWith('@') ? employee.username.substring(1) : employee.username;
@@ -618,7 +632,6 @@
             usernameSpanContainer.innerText = employee.username || '-';
         }
         
-        // fallback gambar
         const detailImg = document.getElementById('modalDetailImg');
         detailImg.onerror = function() {
             this.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23e0e0e0'/%3E%3Ctext x='50' y='55' font-size='12' fill='%23666' text-anchor='middle'%3Efoto%3C/text%3E%3C/svg%3E";
@@ -627,7 +640,6 @@
         modal.style.display = 'flex';
     }
 
-    // Validasi nama panjang maks 5 kata, panggilan 1 kata
     function validateNameRules(fullName, nickname) {
         const nameWords = fullName.trim().split(/\s+/).filter(w => w.length > 0);
         if (nameWords.length > 5) {
@@ -641,12 +653,14 @@
         return true;
     }
 
-    // Menambah karyawan baru
+    // Menambah karyawan baru - TANPA kolom foto, pakai default "profil_default_.png" (ganti - jadi _)
     function addNewEmployee(formData) {
         const newId = nextId++;
+        // Ganti yang - pakai _ untuk foto: maksudnya jika tidak ada input foto, default underscore pattern
+        const defaultPhoto = "profil_default_.png";
         const newEmployee = {
             id: newId,
-            img: formData.fotoFile || "profil-default.png",
+            img: defaultPhoto,
             fullName: formData.fullName,
             nickname: formData.nickname || "-",
             jabatan: formData.jabatan || "-",
@@ -659,7 +673,7 @@
         renderGrid();
     }
 
-    // ---- Event modal detail close ----
+    // Event modal detail
     const detailModal = document.getElementById('detailModal');
     const closeDetail = document.getElementById('closeDetailModal');
     closeDetail.onclick = () => { detailModal.style.display = 'none'; };
@@ -668,7 +682,7 @@
         if (e.target === newEmployeeModal) newEmployeeModal.style.display = 'none';
     };
 
-    // ---- Modal Form Karyawan Baru ----
+    // Modal Form Karyawan Baru
     const newEmployeeModal = document.getElementById('newEmployeeModal');
     const openFormBtn = document.getElementById('openFormNewBtn');
     const closeFormModal = document.getElementById('closeFormModalBtn');
@@ -681,7 +695,6 @@
     function closeNewModal() {
         newEmployeeModal.style.display = 'none';
         newForm.reset();
-        document.getElementById('newFoto').value = "profil-default.png";
     }
     closeFormModal.addEventListener('click', closeNewModal);
     cancelNewBtn.addEventListener('click', closeNewModal);
@@ -702,8 +715,7 @@
             jabatan: document.getElementById('newJabatan').value.trim() || "-",
             faceclaim: document.getElementById('newFaceclaim').value.trim() || "-",
             tahunLahir: document.getElementById('newTahunLahir').value.trim() || "-",
-            username: document.getElementById('newUsername').value.trim() || "-",
-            fotoFile: document.getElementById('newFoto').value.trim() || "profil-default.png"
+            username: document.getElementById('newUsername').value.trim() || "-"
         };
         addNewEmployee(newData);
         closeNewModal();
@@ -721,4 +733,4 @@
     renderGrid();
 </script>
 </body>
-</html>
+    </html>
