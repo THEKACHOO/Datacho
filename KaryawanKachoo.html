@@ -100,6 +100,8 @@
             text-align: center;
             padding-bottom: 1rem;
             box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+            display: flex;
+            flex-direction: column;
         }
 
         .employee-card:hover {
@@ -124,12 +126,19 @@
             color: #000;
         }
 
+        /* PERUBAHAN UTAMA: teks jabatan tidak terpotong, wrap dengan rapi */
         .employee-card p {
             font-size: 0.75rem;
             color: #4a4a4a;
             font-weight: 500;
             margin-top: 0.2rem;
             padding: 0 0.5rem;
+            /* Hilangkan pemotongan teks */
+            white-space: normal;
+            overflow: visible;
+            text-overflow: clip;
+            word-break: break-word;
+            line-height: 1.4;
         }
 
         /* TOMBOL FORM KARYAWAN BARU - di tengah untuk mobile */
@@ -429,6 +438,13 @@
                 gap: 1rem;
                 grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
             }
+            /* Pastikan di mobile juga teks jabatan tidak terpotong */
+            .employee-card p {
+                font-size: 0.7rem;
+                padding: 0 0.4rem;
+                white-space: normal;
+                overflow: visible;
+            }
             .modal-detail-content {
                 padding: 1.5rem;
             }
@@ -564,12 +580,7 @@
 </div>
 
 <script>
-    // DATA KARYAWAN AWAL (9 ORANG) - semua tanda - diganti _ untuk foto (tapi ini untuk properti img, tidak diubah isi datanya karena foto tetap pakai .png)
-    // tapi di form kita hapus kolom foto, maka foto untuk karyawan baru akan menggunakan default "_" pattern sesuai permintaan "Ganti yang - pakai _ untuk foto itu"
-    // maksudnya: jika tidak ada foto spesifik, gunakan placeholder dengan underscore? Tapi lebih tepat: untuk field yang tidak diisi/dash diubah jadi underscore? 
-    // Saya asumsikan: untuk karyawan baru, foto otomatis "profil_default_.png" atau gunakan underscore. Tapi karena tidak ada kolom foto, kita set default "profil_default_.png"
-    // sesuai perintah: "Ganti yang - pakai _ untuk foto itu" di data awal tidak berubah karena sudah ada nama file. untuk penambahan baru: kita gunakan "profil_default_.png"
-    
+    // DATA KARYAWAN AWAL (9 ORANG)
     let employeesDatabase = [
         { id: 1, img: "profil1.png", fullName: "Gathur Delano Kafka", nickname: "Kafka", jabatan: "Chief Executive Director (CEO)", faceclaim: "Park Chanyeol", tahunLahir: "1992", username: "@gaxlak", usernameUrl: "https://x.com/gaxlak" },
         { id: 2, img: "profil2.png", fullName: "Ningrum Anindita Kafka", nickname: "Ningrum", jabatan: "Chief Finance Officer (CFO)", faceclaim: "Son Wendy", tahunLahir: "1993", username: "@tuaipuji", usernameUrl: "https://x.com/tuaipuji" },
@@ -590,10 +601,11 @@
             const card = document.createElement('div');
             card.className = 'employee-card';
             card.setAttribute('data-id', emp.id);
+            // PERUBAHAN: menampilkan teks jabatan secara utuh, tidak dipotong
             card.innerHTML = `
                 <img class="card-img" src="${emp.img}" alt="${emp.fullName}" loading="lazy">
                 <h4>${emp.nickname || emp.fullName.split(' ')[0]}</h4>
-                <p>${emp.jabatan.length > 28 ? emp.jabatan.substring(0, 25)+'…' : emp.jabatan}</p>
+                <p>${emp.jabatan}</p>
             `;
             const imgElement = card.querySelector('.card-img');
             imgElement.onerror = function() {
@@ -653,10 +665,9 @@
         return true;
     }
 
-    // Menambah karyawan baru - TANPA kolom foto, pakai default "profil_default_.png" (ganti - jadi _)
+    // Menambah karyawan baru - TANPA kolom foto, pakai default "profil_default_.png"
     function addNewEmployee(formData) {
         const newId = nextId++;
-        // Ganti yang - pakai _ untuk foto: maksudnya jika tidak ada input foto, default underscore pattern
         const defaultPhoto = "profil_default_.png";
         const newEmployee = {
             id: newId,
