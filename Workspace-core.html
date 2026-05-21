@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Workspace Core Kachoo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #ffffff;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, sans-serif;
+            color: #111111;
+            line-height: 1.45;
+        }
+
+        .task-container {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 1.8rem 2rem 3rem;
+        }
+
+        /* HEADER HITAM PUTIH */
+        .task-header {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #111111;
+        }
+
+        .brand-area {
+            display: flex;
+            align-items: baseline;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .brand-name {
+            font-size: 1.9rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            color: #000000;
+        }
+
+        .brand-sub {
+            font-size: 0.8rem;
+            font-weight: 500;
+            background: #f2f2f2;
+            padding: 0.2rem 0.8rem;
+            border-radius: 30px;
+            color: #2c2c2c;
+        }
+
+        /* GAYA JUDUL SECTION (sama untuk Taskjob Mei-Juni dan Taskjob mendatang) */
+        .section-title {
+            font-weight: 800;
+            font-size: 1.3rem;
+            color: #000000;
+            letter-spacing: -0.2px;
+            border-left: 4px solid #111111;
+            padding-left: 1rem;
+            margin-bottom: 0.75rem;
+        }
+
+        /* TABEL */
+        .table-wrapper {
+            background: #ffffff;
+            border-radius: 0;
+            border: 1px solid #e5e5e5;
+            overflow-x: auto;
+            margin: 1rem 0 1.2rem;
+        }
+
+        .task-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+            min-width: 620px;
+        }
+
+        .task-table thead tr {
+            background: #f8f8f8;
+            border-bottom: 2px solid #dddddd;
+        }
+
+        .task-table th {
+            text-align: left;
+            padding: 1rem 1.2rem;
+            font-weight: 700;
+            font-size: 0.85rem;
+            letter-spacing: 0.3px;
+            color: #111111;
+            background-color: #f8f8f8;
+        }
+
+        .task-table td {
+            padding: 1rem 1.2rem;
+            border-bottom: 1px solid #eeeeee;
+            vertical-align: middle;
+            color: #1a1a1a;
+            font-weight: 500;
+            word-break: break-word;
+        }
+
+        .task-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* LINK */
+        .task-link {
+            text-decoration: none;
+            font-weight: 600;
+            background: #f2f2f2;
+            padding: 0.4rem 1rem;
+            border-radius: 30px;
+            display: inline-block;
+            font-size: 0.8rem;
+            color: #111111;
+            transition: all 0.2s ease;
+            border: 1px solid #e0e0e0;
+        }
+
+        .task-link:hover {
+            background: #111111;
+            color: #ffffff;
+            border-color: #111111;
+        }
+
+        .task-link-disabled {
+            background: #f5f5f5;
+            color: #777777;
+            padding: 0.4rem 1rem;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            display: inline-block;
+            border: 1px solid #eaeaea;
+            cursor: default;
+        }
+
+        /* RESPONSIVE: NAMA KOOR TIDAK TURUN KE BAWAH */
+        @media (max-width: 780px) {
+            .task-container {
+                padding: 1.2rem 1.2rem 2rem;
+            }
+
+            .brand-name {
+                font-size: 1.5rem;
+            }
+
+            .brand-sub {
+                font-size: 0.7rem;
+            }
+
+            .task-table th,
+            .task-table td {
+                padding: 0.85rem 0.9rem;
+                font-size: 0.8rem;
+            }
+            
+            .task-table td, .task-table th {
+                white-space: nowrap;
+            }
+            
+            .task-table td:nth-child(3) {
+                white-space: normal;
+                min-width: 180px;
+            }
+            
+            .task-table td:last-child, .task-table th:last-child {
+                white-space: normal;
+            }
+
+            .task-link, .task-link-disabled {
+                padding: 0.3rem 0.8rem;
+                font-size: 0.7rem;
+                white-space: nowrap;
+            }
+            
+            .section-title {
+                font-size: 1.15rem;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .task-table th, .task-table td {
+                padding: 0.7rem 0.6rem;
+                font-size: 0.75rem;
+            }
+            
+            .task-table td:nth-child(2) {
+                white-space: nowrap;
+            }
+            
+            .brand-name {
+                font-size: 1.3rem;
+            }
+            
+            .section-title {
+                font-size: 1rem;
+            }
+        }
+
+        .table-wrapper::-webkit-scrollbar {
+            height: 5px;
+        }
+        .table-wrapper::-webkit-scrollbar-track {
+            background: #efefef;
+        }
+        .table-wrapper::-webkit-scrollbar-thumb {
+            background: #bbbbbb;
+            border-radius: 8px;
+        }
+
+        .task-footer {
+            margin-top: 2.8rem;
+            padding-top: 1rem;
+            border-top: 1px solid #e0e0e0;
+            font-size: 0.7rem;
+            color: #6b6b6b;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div class="task-container">
+    <!-- HEADER dengan nama baru Workspace Core Kachoo -->
+    <div class="task-header">
+        <div class="brand-area">
+            <div class="brand-name">Workspace Core Kachoo</div>
+            <div class="brand-sub">project tracker</div>
+        </div>
+        <div></div>
+    </div>
+
+    <!-- SECTION PERTAMA: Taskjob Mei - Juni 2026 (isi baru sesuai permintaan) -->
+    <div class="section-title">Taskjob Mei - Juni 2026</div>
+
+    <!-- TABEL UTAMA DENGAN 5 TUGAS BARU -->
+    <div class="table-wrapper">
+        <table class="task-table">
+            <thead>
+                <tr>
+                    <th>Tugas</th>
+                    <th>Koor</th>
+                    <th>Detail Tugas</th>
+                    <th>Link</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- 1. Photobooth Kadio - Kafka & Sebas (Studio 35°) -->
+                <tr>
+                    <td><strong>Photobooth Kadio</strong></strong></td>
+                    <td>Kafka & Sebas</strong> </strong></td>
+                    <td>Kolaborasi kerjasama penyewaan photobooth dan twibbon bersama Studio 35°, memiliki beberapa frame yang akan dipromosikan untuk disewakan</strong></td>
+                    <td>
+                        <a href="https://drive.google.com/drive/folders/1WGAQBHoi_3EjlYF5464SiKes1mxYGKF4" target="_blank" rel="noopener noreferrer" class="task-link">
+                            Google Drive
+                        </a>
+                    </strong></td>
+                </tr>
+                <!-- 2. Chobank - Ningrum - Mengarahkan kontak narahubung Chobank ke Ningrum melalui konten terbarunya (tidak ada link) -->
+                <tr>
+                    <td><strong>Chobank</strong> </strong></td>
+                    <td>Ningrum</strong> </strong></td>
+                    <td>Mengarahkan kontak narahubung Chobank ke Ningrum melalui konten terbarunya</strong></td>
+                    <td><span class="task-link-disabled">Tidak ada link</span></strong></td>
+                </tr>
+                <!-- 3. Gaji Bulan Mei - Ningrum - Post penarikan gaji melalui web payroll Kachoo -->
+                <tr>
+                    <td><strong>Gaji Bulan Mei</strong> </strong></td>
+                    <td>Ningrum</strong> </strong></td>
+                    <td>Post penarikan gaji melalui web payrollnya Kachoo</strong></td>
+                    <td>
+                        <a href="https://thekachoo.github.io/Datacho/v1payroll.html" target="_blank" rel="noopener noreferrer" class="task-link">
+                            Payroll Kachoo
+                        </a>
+                    </strong></td>
+                </tr>
+                <!-- 4. Surat Penawaran Kontrak dengan influencer untuk Chobank - Geriel -->
+                <tr>
+                    <td><strong>Surat Penawaran Kontrak dengan influencer untuk Chobank</strong> </strong></td>
+                    <td>Geriel</strong> </strong></td>
+                    <td>Membuat surat penawaran kontrak kerjasama 1 bulan dengan influencer untuk promosi fitur terbaru Chobank</strong></td>
+                    <td>
+                        <a href="https://drive.google.com/drive/folders/18DQH6fVwrUDt8Whw1TZtRlnbtSvyBWfw" target="_blank" rel="noopener noreferrer" class="task-link">
+                            Google Drive
+                        </a>
+                    </strong></td>
+                </tr>
+                <!-- 5. Surat Penawaran Kerjasama KADIO - Geriel -->
+                <tr>
+                    <td><strong>Surat Penawaran Kerjasama KADIO</strong> </strong></td>
+                    <td>Geriel</strong> </strong></td>
+                    <td>Membuat surat penawaran kerjasama KADIO berisikan tawaran untuk photobooth dan twibbon yang ditujukan ke Event Organizer</strong></td>
+                    <td>
+                        <a href="https://drive.google.com/drive/folders/18DQH6fVwrUDt8Whw1TZtRlnbtSvyBWfw" target="_blank" rel="noopener noreferrer" class="task-link">
+                            Google Drive
+                        </a>
+                    </strong></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- SECTION KEDUA: Taskjob mendatang (tetap dengan gaya yang sama, tidak ada emot/icon, menunjukkan belum ada taskjob) -->
+    <div class="section-title">Taskjob mendatang</div>
+    <div class="table-wrapper">
+        <table class="task-table">
+            <thead>
+                <tr>
+                    <th>Tugas</th>
+                    <th>Koor</th>
+                    <th>Detail Tugas</th>
+                    <th>Status / Catatan</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td colspan="4" style="text-align: center; color: #6b6b6b; font-weight: 400; padding: 2rem;">
+                        Belum ada taskjob untuk periode mendatang
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="task-footer">
+        <span>© 2026 Kachoo · Workspace Core Kachoo · Kazine</span>
+    </div>
+</div>
+</body>
+</html>
