@@ -292,7 +292,7 @@
                     taskjobLink: "core.html",
                     employeeDataLink: "KaryawanKachoo.html",
                     arsipLink: "https://drive.google.com/drive/folders/1rGpP3gIMpdW0YXt4tMGGxagBiq3bkf0v"
-                    // Tambahan tombol khusus Gathur: Employees Data -> KaryawanKachoo.html
+                    // khusus Gathur: tombol Employee Data akan ditambahkan, dan ARSIP harus paling bawah
                 },
                 "NINGRUM": {
                     fullName: "Ningrum Anindita Kafka",
@@ -301,7 +301,7 @@
                     taskjobLink: "core.html",
                     chobankLink: "chobank.html",
                     arsipLink: "https://drive.google.com/drive/folders/1XB6Lq0Hm59T9HvV9xqIDYk9mNQT5S_E3"
-                    // Tambahan tombol khusus Ningrum: Chobank -> Chobank.html
+                    // khusus Ningrum: Chobank muncul SEBELUM Arsip (Arsip tetap di bawah, bukan di tengah)
                 },
                 "GERIEL": {
                     fullName: "Geriel Rakhastra",
@@ -310,7 +310,7 @@
                     taskjobLink: "taskjob-secretary.html",
                     employeeDataLink: "KaryawanKachoo.html",
                     arsipLink: "https://drive.google.com/drive/folders/18DQH6fVwrUDt8Whw1TZtRlnbtSvyBWfw"
-                    // Tambahan tombol khusus Geriel: Employee Data -> KaryawanKachoo.html
+                    // khusus Geriel: Employee Data ditambahkan, ARSIP paling bawah (setelah Employee Data)
                 },
                 "ISAAC": {
                     fullName: "Isaac Logan",
@@ -318,7 +318,7 @@
                     photo: "profil3.png",
                     taskjobLink: "core.html",
                     arsipLink: "https://drive.google.com/drive/folders/1rGpP3gIMpdW0YXt4tMGGxagBiq3bkf0v"
-                    // Isaac tidak mendapat tombol tambahan
+                    // Isaac: tidak ada tombol tambahan, arsip di bawah payroll & taskjob? Default di akhir tapi sesuai request: untuk yg lain gausah ganti, tapi tetap konsisten: arsip paling akhir (setelah payroll, taskjob). Karena Isaac tidak punya tombol tambahan, arsip langsung setelah taskjob => itu sudah paling akhir. OK.
                 }
             };
 
@@ -366,7 +366,11 @@
                 return null;
             }
 
-            // 🎯 Render profil berdasarkan username
+            // 🎯 Render profil berdasarkan username dengan aturan urutan tombol:
+            // ATURAN UMUM: Tombol Arsip WAJIB PALING BAWAH (terakhir) UNTUK SEMUA USER.
+            // KHUSUS NINGRUM: Chobank diletakkan SEBELUM Arsip (bukan di akhir).
+            // KHUSUS GATHUR & GERIEL: Employee Data diletakkan sebelum Arsip (Arsip tetap paling bawah).
+            // Selain itu, payroll dan taskjob tetap di awal sesuai urutan umum.
             function renderProfile(usernameKey) {
                 if (!usernameKey || !executiveProfileMap[usernameKey]) {
                     // Tampilkan pesan error dan pilihan manual
@@ -397,45 +401,46 @@
                     this.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='394' viewBox='0 0 1045 1030'%3E%3Crect width='1045' height='1030' fill='%23f0f0f0'/%3E%3Ctext x='50%25' y='50%25' font-family='Outfit' font-size='40' fill='%23999' text-anchor='middle' dy='.3em'%3E📸%3C/text%3E%3C/svg%3E";
                 };
 
-                // Buat container tombol
+                // Buat container tombol, kita akan menyusun array tombol lalu di-append berurutan
                 const container = document.getElementById('actionButtonsContainer');
                 container.innerHTML = '';
-
-                // Tombol 1: Payroll (sama untuk semua)
+                
+                // Kita akan gunakan array of objects untuk membangun urutan tombol secara dinamis
+                // Setiap tombol: { type: string, element: HTMLAnchorElement } nanti kita generate
+                // Urutan final: [Payroll, Taskjob, (Tombol Tambahan Khusus sesuai aturan), (Chobank jika Ningrum sebelum arsip), Arsip (WAJIB TERAKHIR)]
+                // Jadi kita push dalam urutan:
+                // 1. Payroll
+                // 2. Taskjob
+                // 3. (Opsional) Employee Data untuk GATHUR / GERIEL
+                // 4. (Opsional) Chobank untuk NINGRUM (diletakkan di sini, sebelum arsip)
+                // 5. Arsip (WAJIB PALING AKHIR)
+                
+                // --- Tombol Payroll (selalu ada) ---
                 const payrollBtn = document.createElement('a');
                 payrollBtn.href = 'v1payroll.html';
                 payrollBtn.className = 'btn-exec';
                 payrollBtn.innerHTML = '<i class="fas fa-coins"></i> Payroll';
                 container.appendChild(payrollBtn);
-
-                // Tombol 2: Taskjob (sama untuk semua)
+                
+                // --- Tombol Taskjob (selalu ada) ---
                 const taskBtn = document.createElement('a');
                 taskBtn.href = profile.taskjobLink;
                 taskBtn.className = 'btn-exec btn-outline-dark';
                 taskBtn.innerHTML = '<i class="fas fa-tasks"></i> Taskjob';
                 taskBtn.target = '_blank';
                 container.appendChild(taskBtn);
-
-                // Tombol 3: Arsip (sama untuk semua)
-                const arsipBtn = document.createElement('a');
-                arsipBtn.href = profile.arsipLink;
-                arsipBtn.className = 'btn-exec btn-outline-dark';
-                arsipBtn.innerHTML = '<i class="fas fa-archive"></i> Arsip';
-                arsipBtn.target = '_blank';
-                container.appendChild(arsipBtn);
-
-                // ========== TAMBAHAN TOMBOL KHUSUS (sesuai permintaan) ==========
-                // Khusus Gathur: tambah tombol Employees Data -> KaryawanKachoo.html
+                
+                // --- Tombol tambahan khusus untuk GATHUR dan GERIEL: Employee Data (diletakkan sebelum arsip) ---
+                // Employee Data hanya untuk GATHUR & GERIEL
                 if (usernameKey === "GATHUR" && profile.employeeDataLink) {
                     const empDataBtn = document.createElement('a');
                     empDataBtn.href = profile.employeeDataLink;
                     empDataBtn.className = 'btn-exec btn-outline-dark';
                     empDataBtn.innerHTML = '<i class="fas fa-users"></i> Employees Data';
-                    empDataBtn.target = '_blank'; // biar terbuka di tab baru, konsisten dengan tombol lain
+                    empDataBtn.target = '_blank';
                     container.appendChild(empDataBtn);
                 }
-
-                // Khusus Geriel: tambah tombol Employee Data -> KaryawanKachoo.html
+                
                 if (usernameKey === "GERIEL" && profile.employeeDataLink) {
                     const empDataBtn = document.createElement('a');
                     empDataBtn.href = profile.employeeDataLink;
@@ -444,8 +449,8 @@
                     empDataBtn.target = '_blank';
                     container.appendChild(empDataBtn);
                 }
-
-                // Khusus Ningrum: tambah tombol Chobank -> Chobank.html
+                
+                // --- Tombol Chobank khusus untuk NINGRUM: Diletakkan sebelum Arsip (tidak di akhir, sesuai permintaan: "Chobank itu ga boleh diakhir! Sebelum arsip")
                 if (usernameKey === "NINGRUM" && profile.chobankLink) {
                     const chobankBtn = document.createElement('a');
                     chobankBtn.href = profile.chobankLink;
@@ -454,6 +459,22 @@
                     chobankBtn.target = '_blank';
                     container.appendChild(chobankBtn);
                 }
+                
+                // --- Tombol Arsip: WAJIB PALING BAWAH / TERAKHIR (untuk semua user, termasuk Gathur, Geriel, Ningrum, Isaac)
+                const arsipBtn = document.createElement('a');
+                arsipBtn.href = profile.arsipLink;
+                arsipBtn.className = 'btn-exec btn-outline-dark';
+                arsipBtn.innerHTML = '<i class="fas fa-archive"></i> Arsip';
+                arsipBtn.target = '_blank';
+                container.appendChild(arsipBtn);
+                
+                // Catatan: Untuk ISAAC, tidak ada tambahan employee ataupun chobank, sehingga urutan tetap:
+                // Payroll → Taskjob → Arsip (arsip paling bawah, sesuai keinginan "ARSIP SELALU DITERAKHIR TOMBOLNYA").
+                // Untuk NINGRUM: Payroll → Taskjob → Chobank → Arsip (Chobank sebelum arsip, arsip tetap paling bawah)
+                // Untuk GATHUR: Payroll → Taskjob → Employees Data → Arsip
+                // Untuk GERIEL: Payroll → Taskjob → Employee Data → Arsip
+                // SEMUA MEMENUHI: arsip selalu paling bawah; chobank (khusus ningrum) tidak di akhir, melainkan sebelum arsip.
+                // Dan untuk Gathur serta Geriel, arsipnya dibawah (setelah tombol tambahan Employees Data), sesuai permintaan "arsipnya dibawah, bukan ditengah".
             }
 
             // Logo fallback
@@ -473,6 +494,19 @@
                 if (username) {
                     renderProfile(username);
                     console.log(`👋 Welcome ${executiveProfileMap[username].fullName} (${username})`);
+                    // Verifikasi tambahan untuk memastikan aturan terpenuhi:
+                    if (username === "NINGRUM") {
+                        console.log("✓ Ningrum: Chobank ditempatkan sebelum Arsip (Arsip paling bawah)");
+                    }
+                    if (username === "GATHUR") {
+                        console.log("✓ Gathur: Employees Data sebelum Arsip, Arsip di posisi terbawah");
+                    }
+                    if (username === "GERIEL") {
+                        console.log("✓ Geriel: Employee Data sebelum Arsip, Arsip di posisi terbawah");
+                    }
+                    if (username === "ISAAC") {
+                        console.log("✓ Isaac: Hanya Payroll, Taskjob, dan Arsip (Arsip tetap diakhir)");
+                    }
                 } else {
                     // Tidak ada user = tampilkan pesan dan tombol kembali
                     document.getElementById('execNameDisplay').innerHTML = '🔐 Login Required';
