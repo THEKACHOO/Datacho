@@ -464,7 +464,7 @@
                 const arsipBtn = document.createElement('a');
                 arsipBtn.href = profile.arsipLink;
                 arsipBtn.className = 'btn-exec btn-outline-dark';
-                arsipBtn.innerHTML = '<i class="fas fa-archive"></i> Arsip';
+                arsipBtn.innerHTML = '<i class="fas fa-archive"></i> Archive';
                 arsipBtn.target = '_blank';
                 container.appendChild(arsipBtn);
                 
@@ -493,7 +493,7 @@
                 
                 if (username) {
                     renderProfile(username);
-                    console.log(`👋 Welcome ${executiveProfileMap[username].fullName} (${username})`);
+                    console.log(`Welcome ${executiveProfileMap[username].fullName} (${username})`);
                     // Verifikasi tambahan untuk memastikan aturan terpenuhi:
                     if (username === "NINGRUM") {
                         console.log("✓ Ningrum: Chobank ditempatkan sebelum Arsip (Arsip paling bawah)");
@@ -509,7 +509,7 @@
                     }
                 } else {
                     // Tidak ada user = tampilkan pesan dan tombol kembali
-                    document.getElementById('execNameDisplay').innerHTML = '🔐 Login Required';
+                    document.getElementById('execNameDisplay').innerHTML = 'Login Required';
                     document.getElementById('execTitleDisplay').innerHTML = 'Session tidak ditemukan';
                     const container = document.getElementById('actionButtonsContainer');
                     if (container) {
